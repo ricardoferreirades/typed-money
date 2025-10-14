@@ -1,4 +1,24 @@
-.PHONY: fmt lint lint-fix check spell spell-fix quality setup-hooks test run build clean
+.PHONY: fmt lint lint-fix check spell spell-fix quality setup-hooks test run build clean install-deps setup
+
+# Install all development dependencies
+install-deps:
+	@echo "📦 Installing development dependencies..."
+	@echo "Installing taplo-cli (TOML formatter)..."
+	@cargo install taplo-cli --quiet
+	@echo "Installing typos-cli (spell checker)..."
+	@cargo install typos-cli --quiet
+	@echo "✅ All development dependencies installed!"
+
+# Complete setup for new developers (install deps + setup hooks)
+setup: install-deps setup-hooks
+	@echo ""
+	@echo "🎉 Setup complete! You're ready to develop."
+	@echo ""
+	@echo "Available commands:"
+	@echo "  make run       - Run the application"
+	@echo "  make test      - Run tests"
+	@echo "  make quality   - Run all quality checks"
+	@echo "  make fmt       - Format code"
 
 # Run the application
 run:
