@@ -1,0 +1,116 @@
+#!/bin/sh
+# Git pre-push hook
+# Runs code quality checks before allowing push
+
+# Initialize status tracking
+OVERALL_STATUS=0
+FORMAT_STATUS="⏳"
+LINT_STATUS="⏳"
+SPELL_STATUS="⏳"
+TYPE_STATUS="⏳"
+TEST_STATUS="⏳"
+
+echo "🔍 Running pre-push checks..."
+echo ""
+
+# 1. Format check
+echo "📝 Checking code formatting..."
+FORMAT_OUTPUT=$(mktemp)
+cargo fmt --check > "$FORMAT_OUTPUT" 2>&1
+FMT_EXIT=$?
+taplo format --check >> "$FORMAT_OUTPUT" 2>&1
+TAPLO_EXIT=$?
+if [ $FMT_EXIT -eq 0 ] && [ $TAPLO_EXIT -eq 0 ]; then
+    FORMAT_STATUS="✅ PASS"
+    echo "✅ Formatting check passed"
+else
+    FORMAT_STATUS="❌ FAIL"
+    echo "❌ Code formatting failed. Run 'make fmt' to fix."
+    OVERALL_STATUS=1
+fi
+rm -f "$FORMAT_OUTPUT"
+echo ""
+
+# 2. Linting
+echo "🔎 Running linter..."
+CLIPPY_OUTPUT=$(mktemp)
+cargo clippy --all-targets --all-features -- -D warnings > "$CLIPPY_OUTPUT" 2>&1
+CLIPPY_EXIT=$?
+if [ $CLIPPY_EXIT -eq 0 ]; then
+    LINT_STATUS="✅ PASS"
+    echo "✅ Linting passed"
+else
+    LINT_STATUS="❌ FAIL"
+    echo "❌ Clippy found issues. Fix them before pushing."
+    OVERALL_STATUS=1
+fi
+rm -f "$CLIPPY_OUTPUT"
+echo ""
+
+# 3. Spell check
+echo "📖 Checking spelling..."
+TYPOS_OUTPUT=$(mktemp)
+typos > "$TYPOS_OUTPUT" 2>&1
+TYPOS_EXIT=$?
+if [ $TYPOS_EXIT -eq 0 ]; then
+    SPELL_STATUS="✅ PASS"
+    echo "✅ Spell check passed"
+else
+    SPELL_STATUS="❌ FAIL"
+    echo "❌ Typos found. Run 'make spell-fix' to fix."
+    OVERALL_STATUS=1
+fi
+rm -f "$TYPOS_OUTPUT"
+echo ""
+
+# 4. Type check
+echo "🔧 Type checking..."
+CHECK_OUTPUT=$(mktemp)
+cargo check --all-targets > "$CHECK_OUTPUT" 2>&1
+CHECK_EXIT=$?
+if [ $CHECK_EXIT -eq 0 ]; then
+    TYPE_STATUS="✅ PASS"
+    echo "✅ Type check passed"
+else
+    TYPE_STATUS="❌ FAIL"
+    echo "❌ Type check failed. Fix errors before pushing."
+    OVERALL_STATUS=1
+fi
+rm -f "$CHECK_OUTPUT"
+echo ""
+
+# 5. Tests
+echo "🧪 Running tests..."
+TEST_OUTPUT=$(mktemp)
+cargo test --all-targets > "$TEST_OUTPUT" 2>&1
+TEST_EXIT=$?
+if [ $TEST_EXIT -eq 0 ]; then
+    TEST_STATUS="✅ PASS"
+    echo "✅ Tests passed"
+else
+    TEST_STATUS="❌ FAIL"
+    echo "❌ Tests failed. Fix failing tests before pushing."
+    OVERALL_STATUS=1
+fi
+rm -f "$TEST_OUTPUT"
+echo ""
+
+# Display summary
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📊 PRE-PUSH CHECKS SUMMARY"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+printf "%-25s %s\n" "Code Formatting (fmt)" "$FORMAT_STATUS"
+printf "%-25s %s\n" "Linting (clippy)" "$LINT_STATUS"
+printf "%-25s %s\n" "Spell Check (typos)" "$SPELL_STATUS"
+printf "%-25s %s\n" "Type Check (cargo check)" "$TYPE_STATUS"
+printf "%-25s %s\n" "Tests (cargo test)" "$TEST_STATUS"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+if [ $OVERALL_STATUS -eq 0 ]; then
+    echo "🎉 All checks passed! Proceeding with push..."
+    exit 0
+else
+    echo "❌ Some checks failed. Please fix the issues before pushing."
+    exit 1
+fi
+
