@@ -1,0 +1,12 @@
+# Clippy configuration
+# Similar to .eslintrc for JavaScript
+
+# Allow some lints that might be too strict for this project
+# Most configuration is done via attributes in the code
+
+# Allow single component path imports (like `use seahash;`)
+# This is useful for re-exports and macro dependencies
+# Note: This is configured via #[allow(clippy::single_component_path_imports)] in code
+
+# Performance and style lints are generally good to keep enabled
+# Disable specific ones in code if needed using #[allow(clippy::lint_name)]

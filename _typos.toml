@@ -1,0 +1,29 @@
+[default]
+extend-ignore-re = [
+  # Technical terms and identifiers
+  "([A-Z][a-z]*){2,}", # CamelCase
+  "[a-z]+_[a-z]+",     # snake_case variables
+]
+
+[default.extend-words]
+# Add your project-specific terms here
+# Rust ecosystem crates
+serde = "serde"
+rustfmt = "rustfmt"
+clippy = "clippy"
+tokio = "tokio"
+
+# Money/Currency terms
+BTC = "BTC"
+ETH = "ETH"
+USD = "USD"
+EUR = "EUR"
+GBP = "GBP"
+JPY = "JPY"
+
+# Technical terms
+bigdecimal = "bigdecimal"
+auditability = "auditability"
+
+[files]
+extend-exclude = ["target/", "Cargo.lock", "*.log", ".git/"]

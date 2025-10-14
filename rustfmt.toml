@@ -1,0 +1,14 @@
+# Rustfmt configuration
+# Similar to .prettierrc for JavaScript
+
+# Maximum line length
+max_width = 100
+
+# Indentation
+tab_spaces = 4
+
+# Function formatting
+fn_params_layout = "Tall"
+
+# Note: Many advanced features require nightly Rust
+# For stable Rust, we use the default formatting with these basic settings
