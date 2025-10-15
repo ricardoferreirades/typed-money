@@ -28,6 +28,8 @@
 
 mod amount;
 mod currency;
+mod rounding;
 
 pub use amount::Amount;
 pub use currency::{Currency, BTC, ETH, EUR, GBP, JPY, USD};
+pub use rounding::RoundingMode;
