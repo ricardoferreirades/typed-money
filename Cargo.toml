@@ -1,6 +1,19 @@
 [package]
 name = "typed-money"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+authors = ["Ricardo Ferreira <ricardoferreirades@example.com>"]
+license = "MIT OR Apache-2.0"
+description = "A type-safe money library for Rust that prevents currency mixing bugs at compile time"
+repository = "https://github.com/ricardoferreirades/typed-money"
+keywords = ["money", "currency", "finance", "decimal", "type-safe"]
+categories = ["data-structures", "mathematics"]
+
+[lib]
+name = "typed_money"
+path = "src/lib.rs"
 
 [dependencies]
+rust_decimal = "1.33"
+
+[dev-dependencies]
