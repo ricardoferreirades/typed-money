@@ -9,30 +9,30 @@
 **Non-Functional (NF1):** O(1) performance via compile-time type safety  
 **Non-Functional (NF2):** 100% safe Rust code
 
-- [ ] Add `#![forbid(unsafe_code)]` to `lib.rs`
-- [ ] Define `Currency` trait with required methods and associated constants
-  - [ ] `DECIMALS: u8` - decimal precision for the currency
-  - [ ] `CODE: &'static str` - ISO 4217 currency code
-  - [ ] `SYMBOL: &'static str` - currency symbol (e.g., "$", "€")
-- [ ] Implement built-in currency types (NF5 - extensibility pattern):
-  - [ ] `USD` - US Dollar
-  - [ ] `EUR` - Euro
-  - [ ] `GBP` - British Pound
-  - [ ] `JPY` - Japanese Yen
-  - [ ] `BTC` - Bitcoin
-  - [ ] `ETH` - Ethereum
-- [ ] Define `Amount<C: Currency>` struct with generic currency parameter
-- [ ] Ensure compile-time type safety eliminates runtime checks (NF1)
-- [ ] Verify all operations run in O(1) constant time
+- [x] Add `#![forbid(unsafe_code)]` to `lib.rs`
+- [x] Define `Currency` trait with required methods and associated constants
+  - [x] `DECIMALS: u8` - decimal precision for the currency
+  - [x] `CODE: &'static str` - ISO 4217 currency code
+  - [x] `SYMBOL: &'static str` - currency symbol (e.g., "$", "€")
+- [x] Implement built-in currency types (NF5 - extensibility pattern):
+  - [x] `USD` - US Dollar
+  - [x] `EUR` - Euro
+  - [x] `GBP` - British Pound
+  - [x] `JPY` - Japanese Yen
+  - [x] `BTC` - Bitcoin
+  - [x] `ETH` - Ethereum
+- [x] Define `Amount<C: Currency>` struct with generic currency parameter
+- [x] Ensure compile-time type safety eliminates runtime checks (NF1)
+- [x] Verify all operations run in O(1) constant time
 
 ### 1.2 Internal Representation (F5 + NF3)
 **Functional (F5):** Decimal precision  
 **Non-Functional (NF3):** Determinism across all platforms
 
-- [ ] Prohibit floating-point types (`f32`, `f64`) entirely
-- [ ] Integrate `rust_decimal` crate for deterministic decimal arithmetic
-- [ ] Create internal storage mechanism respecting `Currency::DECIMALS`
-- [ ] Implement value normalization and validation on construction
+- [x] Prohibit floating-point types (`f32`, `f64`) entirely
+- [x] Integrate `rust_decimal` crate for deterministic decimal arithmetic
+- [x] Create internal storage mechanism respecting `Currency::DECIMALS`
+- [x] Implement value normalization and validation on construction
 - [ ] Add support for `bigdecimal` as alternative (via feature flag)
 - [ ] Add cross-platform determinism tests
 
