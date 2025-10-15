@@ -36,11 +36,14 @@ mod tests {
     fn test_currency_trait_properties() {
         // Verify USD is Copy and Clone
         let usd1 = USD;
-        let usd2 = usd1;
-        let _usd3 = usd1.clone();
+        let usd2 = usd1; // Copy
 
         // Both should still be usable (proving Copy works)
         assert_eq!(USD::CODE, "USD");
         let _ = (usd1, usd2); // Use both to prove they're independent
+
+        // Test Clone trait explicitly
+        #[allow(clippy::clone_on_copy)]
+        let _usd3 = usd1.clone(); // Explicitly test Clone trait
     }
 }

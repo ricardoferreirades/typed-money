@@ -76,10 +76,13 @@ mod tests {
     fn test_copy_clone() {
         let amount1 = Amount::<USD>::from_major(100);
         let amount2 = amount1; // Copy
-        let amount3 = amount1.clone(); // Clone
 
-        // All should be equal
+        // Verify Copy trait works (amount1 still usable after copy)
         assert_eq!(amount1, amount2);
+
+        // Test Clone trait explicitly
+        #[allow(clippy::clone_on_copy)]
+        let amount3 = amount1.clone(); // Explicitly test Clone trait
         assert_eq!(amount1, amount3);
     }
 
