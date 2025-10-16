@@ -38,6 +38,9 @@ mod currency;
 mod rate;
 mod rounding;
 
+#[cfg(feature = "conversion_tracking")]
+pub mod conversion_tracking;
+
 pub use amount::Amount;
 pub use currency::{Currency, BTC, ETH, EUR, GBP, JPY, USD};
 pub use rate::Rate;
