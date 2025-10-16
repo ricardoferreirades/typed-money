@@ -56,9 +56,18 @@ impl<C: Currency> Amount<C> {
     /// // This won't compile - can't add different currencies!
     /// let invalid = usd + eur;
     /// ```
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
     pub fn convert<To: Currency>(&self, rate: &Rate<C, To>) -> Amount<To> {
         Amount {
             value: self.value * rate.value(),
+            _currency: PhantomData,
+        }
+    }
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    pub fn convert<To: Currency>(&self, rate: &Rate<C, To>) -> Amount<To> {
+        Amount {
+            value: &self.value * rate.value(),
             _currency: PhantomData,
         }
     }
@@ -96,16 +105,33 @@ impl<C: Currency> Amount<C> {
         rate: &Rate<C, To>,
         tracker: &T,
     ) -> Amount<To> {
+        #[cfg(feature = "use_rust_decimal")]
         let result = Amount {
             value: self.value * rate.value(),
             _currency: PhantomData,
         };
 
+        #[cfg(feature = "use_bigdecimal")]
+        let result = Amount {
+            value: &self.value * rate.value(),
+            _currency: PhantomData,
+        };
+
         // Create and track the conversion event
+        #[cfg(feature = "use_rust_decimal")]
         let event = ConversionEvent::<C, To>::new(
             self.value,
             result.value,
             *rate.value(),
+            rate.timestamp_unix_secs(),
+            rate.source(),
+        );
+
+        #[cfg(feature = "use_bigdecimal")]
+        let event = ConversionEvent::<C, To>::new(
+            self.value.clone(),
+            result.value.clone(),
+            rate.value().clone(),
             rate.timestamp_unix_secs(),
             rate.source(),
         );
