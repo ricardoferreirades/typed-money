@@ -12,7 +12,7 @@ use super::Currency;
 /// let amount = Amount::<EUR>::from_major(100);
 /// println!("{}", amount);  // Displays: €100.00 EUR
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct EUR;
 
 impl Currency for EUR {
