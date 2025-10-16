@@ -42,12 +42,12 @@
 **Functional (F4):** Support arithmetic operations  
 **Non-Functional (NF1):** O(1) performance guarantees
 
-- [ ] Implement `Add` trait for `Amount<C>` with O(1) guarantee
-- [ ] Implement `Sub` trait for `Amount<C>` with O(1) guarantee
-- [ ] Implement `Mul` trait for scalar multiplication with O(1) guarantee
-- [ ] Implement `Div` trait for scalar division with O(1) guarantee
-- [ ] Ensure compile-time prevention of cross-currency operations
-- [ ] Add overflow checking (NF9 - security)
+- [x] Implement `Add` trait for `Amount<C>` with O(1) guarantee
+- [x] Implement `Sub` trait for `Amount<C>` with O(1) guarantee
+- [x] Implement `Mul` trait for scalar multiplication with O(1) guarantee
+- [x] Implement `Div` trait for scalar division with O(1) guarantee
+- [x] Ensure compile-time prevention of cross-currency operations
+- [x] Add overflow checking (NF9 - security)
 
 ### 2.2 Comparison Operations
 **Functional (F4):** Support comparisons  
