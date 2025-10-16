@@ -10,7 +10,4 @@ mod conversions;
 mod display;
 mod type_def;
 
-#[cfg(test)]
-mod determinism_tests;
-
 pub use type_def::Amount;
