@@ -108,6 +108,12 @@ mod tests {
     use super::*;
     use crate::{EUR, USD};
 
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
+    use rust_decimal::Decimal;
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    use bigdecimal::BigDecimal as Decimal;
+
     #[test]
     fn test_conversion_event_creation() {
         let event = ConversionEvent::<USD, EUR>::new(
