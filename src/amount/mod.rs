@@ -7,6 +7,7 @@
 mod arithmetic;
 mod constructors;
 mod conversions;
+mod currency_conversion;
 mod display;
 mod type_def;
 
