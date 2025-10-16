@@ -129,13 +129,30 @@ impl<C: Currency> Amount<C> {
     /// let normalized = divided.normalize();
     /// assert!(normalized.check_precision().is_ok());
     /// ```
-    #[cfg(not(all(feature = "use_rust_decimal", feature = "use_bigdecimal")))]
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
     pub fn check_precision(&self) -> MoneyResult<()> {
         if self.has_excess_precision() {
             Err(MoneyError::PrecisionError {
                 currency: C::CODE,
                 expected: C::DECIMALS,
                 actual: self.precision(),
+                suggestion: format!(
+                    "Use normalize() or round() to {} decimal places",
+                    C::DECIMALS
+                ),
+            })
+        } else {
+            Ok(())
+        }
+    }
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    pub fn check_precision(&self) -> MoneyResult<()> {
+        if self.has_excess_precision() {
+            Err(MoneyError::PrecisionError {
+                currency: C::CODE,
+                expected: C::DECIMALS,
+                actual: self.precision() as u32,
                 suggestion: format!(
                     "Use normalize() or round() to adjust precision to {} decimal places",
                     C::DECIMALS
