@@ -35,8 +35,10 @@ jobs:
         with:
           components: clippy
       - uses: Swatinem/rust-cache@v2
-      - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+      - name: Run clippy (default features)
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Run clippy (with serde and tracking)
+        run: cargo clippy --all-targets --features "serde_support,conversion_tracking" -- -D warnings
 
   test:
     name: Test Suite
@@ -53,10 +55,10 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Run tests (default features)
         run: cargo test --verbose
-      - name: Run tests (all features)
-        run: cargo test --all-features --verbose
-      - name: Run tests (no default features + rust_decimal)
-        run: cargo test --no-default-features --features use_rust_decimal --verbose
+      - name: Run tests (with serde and tracking)
+        run: cargo test --features "serde_support,conversion_tracking" --verbose
+      - name: Run tests (bigdecimal backend)
+        run: cargo test --no-default-features --features use_bigdecimal --verbose
       - name: Run doctests
         run: cargo test --doc --verbose
 
@@ -89,7 +91,7 @@ jobs:
       - name: Install tarpaulin
         run: cargo install cargo-tarpaulin
       - name: Generate coverage
-        run: cargo tarpaulin --out xml --all-features
+        run: cargo tarpaulin --out xml --features "serde_support,conversion_tracking"
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
