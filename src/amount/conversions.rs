@@ -2,7 +2,12 @@
 
 use super::type_def::Amount;
 use crate::{Currency, RoundingMode};
+
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+use bigdecimal::BigDecimal as Decimal;
 
 impl<C: Currency> Amount<C> {
     /// Returns the amount in major units, rounding according to the specified mode.
@@ -20,6 +25,7 @@ impl<C: Currency> Amount<C> {
     /// assert_eq!(amount2.to_major_rounded(RoundingMode::Floor), 123);
     /// assert_eq!(amount2.to_major_rounded(RoundingMode::HalfUp), 124);
     /// ```
+    #[cfg(feature = "use_rust_decimal")]
     pub fn to_major_rounded(&self, mode: RoundingMode) -> i64 {
         let rounded = match mode {
             RoundingMode::HalfUp => self.value.round_dp(0),
@@ -59,6 +65,7 @@ impl<C: Currency> Amount<C> {
     /// let amount = Amount::<USD>::from_minor(12399);  // $123.99
     /// assert_eq!(amount.to_major_floor(), 123);  // Lost $0.99!
     /// ```
+    #[cfg(feature = "use_rust_decimal")]
     pub fn to_major_floor(&self) -> i64 {
         self.to_major_rounded(RoundingMode::Floor)
     }
@@ -78,6 +85,7 @@ impl<C: Currency> Amount<C> {
     /// let amount2 = Amount::<USD>::from_minor(12349);  // $123.49
     /// assert_eq!(amount2.to_major_half_up(), 123);     // 0.49 rounds down
     /// ```
+    #[cfg(feature = "use_rust_decimal")]
     pub fn to_major_half_up(&self) -> i64 {
         self.to_major_rounded(RoundingMode::HalfUp)
     }
@@ -97,6 +105,7 @@ impl<C: Currency> Amount<C> {
     /// let amount2 = Amount::<USD>::from_minor(12351);  // $123.51
     /// assert_eq!(amount2.to_major_half_down(), 124);   // 0.51 rounds up
     /// ```
+    #[cfg(feature = "use_rust_decimal")]
     pub fn to_major_half_down(&self) -> i64 {
         self.to_major_rounded(RoundingMode::HalfDown)
     }
@@ -117,6 +126,7 @@ impl<C: Currency> Amount<C> {
     /// let amount2 = Amount::<USD>::from_minor(12250);  // $122.50
     /// assert_eq!(amount2.to_major_half_even(), 122);   // Rounds to even (122)
     /// ```
+    #[cfg(feature = "use_rust_decimal")]
     pub fn to_major_half_even(&self) -> i64 {
         self.to_major_rounded(RoundingMode::HalfEven)
     }
@@ -139,6 +149,7 @@ impl<C: Currency> Amount<C> {
     /// let amount3 = Amount::<USD>::from_minor(12300);  // $123.00
     /// assert_eq!(amount3.to_major_ceiling(), 123);     // No decimals, stays same
     /// ```
+    #[cfg(feature = "use_rust_decimal")]
     pub fn to_major_ceiling(&self) -> i64 {
         self.to_major_rounded(RoundingMode::Ceiling)
     }
