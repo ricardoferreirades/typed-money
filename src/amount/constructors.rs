@@ -102,4 +102,39 @@ mod tests {
         assert_eq!(amount.to_major_floor(), 1000);
         assert_eq!(amount.to_minor(), 1000);
     }
+
+    // Determinism tests
+    #[test]
+    fn test_decimal_creation_determinism() {
+        // Verify that creating decimals produces consistent results
+        let amount1 = Amount::<USD>::from_major(100);
+        let amount2 = Amount::<USD>::from_major(100);
+        assert_eq!(amount1.value(), amount2.value());
+
+        let amount3 = Amount::<USD>::from_minor(12345);
+        let amount4 = Amount::<USD>::from_minor(12345);
+        assert_eq!(amount3.value(), amount4.value());
+    }
+
+    #[test]
+    fn test_different_decimal_places_determinism() {
+        use crate::{BTC, JPY};
+        // Test currencies with different decimal places
+        let usd = Amount::<USD>::from_minor(12345); // 2 decimals
+        let jpy = Amount::<JPY>::from_minor(12345); // 0 decimals
+        let btc = Amount::<BTC>::from_minor(12345); // 8 decimals
+
+        assert_eq!(usd.value().to_string(), "123.45");
+        assert_eq!(jpy.value().to_string(), "12345");
+        assert_eq!(btc.value().to_string(), "0.00012345");
+    }
+
+    #[test]
+    fn test_zero_determinism() {
+        // Verify zero is represented consistently
+        let zero1 = Amount::<USD>::from_major(0);
+        let zero2 = Amount::<USD>::from_minor(0);
+        assert_eq!(zero1, zero2);
+        assert_eq!(zero1.value().to_string(), "0");
+    }
 }
