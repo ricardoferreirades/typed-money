@@ -4,12 +4,30 @@ use super::type_def::Amount;
 use crate::Currency;
 use std::fmt;
 
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
+use rust_decimal::Decimal;
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+use bigdecimal::BigDecimal as Decimal;
+
+// Helper function to truncate decimal to integer
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
+fn truncate_to_integer(value: &Decimal) -> String {
+    format!("{}", value.trunc())
+}
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+fn truncate_to_integer(value: &Decimal) -> String {
+    use bigdecimal::RoundingMode;
+    format!("{}", value.with_scale_round(0, RoundingMode::Down))
+}
+
 impl<C: Currency> fmt::Display for Amount<C> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         // Format: {symbol}{amount} {code}
         // e.g., "$100.00 USD" or "€85.50 EUR"
         let formatted_value = if C::DECIMALS == 0 {
-            format!("{}", self.value.trunc())
+            truncate_to_integer(&self.value)
         } else {
             format!("{:.prec$}", self.value, prec = C::DECIMALS as usize)
         };
@@ -50,7 +68,7 @@ impl<C: Currency> Amount<C> {
     /// ```
     pub fn format_symbol(&self) -> String {
         let formatted_value = if C::DECIMALS == 0 {
-            format!("{}", self.value.trunc())
+            truncate_to_integer(&self.value)
         } else {
             format!("{:.prec$}", self.value, prec = C::DECIMALS as usize)
         };
@@ -70,7 +88,7 @@ impl<C: Currency> Amount<C> {
     /// ```
     pub fn format_code(&self) -> String {
         let formatted_value = if C::DECIMALS == 0 {
-            format!("{}", self.value.trunc())
+            truncate_to_integer(&self.value)
         } else {
             format!("{:.prec$}", self.value, prec = C::DECIMALS as usize)
         };
@@ -90,7 +108,7 @@ impl<C: Currency> Amount<C> {
     /// ```
     pub fn format_plain(&self) -> String {
         if C::DECIMALS == 0 {
-            format!("{}", self.value.trunc())
+            truncate_to_integer(&self.value)
         } else {
             format!("{:.prec$}", self.value, prec = C::DECIMALS as usize)
         }
@@ -124,7 +142,7 @@ impl<C: Currency> Amount<C> {
     /// ```
     pub fn format_locale(&self, locale: &str) -> String {
         let value_str = if C::DECIMALS == 0 {
-            format!("{}", self.value.trunc())
+            truncate_to_integer(&self.value)
         } else {
             format!("{:.prec$}", self.value, prec = C::DECIMALS as usize)
         };
