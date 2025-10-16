@@ -6,6 +6,9 @@ use super::type_def::Amount;
 use crate::{Currency, Rate};
 use std::marker::PhantomData;
 
+#[cfg(feature = "conversion_tracking")]
+use crate::conversion_tracking::{ConversionEvent, ConversionTracker};
+
 impl<C: Currency> Amount<C> {
     /// Converts this amount to another currency using an explicit exchange rate.
     ///
@@ -30,20 +33,86 @@ impl<C: Currency> Amount<C> {
     ///
     /// # Compile-Time Safety
     ///
+    /// Attempting to use a rate with mismatched currencies won't compile:
+    ///
     /// ```compile_fail
     /// use typed_money::{Amount, Rate, USD, EUR, GBP};
     ///
     /// let usd = Amount::<USD>::from_major(100);
     /// let wrong_rate = Rate::<EUR, GBP>::new(0.88);
     ///
-    /// // This won't compile!
-    /// let invalid = usd.convert(&wrong_rate);  // Error: type mismatch
+    /// // This won't compile - type mismatch!
+    /// let invalid = usd.convert(&wrong_rate);
+    /// ```
+    ///
+    /// Implicit conversions between different currencies are prevented:
+    ///
+    /// ```compile_fail
+    /// use typed_money::{Amount, USD, EUR};
+    ///
+    /// let usd = Amount::<USD>::from_major(100);
+    /// let eur = Amount::<EUR>::from_major(85);
+    ///
+    /// // This won't compile - can't add different currencies!
+    /// let invalid = usd + eur;
     /// ```
     pub fn convert<To: Currency>(&self, rate: &Rate<C, To>) -> Amount<To> {
         Amount {
             value: self.value * rate.value(),
             _currency: PhantomData,
         }
+    }
+
+    /// Converts this amount to another currency using an explicit exchange rate,
+    /// with optional conversion tracking.
+    ///
+    /// This method is only available when the `conversion_tracking` feature is enabled.
+    /// It performs the same conversion as `convert()` but also calls the provided
+    /// tracker to log/record the conversion event.
+    ///
+    /// # Type Safety
+    ///
+    /// The type system ensures that the rate matches the currencies being converted.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # #[cfg(feature = "conversion_tracking")]
+    /// # {
+    /// use typed_money::{Amount, Rate, USD, EUR};
+    /// use typed_money::conversion_tracking::NoOpTracker;
+    ///
+    /// let usd = Amount::<USD>::from_major(100);
+    /// let rate = Rate::<USD, EUR>::new(0.85);
+    /// let tracker = NoOpTracker;
+    /// let eur = usd.convert_with_tracking(&rate, &tracker);
+    ///
+    /// assert_eq!(eur.to_major_floor(), 85);
+    /// # }
+    /// ```
+    #[cfg(feature = "conversion_tracking")]
+    pub fn convert_with_tracking<To: Currency, T: ConversionTracker>(
+        &self,
+        rate: &Rate<C, To>,
+        tracker: &T,
+    ) -> Amount<To> {
+        let result = Amount {
+            value: self.value * rate.value(),
+            _currency: PhantomData,
+        };
+
+        // Create and track the conversion event
+        let event = ConversionEvent::<C, To>::new(
+            self.value,
+            result.value,
+            *rate.value(),
+            rate.timestamp_unix_secs(),
+            rate.source(),
+        );
+
+        tracker.track(&event);
+
+        result
     }
 }
 
@@ -167,5 +236,106 @@ mod tests {
         let eur2 = amount.convert(&rate2);
 
         assert_eq!(eur1, eur2);
+    }
+
+    // ========================================================================
+    // Conversion Safety Tests (Section 3.2)
+    // ========================================================================
+
+    #[test]
+    fn test_explicit_rate_required() {
+        // This test verifies that a Rate instance is always required
+        let usd = Amount::<USD>::from_major(100);
+        let rate = Rate::<USD, EUR>::new(0.85);
+
+        // Conversion requires explicit rate - this is the ONLY way to convert
+        let _eur = usd.convert(&rate);
+
+        // There's no .to_eur() or implicit conversion method available
+    }
+
+    #[test]
+    fn test_rate_validation_enforced() {
+        // All these should pass because Rate validation is enforced at construction
+        let _rate1 = Rate::<USD, EUR>::new(0.85);
+        let _rate2 = Rate::<USD, EUR>::new(1.0);
+        let _rate3 = Rate::<USD, EUR>::new(1000.0);
+
+        // Invalid rates are caught at Rate construction (see rate.rs tests for panics)
+    }
+
+    #[cfg(feature = "conversion_tracking")]
+    mod tracking_tests {
+        use super::*;
+        use crate::conversion_tracking::{ConversionEvent, ConversionTracker, NoOpTracker};
+        use std::cell::RefCell;
+
+        struct TestTracker {
+            events: RefCell<Vec<(String, String, String)>>,
+        }
+
+        impl ConversionTracker for TestTracker {
+            fn track<From: Currency, To: Currency>(&self, event: &ConversionEvent<From, To>) {
+                self.events.borrow_mut().push((
+                    event.from_amount.to_string(),
+                    event.to_amount.to_string(),
+                    event.from_currency_code.to_string(),
+                ));
+            }
+        }
+
+        #[test]
+        fn test_convert_with_tracking_noop() {
+            let usd = Amount::<USD>::from_major(100);
+            let rate = Rate::<USD, EUR>::new(0.85);
+            let tracker = NoOpTracker;
+
+            let eur = usd.convert_with_tracking(&rate, &tracker);
+            assert_eq!(eur.to_major_floor(), 85);
+        }
+
+        #[test]
+        fn test_convert_with_tracking_custom() {
+            let tracker = TestTracker {
+                events: RefCell::new(Vec::new()),
+            };
+
+            let usd = Amount::<USD>::from_major(100);
+            let rate = Rate::<USD, EUR>::new(0.85);
+
+            let _eur = usd.convert_with_tracking(&rate, &tracker);
+
+            let events = tracker.events.borrow();
+            assert_eq!(events.len(), 1);
+            assert_eq!(events[0].2, "USD");
+        }
+
+        #[test]
+        fn test_tracking_captures_metadata() {
+            struct MetadataTracker {
+                last_timestamp: RefCell<Option<u64>>,
+                last_source: RefCell<Option<&'static str>>,
+            }
+
+            impl ConversionTracker for MetadataTracker {
+                fn track<From: Currency, To: Currency>(&self, event: &ConversionEvent<From, To>) {
+                    *self.last_timestamp.borrow_mut() = event.timestamp_unix_secs;
+                    *self.last_source.borrow_mut() = event.rate_source;
+                }
+            }
+
+            let tracker = MetadataTracker {
+                last_timestamp: RefCell::new(None),
+                last_source: RefCell::new(None),
+            };
+
+            let usd = Amount::<USD>::from_major(100);
+            let rate = Rate::<USD, EUR>::new(0.85).with_metadata(1_700_000_000, "ECB");
+
+            let _eur = usd.convert_with_tracking(&rate, &tracker);
+
+            assert_eq!(*tracker.last_timestamp.borrow(), Some(1_700_000_000));
+            assert_eq!(*tracker.last_source.borrow(), Some("ECB"));
+        }
     }
 }
