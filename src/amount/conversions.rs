@@ -25,7 +25,7 @@ impl<C: Currency> Amount<C> {
     /// assert_eq!(amount2.to_major_rounded(RoundingMode::Floor), 123);
     /// assert_eq!(amount2.to_major_rounded(RoundingMode::HalfUp), 124);
     /// ```
-    #[cfg(feature = "use_rust_decimal")]
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
     pub fn to_major_rounded(&self, mode: RoundingMode) -> i64 {
         let rounded = match mode {
             RoundingMode::HalfUp => self.value.round_dp(0),
@@ -59,6 +59,24 @@ impl<C: Currency> Amount<C> {
             RoundingMode::Ceiling => self.value.ceil(),
         };
 
+        rounded.to_string().parse().unwrap_or(0)
+    }
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    pub fn to_major_rounded(&self, mode: RoundingMode) -> i64 {
+        use bigdecimal::RoundingMode as BigDecimalRoundingMode;
+
+        let bigdecimal_mode = match mode {
+            RoundingMode::HalfUp => BigDecimalRoundingMode::HalfUp,
+            RoundingMode::HalfDown => BigDecimalRoundingMode::HalfDown,
+            RoundingMode::HalfEven => BigDecimalRoundingMode::HalfEven,
+            RoundingMode::Up => BigDecimalRoundingMode::Up,
+            RoundingMode::Down => BigDecimalRoundingMode::Down,
+            RoundingMode::Floor => BigDecimalRoundingMode::Floor,
+            RoundingMode::Ceiling => BigDecimalRoundingMode::Ceiling,
+        };
+
+        let rounded = self.value.with_scale_round(0, bigdecimal_mode);
         rounded.to_string().parse().unwrap_or(0)
     }
 
@@ -174,12 +192,29 @@ impl<C: Currency> Amount<C> {
     /// let amount = Amount::<USD>::from_major(123);  // $123.00
     /// assert_eq!(amount.to_minor(), 12300);  // 12300 cents
     /// ```
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
     pub fn to_minor(&self) -> i64 {
         if C::DECIMALS == 0 {
             self.value.to_string().parse().unwrap_or(0)
         } else {
             let scaled = self.value * Decimal::from(10_i64.pow(C::DECIMALS.into()));
             scaled.trunc().to_string().parse().unwrap_or(0)
+        }
+    }
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    pub fn to_minor(&self) -> i64 {
+        use bigdecimal::RoundingMode;
+
+        if C::DECIMALS == 0 {
+            self.value.to_string().parse().unwrap_or(0)
+        } else {
+            let scaled = &self.value * Decimal::from(10_i64.pow(C::DECIMALS.into()));
+            scaled
+                .with_scale_round(0, RoundingMode::Down)
+                .to_string()
+                .parse()
+                .unwrap_or(0)
         }
     }
 }
