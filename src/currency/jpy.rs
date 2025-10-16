@@ -12,7 +12,7 @@ use super::Currency;
 /// let amount = Amount::<JPY>::from_major(1000);
 /// println!("{}", amount);  // Displays: ¥1000 JPY
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct JPY;
 
 impl Currency for JPY {
