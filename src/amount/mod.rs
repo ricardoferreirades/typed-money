@@ -4,6 +4,7 @@
 //! in a specific currency. The currency is tracked at compile time using phantom types,
 //! enabling zero-cost type safety.
 
+mod arithmetic;
 mod constructors;
 mod conversions;
 mod display;
