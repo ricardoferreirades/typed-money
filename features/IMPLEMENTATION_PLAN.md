@@ -197,8 +197,9 @@
 **Non-Functional (NF13):** Build validation
 
 - [ ] Configure `serde` feature flag
-- [ ] Configure `rust_decimal` feature flag (default)
-- [ ] Configure `bigdecimal` feature flag (alternative)
+- [x] Configure `rust_decimal` feature flag (default)
+- [x] Configure `bigdecimal` feature flag (alternative)
+- [x] Configure `conversion_tracking` feature flag
 - [ ] Configure `std` feature flag (default)
 - [ ] Configure `no_std` feature flag (mutually exclusive with `std`)
 - [ ] Test build with default features (NF13)
@@ -298,7 +299,7 @@
 - [x] Implement intuitive method names:
   - [x] `from_major()` - create from major units (e.g., dollars)
   - [x] `from_minor()` - create from minor units (e.g., cents)
-  - [ ] `convert()` - explicit currency conversion
+  - [x] `convert()` - explicit currency conversion
   - [x] `to_string()` - formatted string output (via Display)
 - [x] Design compiler errors to be explicit and helpful
 - [ ] Add type aliases for common operations
@@ -319,7 +320,7 @@
 
 - [ ] Add MIT license file
 - [ ] Add Apache-2.0 license file
-- [ ] Update `Cargo.toml` with dual license
+- [x] Update `Cargo.toml` with dual license
 - [ ] Verify all dependencies use compatible licenses
 - [ ] Document license compatibility in README
 - [ ] Add license headers to source files (optional)
@@ -360,7 +361,7 @@
 **Release readiness across all requirements**
 
 - [ ] Set up CI/CD pipeline (NF8)
-- [ ] Configure `Cargo.toml` metadata
+- [x] Configure `Cargo.toml` metadata
 - [ ] Finalize CHANGELOG
 - [ ] Set up documentation hosting (docs.rs)
 - [ ] Prepare for crates.io publication
