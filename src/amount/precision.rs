@@ -1,7 +1,7 @@
 //! Precision control and detection for Amount.
 
 use super::type_def::Amount;
-use crate::Currency;
+use crate::{Currency, MoneyError, MoneyResult};
 
 impl<C: Currency> Amount<C> {
     /// Checks if this amount has more decimal places than the currency supports.
@@ -106,6 +106,43 @@ impl<C: Currency> Amount<C> {
     pub fn normalize(&self) -> Self {
         use crate::RoundingMode;
         self.round(RoundingMode::HalfEven)
+    }
+
+    /// Checks if the amount has valid precision for the currency.
+    ///
+    /// Returns an error if the amount has excess precision that should be
+    /// rounded before use in financial operations.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use typed_money::{Amount, USD};
+    ///
+    /// let amount = Amount::<USD>::from_minor(1234); // 12.34
+    /// assert!(amount.check_precision().is_ok());
+    ///
+    /// let divided = Amount::<USD>::from_major(100) / 3; // 33.333...
+    /// let result = divided.check_precision();
+    /// assert!(result.is_err());
+    ///
+    /// // Can recover by normalizing
+    /// let normalized = divided.normalize();
+    /// assert!(normalized.check_precision().is_ok());
+    /// ```
+    pub fn check_precision(&self) -> MoneyResult<()> {
+        if self.has_excess_precision() {
+            Err(MoneyError::PrecisionError {
+                currency: C::CODE,
+                expected: C::DECIMALS,
+                actual: self.precision(),
+                suggestion: format!(
+                    "Use normalize() or round() to adjust precision to {} decimal places",
+                    C::DECIMALS
+                ),
+            })
+        } else {
+            Ok(())
+        }
     }
 }
 
@@ -332,5 +369,73 @@ mod tests {
 
         let normalized = divided.normalize();
         assert_eq!(normalized.precision(), 8);
+    }
+
+    // ========================================================================
+    // Error Handling Tests (Section 6.2)
+    // ========================================================================
+
+    #[test]
+    fn test_check_precision_ok() {
+        let amount = Amount::<USD>::from_minor(1234); // 12.34
+        assert!(amount.check_precision().is_ok());
+    }
+
+    #[test]
+    fn test_check_precision_error() {
+        let amount = Amount::<USD>::from_major(100) / 3; // 33.333...
+        let result = amount.check_precision();
+        assert!(result.is_err());
+
+        if let Err(e) = result {
+            assert!(matches!(e, MoneyError::PrecisionError { .. }));
+            assert_eq!(e.currency(), Some("USD"));
+            let msg = e.to_string();
+            assert!(
+                msg.contains("Precision") || msg.contains("precision"),
+                "Message: {}",
+                msg
+            );
+        }
+    }
+
+    #[test]
+    fn test_check_precision_error_recovery() {
+        let amount = Amount::<USD>::from_major(100) / 3; // 33.333...
+
+        // Error detected
+        assert!(amount.check_precision().is_err());
+
+        // Can recover by normalizing
+        let normalized = amount.normalize();
+        assert!(normalized.check_precision().is_ok());
+    }
+
+    #[test]
+    fn test_check_precision_jpy() {
+        let jpy = Amount::<JPY>::from_major(100);
+        assert!(jpy.check_precision().is_ok());
+
+        let divided = jpy / 3;
+        assert!(divided.check_precision().is_err());
+    }
+
+    #[test]
+    fn test_precision_error_message() {
+        let amount = Amount::<USD>::from_major(100) / 3;
+        if let Err(e) = amount.check_precision() {
+            let msg = e.to_string();
+            assert!(msg.contains("USD"));
+            assert!(msg.contains("2 decimal places"));
+        }
+    }
+
+    #[test]
+    fn test_precision_error_suggestion() {
+        let amount = Amount::<USD>::from_major(100) / 3;
+        if let Err(e) = amount.check_precision() {
+            let suggestion = e.suggestion();
+            assert!(suggestion.contains("normalize") || suggestion.contains("round"));
+        }
     }
 }
