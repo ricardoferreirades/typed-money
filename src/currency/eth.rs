@@ -12,7 +12,7 @@ use super::Currency;
 /// let amount = Amount::<ETH>::from_major(1);
 /// println!("{}", amount);  // Displays: Ξ1.000000000000000000 ETH
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct ETH;
 
 impl Currency for ETH {
