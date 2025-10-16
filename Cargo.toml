@@ -23,3 +23,4 @@ bigdecimal = { version = "0.4", optional = true }
 default = ["use_rust_decimal"]
 use_rust_decimal = ["dep:rust_decimal"]
 use_bigdecimal = ["dep:bigdecimal"]
+conversion_tracking = []
