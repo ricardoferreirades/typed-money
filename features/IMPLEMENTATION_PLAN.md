@@ -124,7 +124,9 @@
   - [x] `format_symbol()` - symbol only
   - [x] `format_code()` - code only
   - [x] `format_plain()` - numeric only
-- [ ] Handle locale-specific formatting (optional)
+- [x] Handle locale-specific formatting (optional)
+  - [x] `format_locale()` - locale-aware thousands separators
+  - [x] Support en_US, de_DE, fr_FR formats
 - [x] Use intuitive method names (NF10)
 
 ### 5.2 String Parsing
@@ -140,7 +142,11 @@
   - [x] `"$12.34 USD"` - with both symbol and code
 - [x] Reject ambiguous formats (NF9)
 - [x] Handle whitespace and special characters safely
-- [ ] Add fuzz testing for parser security (NF9)
+- [x] Add fuzz testing for parser security (NF9)
+  - [x] Test random/malicious inputs
+  - [x] Test boundary values
+  - [x] Test unicode safety
+  - [x] Test injection attacks
 
 ### 5.3 Serialization Support
 **Functional (F7):** Serde integration  
