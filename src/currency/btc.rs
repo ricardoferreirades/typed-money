@@ -12,7 +12,7 @@ use super::Currency;
 /// let amount = Amount::<BTC>::from_major(1);
 /// println!("{}", amount);  // Displays: ₿1.00000000 BTC
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct BTC;
 
 impl Currency for BTC {
