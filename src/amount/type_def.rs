@@ -45,7 +45,17 @@ use bigdecimal::BigDecimal as Decimal;
 /// // This won't compile!
 /// let invalid = usd + eur;  // Error: type mismatch
 /// ```
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Amount<C: Currency> {
+    /// Internal value stored as a Decimal for precision
+    pub(super) value: Decimal,
+    /// Phantom data to track currency type at compile time (zero runtime cost)
+    pub(super) _currency: PhantomData<C>,
+}
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Amount<C: Currency> {
     /// Internal value stored as a Decimal for precision
     pub(super) value: Decimal,
