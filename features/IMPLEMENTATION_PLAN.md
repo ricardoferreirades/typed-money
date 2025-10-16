@@ -127,6 +127,8 @@
 - [x] Handle locale-specific formatting (optional)
   - [x] `format_locale()` - locale-aware thousands separators
   - [x] Support en_US, de_DE, fr_FR formats
+  - [x] Helper methods for US, German, French styles
+  - [x] Thousands separator logic with negative handling
 - [x] Use intuitive method names (NF10)
 
 ### 5.2 String Parsing
