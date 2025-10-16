@@ -63,11 +63,29 @@ impl<C: Currency> Amount<C> {
     /// let usd = Amount::<USD>::from_minor(12345);  // $123.45 (from cents)
     /// let jpy = Amount::<JPY>::from_minor(1000);   // ¥1000 (JPY has no minor units)
     /// ```
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
     pub fn from_minor(amount: i64) -> Self {
         let value = if C::DECIMALS == 0 {
             Decimal::from(amount)
         } else {
             Decimal::new(amount, C::DECIMALS.into())
+        };
+
+        Self {
+            value,
+            _currency: PhantomData,
+        }
+    }
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    pub fn from_minor(amount: i64) -> Self {
+        use bigdecimal::BigInt;
+        use bigdecimal::ToPrimitive;
+
+        let value = if C::DECIMALS == 0 {
+            Decimal::from(amount)
+        } else {
+            Decimal::new(BigInt::from(amount), C::DECIMALS.into())
         };
 
         Self {
