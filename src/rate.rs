@@ -263,6 +263,12 @@ mod tests {
     use super::*;
     use crate::{EUR, GBP, USD};
 
+    #[cfg(feature = "use_rust_decimal")]
+    use rust_decimal::Decimal;
+
+    #[cfg(feature = "use_bigdecimal")]
+    use bigdecimal::BigDecimal as Decimal;
+
     #[test]
     fn test_rate_creation() {
         let rate = Rate::<USD, EUR>::new(0.85);
