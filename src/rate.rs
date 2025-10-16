@@ -12,6 +12,29 @@ use rust_decimal::Decimal;
 #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
 use bigdecimal::BigDecimal as Decimal;
 
+// Helper constants for both backends
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
+fn decimal_zero() -> Decimal {
+    Decimal::ZERO
+}
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+fn decimal_zero() -> Decimal {
+    use bigdecimal::Zero;
+    Decimal::zero()
+}
+
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
+fn decimal_one() -> Decimal {
+    Decimal::ONE
+}
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+fn decimal_one() -> Decimal {
+    use bigdecimal::One;
+    Decimal::one()
+}
+
 /// An exchange rate from one currency to another.
 ///
 /// Exchange rates are immutable after construction and use phantom types
@@ -35,6 +58,7 @@ use bigdecimal::BigDecimal as Decimal;
 ///
 /// Rates are immutable after creation to ensure auditability and prevent
 /// accidental modifications that could lead to financial errors.
+#[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Rate<From: Currency, To: Currency> {
     /// The exchange rate value (always positive)
@@ -48,6 +72,21 @@ pub struct Rate<From: Currency, To: Currency> {
     ///
     /// Using `&'static str` preserves `Copy`. Callers can pass string literals
     /// for simple source tagging without allocations.
+    metadata_source: Option<&'static str>,
+    /// Phantom data for source currency (zero runtime cost)
+    _from: PhantomData<From>,
+    /// Phantom data for target currency (zero runtime cost)
+    _to: PhantomData<To>,
+}
+
+#[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+#[derive(Debug, Clone, PartialEq)]
+pub struct Rate<From: Currency, To: Currency> {
+    /// The exchange rate value (always positive)
+    rate: Decimal,
+    /// Optional UNIX timestamp (seconds) representing when the rate was observed
+    metadata_timestamp_unix_secs: Option<u64>,
+    /// Optional static source identifier for auditability
     metadata_source: Option<&'static str>,
     /// Phantom data for source currency (zero runtime cost)
     _from: PhantomData<From>,
@@ -147,7 +186,7 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     /// # Ok::<(), typed_money::MoneyError>(())
     /// ```
     pub fn try_from_decimal(rate: Decimal) -> MoneyResult<Self> {
-        if rate <= Decimal::ZERO {
+        if rate <= decimal_zero() {
             return Err(MoneyError::InvalidRate {
                 value: rate.to_string(),
                 reason: "Exchange rate must be positive and non-zero".to_string(),
@@ -247,9 +286,21 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     ///
     /// // Inverse of 0.85 is approximately 1.176
     /// ```
+    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
     pub fn inverse(&self) -> Rate<To, From> {
         Rate {
-            rate: Decimal::ONE / self.rate,
+            rate: decimal_one() / self.rate,
+            metadata_timestamp_unix_secs: self.metadata_timestamp_unix_secs,
+            metadata_source: self.metadata_source,
+            _from: PhantomData,
+            _to: PhantomData,
+        }
+    }
+
+    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    pub fn inverse(&self) -> Rate<To, From> {
+        Rate {
+            rate: decimal_one() / &self.rate,
             metadata_timestamp_unix_secs: self.metadata_timestamp_unix_secs,
             metadata_source: self.metadata_source,
             _from: PhantomData,
