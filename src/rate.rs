@@ -172,7 +172,8 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     /// Convenience method to set both timestamp and source metadata at once.
     #[inline]
     pub const fn with_metadata(self, timestamp_unix_secs: u64, source: &'static str) -> Self {
-        self.with_timestamp_unix_secs(timestamp_unix_secs).with_source(source)
+        self.with_timestamp_unix_secs(timestamp_unix_secs)
+            .with_source(source)
     }
 
     /// Returns the inverse rate (To -> From).
@@ -303,7 +304,9 @@ mod tests {
         assert_eq!(rate.timestamp_unix_secs(), None);
         assert_eq!(rate.source(), None);
 
-        let rate = rate.with_timestamp_unix_secs(1_700_000_000).with_source("Manual");
+        let rate = rate
+            .with_timestamp_unix_secs(1_700_000_000)
+            .with_source("Manual");
         assert_eq!(rate.timestamp_unix_secs(), Some(1_700_000_000));
         assert_eq!(rate.source(), Some("Manual"));
     }
