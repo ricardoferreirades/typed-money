@@ -35,19 +35,42 @@ pub enum RoundingMode {
     /// - 4.5 → 4 (even)
     HalfEven,
 
-    /// Round towards zero (truncate).
+    /// Round towards positive infinity (always round up).
     ///
-    /// Simply removes decimal places without rounding.
+    /// Always rounds away from zero, regardless of sign.
     ///
     /// # Examples
-    /// - 2.9 → 2
+    /// - 2.1 → 3
+    /// - 2.9 → 3
+    /// - -2.1 → -3
+    /// - -2.9 → -3
+    Up,
+
+    /// Round towards zero (truncate).
+    ///
+    /// Always rounds towards zero, regardless of sign.
+    ///
+    /// # Examples
     /// - 2.1 → 2
+    /// - 2.9 → 2
+    /// - -2.1 → -2
     /// - -2.9 → -2
+    Down,
+
+    /// Round towards negative infinity (floor).
+    ///
+    /// Always rounds down to the nearest integer.
+    ///
+    /// # Examples
+    /// - 2.1 → 2
+    /// - 2.9 → 2
+    /// - -2.1 → -3
+    /// - -2.9 → -3
     Floor,
 
-    /// Round towards positive infinity.
+    /// Round towards positive infinity (ceiling).
     ///
-    /// Always rounds up for positive numbers, down for negative numbers.
+    /// Always rounds up to the nearest integer.
     ///
     /// # Examples
     /// - 2.1 → 3
