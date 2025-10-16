@@ -9,8 +9,11 @@ mod constructors;
 mod conversions;
 mod currency_conversion;
 mod display;
+mod parsing;
 mod precision;
 mod rounding;
+#[cfg(feature = "serde_support")]
+mod serialization;
 mod type_def;
 
 pub use type_def::Amount;
