@@ -45,7 +45,17 @@ impl<C: Currency> Amount<C> {
                 self.value
                     .round_dp_with_strategy(0, rust_decimal::RoundingStrategy::MidpointNearestEven)
             }
-            RoundingMode::Floor => self.value.trunc(),
+            RoundingMode::Up => {
+                // Round away from zero
+                self.value
+                    .round_dp_with_strategy(0, rust_decimal::RoundingStrategy::AwayFromZero)
+            }
+            RoundingMode::Down => self.value.trunc(),
+            RoundingMode::Floor => {
+                // Round towards negative infinity
+                self.value
+                    .round_dp_with_strategy(0, rust_decimal::RoundingStrategy::ToNegativeInfinity)
+            }
             RoundingMode::Ceiling => self.value.ceil(),
         };
 
