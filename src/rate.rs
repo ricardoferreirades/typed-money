@@ -3,7 +3,7 @@
 //! This module provides type-safe exchange rates that enable explicit,
 //! auditable currency conversions while preventing implicit conversions.
 
-use crate::Currency;
+use crate::{Currency, MoneyError, MoneyResult};
 use std::marker::PhantomData;
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
@@ -56,11 +56,58 @@ pub struct Rate<From: Currency, To: Currency> {
 }
 
 impl<From: Currency, To: Currency> Rate<From, To> {
+    /// Tries to create a new exchange rate from a floating-point value.
+    ///
+    /// Returns an error if the rate is zero, negative, NaN, or infinite.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use typed_money::{Rate, USD, EUR};
+    ///
+    /// let rate = Rate::<USD, EUR>::try_new(0.85)?;  // 1 USD = 0.85 EUR
+    /// assert!(rate.value() > &rust_decimal::Decimal::ZERO);
+    ///
+    /// // Invalid rates return an error
+    /// assert!(Rate::<USD, EUR>::try_new(0.0).is_err());
+    /// assert!(Rate::<USD, EUR>::try_new(-1.0).is_err());
+    /// # Ok::<(), typed_money::MoneyError>(())
+    /// ```
+    pub fn try_new(rate: f64) -> MoneyResult<Self> {
+        if !rate.is_finite() {
+            return Err(MoneyError::InvalidRate {
+                value: rate.to_string(),
+                reason: "Exchange rate must be a finite number".to_string(),
+            });
+        }
+
+        if rate <= 0.0 {
+            return Err(MoneyError::InvalidRate {
+                value: rate.to_string(),
+                reason: "Exchange rate must be positive and non-zero".to_string(),
+            });
+        }
+
+        let decimal_rate = Decimal::try_from(rate).map_err(|_| MoneyError::InvalidRate {
+            value: rate.to_string(),
+            reason: "Failed to convert rate to Decimal".to_string(),
+        })?;
+
+        Ok(Self {
+            rate: decimal_rate,
+            metadata_timestamp_unix_secs: None,
+            metadata_source: None,
+            _from: PhantomData,
+            _to: PhantomData,
+        })
+    }
+
     /// Creates a new exchange rate from a floating-point value.
     ///
     /// # Panics
     ///
     /// Panics if the rate is zero, negative, NaN, or infinite.
+    /// For a non-panicking version, use [`try_new`](Self::try_new).
     ///
     /// # Examples
     ///
@@ -78,27 +125,50 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     /// let rate = Rate::<USD, EUR>::new(0.0);  // Panics: rate must be positive
     /// ```
     pub fn new(rate: f64) -> Self {
-        assert!(rate.is_finite(), "Exchange rate must be a finite number");
-        assert!(rate > 0.0, "Exchange rate must be positive and non-zero");
+        Self::try_new(rate).expect("Invalid exchange rate")
+    }
 
-        let decimal_rate = Decimal::try_from(rate).expect("Failed to convert rate to Decimal");
+    /// Tries to create a new exchange rate from a `Decimal` value.
+    ///
+    /// This is useful when you already have a precise decimal rate.
+    /// Returns an error if the rate is zero or negative.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use typed_money::{Rate, USD, EUR};
+    /// use rust_decimal::Decimal;
+    ///
+    /// let decimal_rate = Decimal::new(85, 2);  // 0.85
+    /// let rate = Rate::<USD, EUR>::try_from_decimal(decimal_rate)?;
+    ///
+    /// // Invalid rates return an error
+    /// assert!(Rate::<USD, EUR>::try_from_decimal(Decimal::ZERO).is_err());
+    /// # Ok::<(), typed_money::MoneyError>(())
+    /// ```
+    pub fn try_from_decimal(rate: Decimal) -> MoneyResult<Self> {
+        if rate <= Decimal::ZERO {
+            return Err(MoneyError::InvalidRate {
+                value: rate.to_string(),
+                reason: "Exchange rate must be positive and non-zero".to_string(),
+            });
+        }
 
-        Self {
-            rate: decimal_rate,
+        Ok(Self {
+            rate,
             metadata_timestamp_unix_secs: None,
             metadata_source: None,
             _from: PhantomData,
             _to: PhantomData,
-        }
+        })
     }
 
     /// Creates a new exchange rate from a `Decimal` value.
     ///
-    /// This is useful when you already have a precise decimal rate.
-    ///
     /// # Panics
     ///
     /// Panics if the rate is zero or negative.
+    /// For a non-panicking version, use [`try_from_decimal`](Self::try_from_decimal).
     ///
     /// # Examples
     ///
@@ -110,18 +180,7 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     /// let rate = Rate::<USD, EUR>::from_decimal(decimal_rate);
     /// ```
     pub fn from_decimal(rate: Decimal) -> Self {
-        assert!(
-            rate > Decimal::ZERO,
-            "Exchange rate must be positive and non-zero"
-        );
-
-        Self {
-            rate,
-            metadata_timestamp_unix_secs: None,
-            metadata_source: None,
-            _from: PhantomData,
-            _to: PhantomData,
-        }
+        Self::try_from_decimal(rate).expect("Invalid exchange rate")
     }
 
     /// Returns the exchange rate value.
@@ -317,5 +376,86 @@ mod tests {
         let inverse = rate.inverse();
         assert_eq!(inverse.timestamp_unix_secs(), Some(1_700_000_000));
         assert_eq!(inverse.source(), Some("ECB"));
+    }
+
+    // ========================================================================
+    // Result-Based Error Handling Tests (Section 6.2)
+    // ========================================================================
+
+    #[test]
+    fn test_try_new_success() {
+        let result = Rate::<USD, EUR>::try_new(0.85);
+        assert!(result.is_ok());
+        assert!(result.unwrap().value() > &Decimal::ZERO);
+    }
+
+    #[test]
+    fn test_try_new_zero_error() {
+        let result = Rate::<USD, EUR>::try_new(0.0);
+        assert!(result.is_err());
+
+        if let Err(e) = result {
+            assert!(matches!(e, crate::MoneyError::InvalidRate { .. }));
+            assert!(e.to_string().contains("positive"));
+        }
+    }
+
+    #[test]
+    fn test_try_new_negative_error() {
+        let result = Rate::<USD, EUR>::try_new(-1.5);
+        assert!(result.is_err());
+
+        if let Err(e) = result {
+            assert!(e.to_string().contains("positive"));
+        }
+    }
+
+    #[test]
+    fn test_try_new_nan_error() {
+        let result = Rate::<USD, EUR>::try_new(f64::NAN);
+        assert!(result.is_err());
+
+        if let Err(e) = result {
+            assert!(e.to_string().contains("finite"));
+        }
+    }
+
+    #[test]
+    fn test_try_new_infinity_error() {
+        let result = Rate::<USD, EUR>::try_new(f64::INFINITY);
+        assert!(result.is_err());
+
+        if let Err(e) = result {
+            assert!(e.to_string().contains("finite"));
+        }
+    }
+
+    #[test]
+    fn test_try_from_decimal_success() {
+        let decimal_rate = Decimal::new(85, 2);
+        let result = Rate::<USD, EUR>::try_from_decimal(decimal_rate);
+        assert!(result.is_ok());
+        assert_eq!(result.unwrap().value(), &decimal_rate);
+    }
+
+    #[test]
+    fn test_try_from_decimal_zero_error() {
+        let result = Rate::<USD, EUR>::try_from_decimal(Decimal::ZERO);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_try_from_decimal_negative_error() {
+        let result = Rate::<USD, EUR>::try_from_decimal(Decimal::new(-85, 2));
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_error_suggestion() {
+        let result = Rate::<USD, EUR>::try_new(0.0);
+        if let Err(e) = result {
+            let suggestion = e.suggestion();
+            assert!(suggestion.contains("positive"));
+        }
     }
 }
