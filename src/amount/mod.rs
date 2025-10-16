@@ -9,6 +9,7 @@ mod constructors;
 mod conversions;
 mod currency_conversion;
 mod display;
+mod rounding;
 mod type_def;
 
 pub use type_def::Amount;
