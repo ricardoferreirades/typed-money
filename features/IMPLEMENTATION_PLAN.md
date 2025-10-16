@@ -93,13 +93,13 @@
   - [x] `HalfUp` - round half towards positive infinity
   - [x] `HalfDown` - round half towards zero
   - [x] `HalfEven` - banker's rounding (round to even)
-  - [ ] `Up` - round towards positive infinity
-  - [ ] `Down` - round towards zero
+  - [x] `Up` - round away from zero
+  - [x] `Down` - round towards zero
   - [x] `Ceiling` - round towards positive infinity
   - [x] `Floor` - round towards negative infinity
-- [ ] Implement `round(&self, mode: RoundingMode) -> Amount<C>`
+- [x] Implement `round(&self, mode: RoundingMode) -> Amount<C>`
 - [x] Ensure deterministic rounding across all platforms (NF3)
-- [ ] Apply rounding based on `Currency::DECIMALS`
+- [x] Apply rounding based on `Currency::DECIMALS`
 
 ### 4.2 Precision Control
 **Functional (F5, F6):** Explicit precision handling  
