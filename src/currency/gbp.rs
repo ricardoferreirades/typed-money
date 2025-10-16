@@ -12,7 +12,7 @@ use super::Currency;
 /// let amount = Amount::<GBP>::from_major(100);
 /// println!("{}", amount);  // Displays: £100.00 GBP
 /// ```
-#[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct GBP;
 
 impl Currency for GBP {
