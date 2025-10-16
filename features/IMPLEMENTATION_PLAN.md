@@ -119,7 +119,11 @@
 
 - [x] Implement `Display` trait with format: `"$12.34 USD"`
 - [x] Implement `Debug` trait for detailed output
-- [ ] Support custom formatting options
+- [x] Support custom formatting options
+  - [x] `format_full()` - symbol and code
+  - [x] `format_symbol()` - symbol only
+  - [x] `format_code()` - code only
+  - [x] `format_plain()` - numeric only
 - [ ] Handle locale-specific formatting (optional)
 - [x] Use intuitive method names (NF10)
 
@@ -127,26 +131,27 @@
 **Functional (F7):** FromStr implementation  
 **Non-Functional (NF9):** Security - reject ambiguous formats
 
-- [ ] Implement `FromStr` trait
-- [ ] Support multiple input formats:
-  - [ ] `"12.34"` - numeric only
-  - [ ] `"$12.34"` - with symbol
-  - [ ] `"12.34 USD"` - with currency code
-  - [ ] `"USD 12.34"` - alternative format
-- [ ] Reject ambiguous formats (NF9)
-- [ ] Handle whitespace and special characters safely
+- [x] Implement `FromStr` trait
+- [x] Support multiple input formats:
+  - [x] `"12.34"` - numeric only
+  - [x] `"$12.34"` - with symbol
+  - [x] `"12.34 USD"` - with currency code
+  - [x] `"USD 12.34"` - alternative format
+  - [x] `"$12.34 USD"` - with both symbol and code
+- [x] Reject ambiguous formats (NF9)
+- [x] Handle whitespace and special characters safely
 - [ ] Add fuzz testing for parser security (NF9)
 
 ### 5.3 Serialization Support
 **Functional (F7):** Serde integration  
 **Non-Functional (NF6):** Well-documented API
 
-- [ ] Add `serde` feature flag
-- [ ] Implement `Serialize` for `Amount<C>`
-- [ ] Implement `Deserialize` for `Amount<C>`
-- [ ] Support multiple serialization formats (JSON, string, struct)
-- [ ] Add comprehensive serialization documentation (NF6)
-- [ ] Add serialization tests (NF7)
+- [x] Add `serde` feature flag
+- [x] Implement `Serialize` for `Amount<C>`
+- [x] Implement `Deserialize` for `Amount<C>`
+- [x] Support multiple serialization formats (JSON, string, struct)
+- [x] Add comprehensive serialization documentation (NF6)
+- [x] Add serialization tests (NF7)
 
 ## 6. Error Handling (F9 + NF14)
 
@@ -273,14 +278,14 @@
 ### 8.5 Continuous Integration
 **Non-Functional (NF8):** CI enforcement
 
-- [ ] Configure `cargo fmt` in CI (fail on warnings)
-- [ ] Configure `cargo clippy` in CI (fail on warnings)
-- [ ] Configure `cargo test` in CI (all platforms)
-- [ ] Configure `cargo audit` in CI (security vulnerabilities)
-- [ ] Set up automated security scanning
-- [ ] Configure warnings to fail builds
+- [x] Configure `cargo fmt` in CI (fail on warnings)
+- [x] Configure `cargo clippy` in CI (fail on warnings)
+- [x] Configure `cargo test` in CI (all platforms)
+- [x] Configure `cargo audit` in CI (security vulnerabilities)
+- [x] Set up automated security scanning
+- [x] Configure warnings to fail builds
 - [ ] Add pre-commit hooks
-- [ ] Add CI matrix for all platforms (NF4)
+- [x] Add CI matrix for all platforms (NF4)
 
 ## 9. Documentation and API Quality (NF6 + NF10)
 
