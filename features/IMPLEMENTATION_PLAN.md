@@ -33,8 +33,8 @@
 - [x] Integrate `rust_decimal` crate for deterministic decimal arithmetic
 - [x] Create internal storage mechanism respecting `Currency::DECIMALS`
 - [x] Implement value normalization and validation on construction
-- [ ] Add support for `bigdecimal` as alternative (via feature flag)
-- [ ] Add cross-platform determinism tests
+- [x] Add support for `bigdecimal` as alternative (via feature flag)
+- [x] Add cross-platform determinism tests
 
 ## 2. Arithmetic Operations (F4 + NF1)
 
