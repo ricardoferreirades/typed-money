@@ -259,4 +259,57 @@ mod tests {
         let amount = Amount::<USD>::from_major(123); // $123.00
         assert_eq!(amount.to_minor(), 12300); // 12300 cents
     }
+
+    // Determinism tests
+    #[test]
+    fn test_large_numbers_determinism() {
+        // Test with large numbers to ensure no platform-specific overflow
+        let large = Amount::<USD>::from_minor(999_999_999_999_999);
+        assert_eq!(large.to_minor(), 999_999_999_999_999);
+
+        let large_major = large.to_major_floor();
+        assert_eq!(large_major, 9_999_999_999_999);
+    }
+
+    #[test]
+    fn test_negative_numbers_determinism() {
+        // Verify negative numbers work consistently
+        let neg = Amount::<USD>::from_major(-100);
+        assert_eq!(neg.value().to_string(), "-100");
+        assert_eq!(neg.to_major_floor(), -100);
+        assert_eq!(neg.to_minor(), -10000);
+    }
+
+    #[test]
+    fn test_rounding_determinism() {
+        // Verify rounding produces consistent results
+        let amount = Amount::<USD>::from_minor(12350); // $123.50
+
+        // These should always produce the same results on all platforms
+        assert_eq!(amount.to_major_rounded(RoundingMode::HalfUp), 124);
+        assert_eq!(amount.to_major_rounded(RoundingMode::HalfDown), 123);
+        assert_eq!(amount.to_major_rounded(RoundingMode::HalfEven), 124);
+        assert_eq!(amount.to_major_rounded(RoundingMode::Floor), 123);
+        assert_eq!(amount.to_major_rounded(RoundingMode::Ceiling), 124);
+    }
+
+    #[test]
+    fn test_conversion_round_trip_determinism() {
+        // Verify major -> minor -> major round trip
+        let original = Amount::<USD>::from_major(123);
+        let minor = original.to_minor();
+        let back_to_major = Amount::<USD>::from_minor(minor);
+
+        assert_eq!(original, back_to_major);
+    }
+
+    #[test]
+    fn test_decimal_string_representation_determinism() {
+        // Verify consistent string representation across platforms
+        let amount = Amount::<USD>::from_minor(12345);
+        let str_repr = amount.value().to_string();
+
+        // Decimal should always produce the same string
+        assert_eq!(str_repr, "123.45");
+    }
 }
