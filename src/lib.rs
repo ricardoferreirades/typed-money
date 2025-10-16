@@ -26,6 +26,13 @@
 #![warn(missing_docs)]
 #![warn(clippy::all)]
 
+// Ensure exactly one decimal backend is enabled
+#[cfg(not(any(feature = "use_rust_decimal", feature = "use_bigdecimal")))]
+compile_error!("Either 'use_rust_decimal' or 'use_bigdecimal' feature must be enabled");
+
+#[cfg(all(feature = "use_rust_decimal", feature = "use_bigdecimal"))]
+compile_error!("Only one decimal backend can be enabled at a time");
+
 mod amount;
 mod currency;
 mod rounding;
