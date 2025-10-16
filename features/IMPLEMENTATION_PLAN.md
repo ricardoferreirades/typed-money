@@ -66,13 +66,13 @@
 **Non-Functional (NF1):** O(1) conversion performance  
 **Non-Functional (NF9):** Security - no network dependencies
 
-- [ ] Define `Rate<From: Currency, To: Currency>` struct
-- [ ] Make rates immutable after construction (F8)
-- [ ] Implement explicit conversion method: `convert<To>(&self, rate: &Rate<C, To>) -> Amount<To>`
-- [ ] Ensure O(1) conversion time (NF1)
-- [ ] Prohibit network dependencies for exchange rates (NF9)
-- [ ] Add rate validation (must be positive, non-zero)
-- [ ] Support rate metadata (timestamp, source) for auditability
+- [x] Define `Rate<From: Currency, To: Currency>` struct
+- [x] Make rates immutable after construction (F8)
+- [x] Implement explicit conversion method: `convert<To>(&self, rate: &Rate<C, To>) -> Amount<To>`
+- [x] Ensure O(1) conversion time (NF1)
+- [x] Prohibit network dependencies for exchange rates (NF9)
+- [x] Add rate validation (must be positive, non-zero)
+- [x] Support rate metadata (timestamp, source) for auditability
 
 ### 3.2 Conversion Safety
 **Functional (F3, F8):** Explicit, auditable conversions  
