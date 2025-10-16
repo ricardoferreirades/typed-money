@@ -46,4 +46,20 @@ mod tests {
         let amount = Amount::<BTC>::from_major(1);
         assert_eq!(format!("{}", amount), "₿1.00000000 BTC");
     }
+
+    // Determinism tests
+    #[test]
+    fn test_display_formatting_determinism() {
+        use crate::JPY;
+        // Verify Display output is consistent across platforms
+        let usd = Amount::<USD>::from_major(100);
+        let eur = Amount::<EUR>::from_minor(12345);
+        let jpy = Amount::<JPY>::from_major(1000);
+        let btc = Amount::<BTC>::from_major(1);
+
+        assert_eq!(format!("{}", usd), "$100.00 USD");
+        assert_eq!(format!("{}", eur), "€123.45 EUR");
+        assert_eq!(format!("{}", jpy), "¥1000 JPY");
+        assert_eq!(format!("{}", btc), "₿1.00000000 BTC");
+    }
 }
