@@ -78,10 +78,10 @@
 **Functional (F3, F8):** Explicit, auditable conversions  
 **Non-Functional (NF9):** Security validation
 
-- [ ] Prevent implicit conversions at compile time
-- [ ] Require explicit `Rate` instance for all conversions
-- [ ] Validate all rate values (NF9)
-- [ ] Add conversion tracking/logging capability (optional feature)
+- [x] Prevent implicit conversions at compile time
+- [x] Require explicit `Rate` instance for all conversions
+- [x] Validate all rate values (NF9)
+- [x] Add conversion tracking/logging capability (optional feature)
 
 ## 4. Precision and Rounding (F6 + NF3)
 
