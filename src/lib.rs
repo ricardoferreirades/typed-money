@@ -35,8 +35,10 @@ compile_error!("Only one decimal backend can be enabled at a time");
 
 mod amount;
 mod currency;
+mod rate;
 mod rounding;
 
 pub use amount::Amount;
 pub use currency::{Currency, BTC, ETH, EUR, GBP, JPY, USD};
+pub use rate::Rate;
 pub use rounding::RoundingMode;
