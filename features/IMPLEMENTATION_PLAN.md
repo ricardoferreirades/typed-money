@@ -53,8 +53,8 @@
 **Functional (F4):** Support comparisons  
 **Non-Functional (NF1):** O(1) performance guarantees
 
-- [ ] Implement `PartialEq` for `Amount<C>` with O(1) guarantee
-- [ ] Implement `Eq` for `Amount<C>` with O(1) guarantee
+- [x] Implement `PartialEq` for `Amount<C>` with O(1) guarantee
+- [x] Implement `Eq` for `Amount<C>` with O(1) guarantee
 - [ ] Implement `PartialOrd` for `Amount<C>` with O(1) guarantee
 - [ ] Implement `Ord` for `Amount<C>` with O(1) guarantee
 - [ ] Add unit tests for edge cases (zero, negative values) (NF7)
@@ -89,16 +89,16 @@
 **Functional (F6):** Configurable rounding modes  
 **Non-Functional (NF3):** Deterministic results
 
-- [ ] Define `RoundingMode` enum:
-  - [ ] `HalfUp` - round half towards positive infinity
-  - [ ] `HalfDown` - round half towards zero
-  - [ ] `HalfEven` - banker's rounding (round to even)
+- [x] Define `RoundingMode` enum:
+  - [x] `HalfUp` - round half towards positive infinity
+  - [x] `HalfDown` - round half towards zero
+  - [x] `HalfEven` - banker's rounding (round to even)
   - [ ] `Up` - round towards positive infinity
   - [ ] `Down` - round towards zero
-  - [ ] `Ceiling` - round towards positive infinity
-  - [ ] `Floor` - round towards negative infinity
+  - [x] `Ceiling` - round towards positive infinity
+  - [x] `Floor` - round towards negative infinity
 - [ ] Implement `round(&self, mode: RoundingMode) -> Amount<C>`
-- [ ] Ensure deterministic rounding across all platforms (NF3)
+- [x] Ensure deterministic rounding across all platforms (NF3)
 - [ ] Apply rounding based on `Currency::DECIMALS`
 
 ### 4.2 Precision Control
@@ -117,11 +117,11 @@
 **Functional (F7):** Formatted display strings  
 **Non-Functional (NF10):** Intuitive, usable API
 
-- [ ] Implement `Display` trait with format: `"$12.34 USD"`
-- [ ] Implement `Debug` trait for detailed output
+- [x] Implement `Display` trait with format: `"$12.34 USD"`
+- [x] Implement `Debug` trait for detailed output
 - [ ] Support custom formatting options
 - [ ] Handle locale-specific formatting (optional)
-- [ ] Use intuitive method names (NF10)
+- [x] Use intuitive method names (NF10)
 
 ### 5.2 String Parsing
 **Functional (F7):** FromStr implementation  
@@ -295,12 +295,12 @@
 ### 9.2 API Usability
 **Non-Functional (NF10):** Intuitive naming and helpful errors
 
-- [ ] Implement intuitive method names:
-  - [ ] `from_major()` - create from major units (e.g., dollars)
-  - [ ] `from_minor()` - create from minor units (e.g., cents)
+- [x] Implement intuitive method names:
+  - [x] `from_major()` - create from major units (e.g., dollars)
+  - [x] `from_minor()` - create from minor units (e.g., cents)
   - [ ] `convert()` - explicit currency conversion
-  - [ ] `to_string()` - formatted string output
-- [ ] Design compiler errors to be explicit and helpful
+  - [x] `to_string()` - formatted string output (via Display)
+- [x] Design compiler errors to be explicit and helpful
 - [ ] Add type aliases for common operations
 - [ ] Document API design patterns
 
