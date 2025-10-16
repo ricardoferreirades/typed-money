@@ -259,6 +259,7 @@ impl<From: Currency, To: Currency> Rate<From, To> {
 }
 
 #[cfg(test)]
+#[cfg(not(all(feature = "use_rust_decimal", feature = "use_bigdecimal")))]
 mod tests {
     use super::*;
     use crate::{EUR, GBP, USD};

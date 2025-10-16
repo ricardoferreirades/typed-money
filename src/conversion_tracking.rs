@@ -104,14 +104,15 @@ impl ConversionTracker for NoOpTracker {
 }
 
 #[cfg(test)]
+#[cfg(not(all(feature = "use_rust_decimal", feature = "use_bigdecimal")))]
 mod tests {
     use super::*;
     use crate::{EUR, USD};
 
-    #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
+    #[cfg(feature = "use_rust_decimal")]
     use rust_decimal::Decimal;
 
-    #[cfg(all(feature = "use_bigdecimal", not(feature = "use_rust_decimal")))]
+    #[cfg(feature = "use_bigdecimal")]
     use bigdecimal::BigDecimal as Decimal;
 
     #[test]
