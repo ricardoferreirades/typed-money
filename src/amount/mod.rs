@@ -9,6 +9,7 @@ mod constructors;
 mod conversions;
 mod currency_conversion;
 mod display;
+mod precision;
 mod rounding;
 mod type_def;
 
