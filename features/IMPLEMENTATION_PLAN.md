@@ -154,27 +154,30 @@
 **Functional (F9):** Comprehensive error handling  
 **Non-Functional (NF14):** Error transparency and usability
 
-- [ ] Define `MoneyError` enum with variants:
-  - [ ] `CurrencyMismatch` - attempted cross-currency operation
-  - [ ] `ConversionRateMissing` - no rate available for conversion
-  - [ ] `PrecisionError` - precision loss detected
-  - [ ] `InvalidAmount` - invalid value (NaN, Infinity)
-  - [ ] `ParseError` - string parsing failure
-  - [ ] `RoundingError` - rounding operation failed
-- [ ] Implement `std::error::Error` trait (NF14)
-- [ ] Provide human-readable error messages (NF14)
-- [ ] Include context in errors (currency codes, values) (NF14)
-- [ ] Add error recovery suggestions (NF14)
+- [x] Define `MoneyError` enum with variants:
+  - [x] `CurrencyMismatch` - attempted cross-currency operation
+  - [x] `ConversionRateMissing` - no rate available for conversion
+  - [x] `PrecisionError` - precision loss detected
+  - [x] `InvalidAmount` - invalid value (NaN, Infinity)
+  - [x] `ParseError` - string parsing failure
+  - [x] `RoundingError` - rounding operation failed
+  - [x] `InvalidRate` - invalid exchange rate value
+  - [x] `Overflow` - arithmetic overflow
+  - [x] `Underflow` - arithmetic underflow
+- [x] Implement `std::error::Error` trait (NF14)
+- [x] Provide human-readable error messages (NF14)
+- [x] Include context in errors (currency codes, values) (NF14)
+- [x] Add error recovery suggestions (NF14)
 
 ### 6.2 Result Types
 **Functional (F9):** Result-based error handling  
 **Non-Functional (NF10):** Intuitive API
 
-- [ ] Use `Result<T, MoneyError>` for all fallible operations
-- [ ] Define type alias: `type MoneyResult<T> = Result<T, MoneyError>`
-- [ ] Document error conditions in all public APIs (NF6)
-- [ ] Add error recovery examples (NF6)
-- [ ] Design helpful compiler errors (NF10)
+- [x] Use `Result<T, MoneyError>` for all fallible operations
+- [x] Define type alias: `type MoneyResult<T> = Result<T, MoneyError>`
+- [x] Document error conditions in all public APIs (NF6)
+- [x] Add error recovery examples (NF6)
+- [x] Design helpful compiler errors (NF10)
 
 ## 7. Advanced Features
 
