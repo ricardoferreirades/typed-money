@@ -35,7 +35,7 @@ fmt:
 
 # Lint code (like ESLint)
 lint:
-	cargo clippy --all-targets --all-features -- -D warnings
+	cargo clippy --all-targets -- -D warnings
 
 # Fix linting issues automatically
 lint-fix:

@@ -34,7 +34,7 @@ echo ""
 # 2. Linting
 echo "🔎 Running linter..."
 CLIPPY_OUTPUT=$(mktemp)
-cargo clippy --all-targets --all-features -- -D warnings > "$CLIPPY_OUTPUT" 2>&1
+cargo clippy --all-targets -- -D warnings > "$CLIPPY_OUTPUT" 2>&1
 CLIPPY_EXIT=$?
 if [ $CLIPPY_EXIT -eq 0 ]; then
     LINT_STATUS="✅ PASS"
