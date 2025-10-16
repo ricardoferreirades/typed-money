@@ -55,9 +55,9 @@
 
 - [x] Implement `PartialEq` for `Amount<C>` with O(1) guarantee
 - [x] Implement `Eq` for `Amount<C>` with O(1) guarantee
-- [ ] Implement `PartialOrd` for `Amount<C>` with O(1) guarantee
-- [ ] Implement `Ord` for `Amount<C>` with O(1) guarantee
-- [ ] Add unit tests for edge cases (zero, negative values) (NF7)
+- [x] Implement `PartialOrd` for `Amount<C>` with O(1) guarantee
+- [x] Implement `Ord` for `Amount<C>` with O(1) guarantee
+- [x] Add unit tests for edge cases (zero, negative values) (NF7)
 
 ## 3. Currency Conversion (F3, F8 + NF1 + NF9)
 
