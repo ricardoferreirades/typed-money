@@ -105,11 +105,11 @@
 **Functional (F5, F6):** Explicit precision handling  
 **Non-Functional (NF3):** Deterministic precision
 
-- [ ] Respect currency-specific decimal places
-- [ ] Implement precision preservation in arithmetic
-- [ ] Handle precision loss detection
-- [ ] Add configurable precision overflow behavior
-- [ ] Test determinism across platforms (NF3)
+- [x] Respect currency-specific decimal places
+- [x] Implement precision preservation in arithmetic
+- [x] Handle precision loss detection
+- [x] Add configurable precision overflow behavior
+- [x] Test determinism across platforms (NF3)
 
 ## 5. Serialization and Display (F7 + NF6 + NF10)
 
