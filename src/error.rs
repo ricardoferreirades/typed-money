@@ -1,7 +1,70 @@
 //! Error types for monetary operations.
 //!
 //! This module provides comprehensive error handling for all fallible operations
-//! in the typed-money library.
+//! in the typed-money library. All errors include rich context for debugging
+//! and recovery suggestions.
+//!
+//! # Error Types
+//!
+//! The main error type is [`MoneyError`], which covers:
+//! - Currency mismatches
+//! - Precision errors
+//! - Invalid rates
+//! - Arithmetic overflow
+//! - Parsing errors
+//! - Rounding errors
+//! - Serialization errors
+//!
+//! # Examples
+//!
+//! ## Handling Parse Errors
+//!
+//! ```
+//! use typed_money::{Amount, USD, MoneyError};
+//! use std::str::FromStr;
+//!
+//! match Amount::<USD>::from_str("invalid") {
+//!     Ok(amount) => println!("Parsed: {}", amount),
+//!     Err(MoneyError::ParseError { input, .. }) => {
+//!         println!("Failed to parse: {}", input);
+//!     }
+//!     Err(e) => println!("Other error: {}", e),
+//! }
+//! ```
+//!
+//! ## Checking Precision
+//!
+//! ```
+//! use typed_money::{Amount, USD, MoneyError};
+//!
+//! let amount = Amount::<USD>::from_major(10) / 3;  // Creates excess precision
+//!
+//! match amount.check_precision() {
+//!     Ok(_) => println!("Precision OK"),
+//!     Err(MoneyError::PrecisionError { expected, actual, suggestion, .. }) => {
+//!         println!("Expected {} decimals, got {}. {}", expected, actual, suggestion);
+//!         // Can recover by normalizing
+//!         let fixed = amount.normalize();
+//!         assert!(fixed.check_precision().is_ok());
+//!     }
+//!     Err(e) => println!("Other error: {}", e),
+//! }
+//! ```
+//!
+//! ## Creating Invalid Rates
+//!
+//! ```
+//! use typed_money::{Rate, USD, EUR, MoneyError};
+//!
+//! // Rates must be positive
+//! match Rate::<USD, EUR>::try_new(-1.0) {
+//!     Ok(_) => unreachable!(),
+//!     Err(MoneyError::InvalidRate { reason, .. }) => {
+//!         assert!(reason.contains("positive"));
+//!     }
+//!     Err(e) => panic!("Unexpected error: {}", e),
+//! }
+//! ```
 
 use std::fmt;
 
