@@ -8,19 +8,61 @@
 //! - **Zero-cost abstractions** - O(1) operations, no runtime overhead
 //! - **100% Safe Rust** - No unsafe code
 //! - **Deterministic** - Uses `rust_decimal` for precise arithmetic
+//! - **Comprehensive** - Full arithmetic, conversions, rounding, and formatting
+//! - **Flexible** - Optional serde support and conversion tracking
 //!
-//! ## Example
+//! ## Quick Start
 //!
 //! ```
-//! use typed_money::{Amount, USD};
+//! use typed_money::{Amount, USD, EUR, Rate, RoundingMode};
 //!
+//! // Create amounts
 //! let price = Amount::<USD>::from_major(100);  // $100.00
-//! println!("{}", price);  // Displays: $100.00 USD
+//! let tax = Amount::<USD>::from_minor(850);     // $8.50
 //!
-//! // Type-safe: different currencies can't be mixed
-//! let eur_price = typed_money::Amount::<typed_money::EUR>::from_major(85);
-//! // This won't compile: price + eur_price  // Error: type mismatch!
+//! // Arithmetic operations
+//! let total = price + tax;  // $108.50
+//! assert_eq!(total.to_minor(), 10850);
+//!
+//! // Currency conversion
+//! let rate = Rate::<USD, EUR>::new(0.85);
+//! let eur_price = price.convert(&rate);  // €85.00
+//!
+//! // Rounding
+//! let divided = Amount::<USD>::from_major(10) / 3;  // $3.333...
+//! let rounded = divided.round(RoundingMode::HalfUp);  // $3.33
 //! ```
+//!
+//! ## Type Safety
+//!
+//! The library prevents currency mixing at compile time:
+//!
+//! ```compile_fail
+//! use typed_money::{Amount, USD, EUR};
+//!
+//! let usd = Amount::<USD>::from_major(100);
+//! let eur = Amount::<EUR>::from_major(85);
+//!
+//! // This won't compile - type mismatch!
+//! let invalid = usd + eur;
+//! ```
+//!
+//! ## Supported Currencies
+//!
+//! Built-in currencies include:
+//! - **USD** - United States Dollar (2 decimals)
+//! - **EUR** - Euro (2 decimals)
+//! - **GBP** - British Pound Sterling (2 decimals)
+//! - **JPY** - Japanese Yen (0 decimals)
+//! - **BTC** - Bitcoin (8 decimals)
+//! - **ETH** - Ethereum (18 decimals)
+//!
+//! ## Feature Flags
+//!
+//! - `use_rust_decimal` (default) - Use rust_decimal backend
+//! - `use_bigdecimal` - Use bigdecimal backend (alternative)
+//! - `serde_support` - Enable serde serialization
+//! - `conversion_tracking` - Enable conversion tracking/logging
 
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
