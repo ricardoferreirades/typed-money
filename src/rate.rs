@@ -2,6 +2,70 @@
 //!
 //! This module provides type-safe exchange rates that enable explicit,
 //! auditable currency conversions while preventing implicit conversions.
+//!
+//! # Overview
+//!
+//! Exchange rates are represented by the [`Rate<From, To>`](Rate) type, which
+//! uses compile-time type parameters to ensure conversions only happen between
+//! the correct currency pairs.
+//!
+//! # Examples
+//!
+//! ## Basic Conversion
+//!
+//! ```
+//! use typed_money::{Amount, Rate, USD, EUR};
+//!
+//! let usd_amount = Amount::<USD>::from_major(100);
+//! let rate = Rate::<USD, EUR>::new(0.85);
+//! let eur_amount = usd_amount.convert(&rate);
+//!
+//! assert_eq!(eur_amount.to_major_floor(), 85);
+//! ```
+//!
+//! ## Inverse Rates
+//!
+//! ```
+//! use typed_money::{Rate, USD, EUR};
+//!
+//! let usd_to_eur = Rate::<USD, EUR>::new(0.85);
+//! let eur_to_usd = usd_to_eur.inverse();  // Automatically calculates 1/0.85
+//!
+//! // Verify the inverse relationship
+//! // Converting forward and back should give approximately the original amount
+//! assert!(eur_to_usd.value() > usd_to_eur.value());  // Inverse is larger
+//! ```
+//!
+//! ## Rate Metadata
+//!
+//! ```
+//! use typed_money::{Rate, USD, EUR};
+//!
+//! let rate = Rate::<USD, EUR>::new(0.85)
+//!     .with_timestamp_unix_secs(1700000000)
+//!     .with_source("ECB");
+//!
+//! assert_eq!(rate.timestamp_unix_secs(), Some(1700000000));
+//! assert_eq!(rate.source(), Some("ECB"));
+//! ```
+//!
+//! ## Error Handling
+//!
+//! ```
+//! use typed_money::{Rate, USD, EUR, MoneyError};
+//!
+//! // Rates must be positive
+//! let result = Rate::<USD, EUR>::try_new(-1.0);
+//! assert!(matches!(result, Err(MoneyError::InvalidRate { .. })));
+//!
+//! // Rates cannot be zero
+//! let result = Rate::<USD, EUR>::try_new(0.0);
+//! assert!(matches!(result, Err(MoneyError::InvalidRate { .. })));
+//!
+//! // NaN and infinity are rejected
+//! let result = Rate::<USD, EUR>::try_new(f64::NAN);
+//! assert!(matches!(result, Err(MoneyError::InvalidRate { .. })));
+//! ```
 
 use crate::{Currency, MoneyError, MoneyResult};
 use std::marker::PhantomData;
