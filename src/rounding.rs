@@ -1,4 +1,58 @@
 //! Rounding modes for monetary calculations.
+//!
+//! This module provides various rounding strategies for handling decimal precision
+//! in monetary amounts. Different rounding modes are appropriate for different
+//! use cases and regulatory requirements.
+//!
+//! # Choosing a Rounding Mode
+//!
+//! - **HalfEven** (Banker's Rounding) - Recommended for most financial applications
+//!   as it minimizes cumulative rounding errors
+//! - **HalfUp** - Common in retail and consumer applications
+//! - **Floor/Ceiling** - Useful for conservative estimates (always round down/up)
+//! - **Down** (Truncate) - Fast but can accumulate errors
+//! - **Up** - Conservative rounding away from zero
+//!
+//! # Examples
+//!
+//! ```
+//! use typed_money::{Amount, USD, RoundingMode};
+//!
+//! let amount = Amount::<USD>::from_major(10) / 3;  // $3.333...
+//!
+//! // Different rounding modes produce different results
+//! assert_eq!(amount.round(RoundingMode::HalfUp).to_minor(), 333);
+//! assert_eq!(amount.round(RoundingMode::HalfDown).to_minor(), 333);
+//! assert_eq!(amount.round(RoundingMode::Floor).to_minor(), 333);
+//! assert_eq!(amount.round(RoundingMode::Ceiling).to_minor(), 334);
+//! ```
+//!
+//! # Edge Cases
+//!
+//! ## Negative Numbers
+//!
+//! ```
+//! use typed_money::{Amount, USD, RoundingMode};
+//!
+//! let negative = Amount::<USD>::from_major(-10) / 3;  // -$3.333...
+//!
+//! // Floor and Ceiling behave differently with negatives
+//! assert_eq!(negative.round(RoundingMode::Floor).to_minor(), -334);   // More negative
+//! assert_eq!(negative.round(RoundingMode::Ceiling).to_minor(), -333); // Less negative
+//! ```
+//!
+//! ## Zero-Decimal Currencies
+//!
+//! ```
+//! use typed_money::{Amount, JPY, RoundingMode};
+//!
+//! // JPY has no decimal places
+//! let yen = Amount::<JPY>::from_minor(1000);
+//! let divided = yen / 3;  // 333.333...
+//!
+//! // Rounding respects currency precision
+//! assert_eq!(divided.round(RoundingMode::HalfUp).to_minor(), 333);
+//! ```
 
 /// Rounding modes for decimal operations.
 ///
