@@ -1,4 +1,4 @@
-.PHONY: fmt lint lint-fix check spell spell-fix quality setup-hooks test run build clean install-deps setup
+.PHONY: fmt lint lint-fix check spell spell-fix quality setup-hooks test run build clean install-deps setup doc doc-open
 
 # Install all development dependencies
 install-deps:
@@ -19,6 +19,8 @@ setup: install-deps setup-hooks
 	@echo "  make test      - Run tests"
 	@echo "  make quality   - Run all quality checks"
 	@echo "  make fmt       - Format code"
+	@echo "  make doc       - Build documentation"
+	@echo "  make doc-open  - Build and open documentation"
 
 # Run the application
 run:
@@ -68,3 +70,10 @@ build:
 clean:
 	cargo clean
 
+# Build documentation
+doc:
+	cargo doc --no-deps
+
+# Build and open documentation in browser
+doc-open:
+	cargo doc --no-deps --open
