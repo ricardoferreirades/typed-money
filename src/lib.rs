@@ -1,8 +1,8 @@
-//! # Typed Money
+//! # Introduction
 //!
 //! A type-safe money library for Rust that prevents currency mixing bugs at compile time.
 //!
-//! ## Features
+//! # Features
 //!
 //! - **Type-safe** - Currency mixing prevented at compile time
 //! - **Zero-cost abstractions** - O(1) operations, no runtime overhead
@@ -11,7 +11,7 @@
 //! - **Comprehensive** - Full arithmetic, conversions, rounding, and formatting
 //! - **Flexible** - Optional serde support and conversion tracking
 //!
-//! ## Quick Start
+//! # Quick Start
 //!
 //! ```
 //! use typed_money::{Amount, USD, EUR, Rate, RoundingMode};
@@ -33,7 +33,7 @@
 //! let rounded = divided.round(RoundingMode::HalfUp);  // $3.33
 //! ```
 //!
-//! ## Type Safety
+//! # Type Safety
 //!
 //! The library prevents currency mixing at compile time:
 //!
@@ -47,7 +47,7 @@
 //! let invalid = usd + eur;
 //! ```
 //!
-//! ## Supported Currencies
+//! # Supported Currencies
 //!
 //! Built-in currencies include:
 //! - **USD** - United States Dollar (2 decimals)
@@ -57,12 +57,89 @@
 //! - **BTC** - Bitcoin (8 decimals)
 //! - **ETH** - Ethereum (18 decimals)
 //!
-//! ## Feature Flags
+//! # Feature Flags
 //!
 //! - `use_rust_decimal` (default) - Use rust_decimal backend
 //! - `use_bigdecimal` - Use bigdecimal backend (alternative)
 //! - `serde_support` - Enable serde serialization
 //! - `conversion_tracking` - Enable conversion tracking/logging
+//!
+//! # Examples
+//!
+//! The library includes comprehensive examples demonstrating various use cases.
+//! Run any example with `cargo run --example <name>`:
+//!
+//! ### [`basic_usage`](https://github.com/ricardoferreirades/typed-money/blob/main/examples/basic_usage.rs)
+//! Fundamental operations including:
+//! - Creating amounts from major/minor units
+//! - Arithmetic operations (add, subtract, multiply, divide)
+//! - Comparisons between amounts
+//! - Working with different currencies
+//! - Real-world shopping cart example
+//!
+//! ```bash
+//! cargo run --example basic_usage
+//! ```
+//!
+//! ### [`conversions`](https://github.com/ricardoferreirades/typed-money/blob/main/examples/conversions.rs)
+//! Currency conversion examples:
+//! - Basic conversion with exchange rates
+//! - Inverse rates
+//! - Chained conversions (USD → EUR → GBP)
+//! - Rate metadata for auditability
+//! - International payment processing
+//!
+//! ```bash
+//! cargo run --example conversions
+//! ```
+//!
+//! ### [`rounding`](https://github.com/ricardoferreirades/typed-money/blob/main/examples/rounding.rs)
+//! Demonstrates all 7 rounding modes:
+//! - HalfUp, HalfDown, HalfEven (Banker's)
+//! - Up, Down, Floor, Ceiling
+//! - Edge cases with negative numbers
+//! - Tax and interest calculations
+//! - When to use each mode
+//!
+//! ```bash
+//! cargo run --example rounding
+//! ```
+//!
+//! ### [`custom_currency`](https://github.com/ricardoferreirades/typed-money/blob/main/examples/custom_currency.rs)
+//! Defining custom currencies:
+//! - Custom fiat currencies (CAD, CHF, AUD)
+//! - Cryptocurrencies (DOGE)
+//! - Game currencies (GOLD, GEMS)
+//! - Loyalty points systems
+//! - Multi-currency wallets
+//!
+//! ```bash
+//! cargo run --example custom_currency
+//! ```
+//!
+//! ### [`error_handling`](https://github.com/ricardoferreirades/typed-money/blob/main/examples/error_handling.rs)
+//! Comprehensive error handling:
+//! - Parse errors with recovery
+//! - Precision errors and normalization
+//! - Invalid rate validation
+//! - Error propagation with `?`
+//! - User input validation
+//!
+//! ```bash
+//! cargo run --example error_handling
+//! ```
+//!
+//! ### [`serialization`](https://github.com/ricardoferreirades/typed-money/blob/main/examples/serialization.rs)
+//! Serde integration (requires `serde_support` feature):
+//! - JSON serialization/deserialization
+//! - Struct serialization with amounts
+//! - Collections and multi-currency data
+//! - API response handling
+//! - Persistence examples
+//!
+//! ```bash
+//! cargo run --example serialization --features serde_support
+//! ```
 
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
