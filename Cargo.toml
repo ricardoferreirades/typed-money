@@ -6,8 +6,17 @@ authors = ["Ricardo Ferreira <ricardoferreirades@example.com>"]
 license = "MIT OR Apache-2.0"
 description = "A type-safe money library for Rust that prevents currency mixing bugs at compile time"
 repository = "https://github.com/ricardoferreirades/typed-money"
+homepage = "https://github.com/ricardoferreirades/typed-money"
+documentation = "https://docs.rs/typed-money"
+readme = "README.md"
 keywords = ["money", "currency", "finance", "decimal", "type-safe"]
 categories = ["data-structures", "mathematics"]
+
+[package.metadata.docs.rs]
+all-features = false
+features = ["serde_support", "conversion_tracking"]
+rustdoc-args = ["--cfg", "docsrs", "--document-private-items"]
+cargo-args = ["--examples"]
 
 [lib]
 name = "typed_money"
