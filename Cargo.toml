@@ -2,7 +2,7 @@
 name = "typed-money"
 version = "0.1.0"
 edition = "2021"
-authors = ["Ricardo Ferreira <ricardoferreirades@example.com>"]
+authors = ["Ricardo Ferreira <ricardoferreirades@gmail.com>"]
 license = "MIT OR Apache-2.0"
 description = "A type-safe money library for Rust that prevents currency mixing bugs at compile time"
 repository = "https://github.com/ricardoferreirades/typed-money"
