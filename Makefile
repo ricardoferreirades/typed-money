@@ -77,3 +77,30 @@ doc:
 # Build and open documentation in browser
 doc-open:
 	cargo doc --no-deps --open
+
+# Run performance benchmarks
+bench:
+	cargo bench
+
+# Run specific benchmark suite
+bench-arithmetic:
+	cargo bench --bench arithmetic
+
+bench-conversions:
+	cargo bench --bench conversions
+
+bench-rounding:
+	cargo bench --bench rounding
+
+# Run benchmarks and generate HTML report
+bench-report:
+	cargo bench -- --save-baseline main
+
+# Open benchmark HTML report in browser
+bench-open:
+	@echo "Opening benchmark report..."
+	@if [ -f "target/criterion/report/index.html" ]; then \
+		open target/criterion/report/index.html; \
+	else \
+		echo "No benchmark report found. Run 'make bench-report' first."; \
+	fi
