@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2025-10-20
+
+### Added
+- Comprehensive README with professional presentation
+- Performance benchmarks with actual timing data
+- Complete usage examples for all features
+- Development workflow documentation
+- Feature comparison tables
+- Professional badges and status indicators
+
+### Documentation
+- Updated README with comprehensive examples
+- Added quick start guide
+- Documented all Makefile commands
+- Added performance comparison data
+- Included contributing guidelines and links
+
+## [0.1.0] - 2025-10-19
+
 ### Added
 - Initial release of typed-money library
 - Type-safe monetary representation with compile-time currency safety
@@ -56,6 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **0.1.1** - 2025-10-20 - Documentation improvements and comprehensive README
 - **0.1.0** - 2025-10-19 - Initial release with core functionality
 - **Unreleased** - Future features and improvements
 
