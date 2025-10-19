@@ -4,7 +4,7 @@ use typed_money::{Amount, USD};
 fn bench_amount_addition(c: &mut Criterion) {
     let amount1 = Amount::<USD>::from_major(100);
     let amount2 = Amount::<USD>::from_major(200);
-    
+
     c.bench_function("amount_addition", |b| {
         b.iter(|| black_box(amount1 + amount2))
     });
@@ -13,7 +13,7 @@ fn bench_amount_addition(c: &mut Criterion) {
 fn bench_amount_subtraction(c: &mut Criterion) {
     let amount1 = Amount::<USD>::from_major(300);
     let amount2 = Amount::<USD>::from_major(100);
-    
+
     c.bench_function("amount_subtraction", |b| {
         b.iter(|| black_box(amount1 - amount2))
     });
@@ -22,7 +22,7 @@ fn bench_amount_subtraction(c: &mut Criterion) {
 fn bench_scalar_multiplication(c: &mut Criterion) {
     let amount = Amount::<USD>::from_major(100);
     let multiplier = 2i64;
-    
+
     c.bench_function("scalar_multiplication", |b| {
         b.iter(|| black_box(amount * multiplier))
     });
@@ -31,7 +31,7 @@ fn bench_scalar_multiplication(c: &mut Criterion) {
 fn bench_scalar_division(c: &mut Criterion) {
     let amount = Amount::<USD>::from_major(200);
     let divisor = 2i64;
-    
+
     c.bench_function("scalar_division", |b| {
         b.iter(|| black_box(amount / divisor))
     });
@@ -40,7 +40,7 @@ fn bench_scalar_division(c: &mut Criterion) {
 fn bench_amount_equality(c: &mut Criterion) {
     let amount1 = Amount::<USD>::from_major(100);
     let amount2 = Amount::<USD>::from_major(100);
-    
+
     c.bench_function("amount_equality", |b| {
         b.iter(|| black_box(amount1 == amount2))
     });
@@ -49,7 +49,7 @@ fn bench_amount_equality(c: &mut Criterion) {
 fn bench_amount_ordering(c: &mut Criterion) {
     let amount1 = Amount::<USD>::from_major(100);
     let amount2 = Amount::<USD>::from_major(200);
-    
+
     c.bench_function("amount_ordering", |b| {
         b.iter(|| black_box(amount1 < amount2))
     });
@@ -69,7 +69,7 @@ fn bench_from_minor_constructor(c: &mut Criterion) {
 
 fn bench_to_major_conversion(c: &mut Criterion) {
     let amount = Amount::<USD>::from_major(100);
-    
+
     c.bench_function("to_major_floor", |b| {
         b.iter(|| black_box(amount.to_major_floor()))
     });
@@ -77,10 +77,8 @@ fn bench_to_major_conversion(c: &mut Criterion) {
 
 fn bench_to_minor_conversion(c: &mut Criterion) {
     let amount = Amount::<USD>::from_major(100);
-    
-    c.bench_function("to_minor", |b| {
-        b.iter(|| black_box(amount.to_minor()))
-    });
+
+    c.bench_function("to_minor", |b| b.iter(|| black_box(amount.to_minor())));
 }
 
 criterion_group!(
