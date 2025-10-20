@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Yearn Finance (YFI)
 ///
@@ -23,6 +23,22 @@ impl Currency for YFI {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "YFI";
     const SYMBOL: &'static str = "YFI";
+    
+    // Rich metadata
+    const NAME: &'static str = "Yearn Finance";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Cryptocurrency;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 2020;
+    const ISO_4217_NUMBER: u16 = 0; // Not an ISO currency
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]

@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// SushiSwap (SUSHI)
 ///
@@ -23,6 +23,22 @@ impl Currency for SUSHI {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "SUSHI";
     const SYMBOL: &'static str = "SUSHI";
+    
+    // Rich metadata
+    const NAME: &'static str = "SushiSwap";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Cryptocurrency;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 2020;
+    const ISO_4217_NUMBER: u16 = 0; // Not an ISO currency
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]
