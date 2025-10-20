@@ -7,11 +7,22 @@
 
 A **type-safe money library** for Rust that prevents currency mixing bugs at **compile time**. Zero runtime overhead, maximum safety.
 
+## 🎉 **v0.2.0 - Major Release!**
+
+**NEW FEATURES:**
+- 🌍 **69 currencies** with full internationalization support
+- 📊 **Rich metadata system** - Country, region, volatility, liquidity ratings
+- 💎 **Precious metals** - Gold, Silver, Platinum, Palladium, Diamond
+- 🏭 **Base metals** - Copper, Aluminum, Zinc, Nickel  
+- 🚀 **Expanded crypto** - Major cryptos, stablecoins, DeFi tokens
+- 🎨 **Locale formatting** - European, Asian, American, African styles
+- 📈 **Portfolio analysis** - Built-in trading insights and risk assessment
+
 ## 🚀 Quick Start
 
 ```toml
 [dependencies]
-typed-money = "0.1.0"
+typed-money = "0.2.0"
 ```
 
 ```rust
@@ -49,10 +60,16 @@ let total = usd_amount + Amount::<USD>::from_major(50); // $150.00
 - **7 rounding modes** - HalfUp, HalfDown, HalfEven, Up, Down, Ceiling, Floor
 - **Precision control** - Automatic handling of currency-specific decimal places
 
-### 🌍 **Built-in Currencies**
-- **Fiat currencies**: USD, EUR, GBP, JPY
-- **Cryptocurrencies**: BTC, ETH
-- **Extensible**: Easy to add custom currencies
+### 🌍 **Comprehensive Currency Support**
+- **69 currencies** with full internationalization support
+- **Major fiat**: USD, EUR, GBP, JPY, CHF, CAD, AUD, NZD
+- **Regional currencies**: Asian, European, American, African, Middle Eastern
+- **Cryptocurrencies**: BTC, ETH, LTC, BCH, XRP, ADA, DOT, LINK, UNI, AAVE
+- **Stablecoins**: USDT, USDC, DAI, BUSD
+- **DeFi tokens**: SUSHI, COMP, MKR, YFI
+- **Precious metals**: XAU (Gold), XAG (Silver), XPT (Platinum), XPD (Palladium), XDI (Diamond)
+- **Base metals**: XCU (Copper), XAL (Aluminum), XZN (Zinc), XNI (Nickel)
+- **Rich metadata**: Country, region, volatility, liquidity ratings, formatting rules
 
 ## 📚 Documentation
 
@@ -148,6 +165,67 @@ let json = serde_json::to_string(&amount)?; // "{\"value\":\"100.00\",\"currency
 let deserialized: Amount<USD> = serde_json::from_str(&json)?;
 ```
 
+### Internationalization & Metadata
+
+```rust
+use typed_money::{Amount, USD, EUR, BRL, CurrencyMetadata};
+
+// Access rich currency metadata
+let usd_amount = Amount::<USD>::from_major(1234);
+println!("Currency: {}", usd_amount.currency_name());     // "US Dollar"
+println!("Country: {}", usd_amount.currency_country());   // "United States"
+println!("Region: {}", usd_amount.currency_region());     // "North America"
+println!("Type: {}", usd_amount.currency_type());         // "Fiat"
+println!("Volatility: {}", usd_amount.volatility_rating()); // "Low"
+println!("Liquidity: {}", usd_amount.liquidity_rating());   // "High"
+
+// Locale-specific formatting
+let eur_amount = Amount::<EUR>::from_major(1234);
+println!("European format: {}", eur_amount); // "€1.234,00 EUR"
+
+let brl_amount = Amount::<BRL>::from_major(1234);
+println!("Brazilian format: {}", brl_amount); // "R$1.234,00 BRL"
+
+// Portfolio analysis
+let portfolio = vec![
+    ("USD", Amount::<USD>::from_major(10000)),
+    ("EUR", Amount::<EUR>::from_major(8500)),
+    ("BTC", Amount::<BTC>::from_major(1)),
+    ("XAU", Amount::<XAU>::from_major(10)),
+];
+
+for (name, amount) in &portfolio {
+    println!("{}: {} - Type: {}, Volatility: {}, Liquidity: {}", 
+        name, amount, 
+        amount.currency_type(),
+        amount.volatility_rating(),
+        amount.liquidity_rating()
+    );
+}
+```
+
+### Precious Metals & Commodities
+
+```rust
+use typed_money::{Amount, XAU, XAG, XPT, XPD, XDI};
+
+// Precious metals with 4 decimal precision
+let gold = Amount::<XAU>::from_major(1);        // Au1.0000 XAU
+let silver = Amount::<XAG>::from_major(100);    // Ag100.0000 XAG
+let platinum = Amount::<XPT>::from_major(1);    // Pt1.0000 XPT
+let palladium = Amount::<XPD>::from_major(1);   // Pd1.0000 XPD
+let diamond = Amount::<XDI>::from_major(1);     // Di1.0000 XDI
+
+// Base metals
+let copper = Amount::<XCU>::from_major(1000);   // Cu1000.0000 XCU
+let aluminum = Amount::<XAL>::from_major(1000); // Al1000.0000 XAL
+
+// Access commodity metadata
+println!("Gold region: {}", gold.currency_region());     // "Worldwide"
+println!("Gold type: {}", gold.currency_type());         // "Commodity"
+println!("Gold volatility: {}", gold.volatility_rating()); // "Medium"
+```
+
 ## 🏗️ Advanced Features
 
 ### Custom Currencies
@@ -171,7 +249,7 @@ let cad_amount = Amount::<CAD>::from_major(100); // C$100.00
 
 ```toml
 [dependencies]
-typed-money = { version = "0.1.0", features = ["serde_support", "conversion_tracking"] }
+typed-money = { version = "0.2.0", features = ["serde_support", "conversion_tracking"] }
 ```
 
 - **`serde_support`** - Enable JSON serialization
@@ -182,7 +260,7 @@ typed-money = { version = "0.1.0", features = ["serde_support", "conversion_trac
 
 ```toml
 [dependencies]
-typed-money = { version = "0.1.0", default-features = false }
+typed-money = { version = "0.2.0", default-features = false }
 ```
 
 ## 📊 Performance
@@ -218,7 +296,7 @@ make setup
 
 ```bash
 # Development
-make test         # Run all tests (210 unit + 67 doctests)
+make test         # Run all tests (437 unit + doctests)
 make bench        # Run performance benchmarks
 make bench-open   # Open benchmark HTML reports
 make doc          # Build documentation
@@ -254,6 +332,18 @@ cargo run --example serialization
 
 # Custom currencies
 cargo run --example custom_currency
+
+# NEW: Internationalization features
+cargo run --example internationalization
+
+# NEW: Currency metadata
+cargo run --example currency_metadata
+
+# NEW: Precious metals
+cargo run --example precious_metals
+
+# NEW: Global currencies
+cargo run --example global_currencies
 ```
 
 ## 🤝 Contributing
@@ -296,15 +386,20 @@ Dual-licensed under **MIT OR Apache-2.0**. See [LICENSE-MIT](LICENSE-MIT) for de
 | **Currency Mixing** | ✅ Impossible | ❌ Runtime errors |
 | **Precision** | ✅ Deterministic | ❌ Floating-point errors |
 | **Documentation** | ✅ Comprehensive | ❌ Often minimal |
-| **Testing** | ✅ 277 tests | ❌ Variable coverage |
+| **Testing** | ✅ 437 tests | ❌ Variable coverage |
 
 ## 📈 Roadmap
 
-- [ ] Additional currencies (CHF, AUD, CAD, etc.)
+- [x] **Additional currencies** - 69 currencies with full internationalization support
+- [x] **Currency formatting for different locales** - Complete i18n implementation
+- [x] **Rich metadata system** - Country, region, volatility, liquidity ratings
+- [x] **Precious metals support** - Gold, Silver, Platinum, Palladium, Diamond
+- [x] **Base metals support** - Copper, Aluminum, Zinc, Nickel
+- [x] **Cryptocurrency expansion** - Major cryptos, stablecoins, DeFi tokens
 - [ ] Historical exchange rates
-- [ ] Currency formatting for different locales
 - [ ] Integration with external rate providers
 - [ ] WebAssembly support
+- [ ] Real-time rate updates
 
 ## 🙏 Acknowledgments
 

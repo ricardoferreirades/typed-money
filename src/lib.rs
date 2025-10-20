@@ -10,6 +10,11 @@
 //! - **Deterministic** - Uses `rust_decimal` for precise arithmetic
 //! - **Comprehensive** - Full arithmetic, conversions, rounding, and formatting
 //! - **Flexible** - Optional serde support and conversion tracking
+//! - **Internationalization** - 69 currencies with locale-specific formatting
+//! - **Rich metadata** - Country, region, volatility, liquidity ratings
+//! - **Precious metals** - Gold, Silver, Platinum, Palladium, Diamond
+//! - **Base metals** - Copper, Aluminum, Zinc, Nickel
+//! - **Cryptocurrencies** - Major cryptos, stablecoins, DeFi tokens
 //!
 //! # Quick Start
 //!
@@ -45,6 +50,50 @@
 //! // Rounding
 //! let divided = Amount::<USD>::from_major(10) / 3;  // $3.333...
 //! let rounded = divided.round(RoundingMode::HalfUp);  // $3.33
+//! ```
+//!
+//! # Internationalization & Metadata
+//!
+//! ```
+//! use typed_money::{Amount, USD, EUR, BRL, CurrencyMetadata};
+//!
+//! // Access rich currency metadata
+//! let usd_amount = Amount::<USD>::from_major(1234);
+//! println!("Currency: {}", usd_amount.currency_name());     // "US Dollar"
+//! println!("Country: {}", usd_amount.currency_country());   // "United States"
+//! println!("Region: {}", usd_amount.currency_region());     // "North America"
+//! println!("Type: {}", usd_amount.currency_type());         // "Fiat"
+//! println!("Volatility: {}", usd_amount.volatility_rating()); // "Low"
+//! println!("Liquidity: {}", usd_amount.liquidity_rating());   // "High"
+//!
+//! // Locale-specific formatting
+//! let eur_amount = Amount::<EUR>::from_major(1234);
+//! println!("European format: {}", eur_amount); // "€1.234,00 EUR"
+//!
+//! let brl_amount = Amount::<BRL>::from_major(1234);
+//! println!("Brazilian format: {}", brl_amount); // "R$1.234,00 BRL"
+//! ```
+//!
+//! # Precious Metals & Commodities
+//!
+//! ```
+//! use typed_money::{Amount, XAU, XAG, XPT, XPD, XDI, XCU, XAL, CurrencyMetadata};
+//!
+//! // Precious metals with 4 decimal precision
+//! let gold = Amount::<XAU>::from_major(1);        // Au1.0000 XAU
+//! let silver = Amount::<XAG>::from_major(100);    // Ag100.0000 XAG
+//! let platinum = Amount::<XPT>::from_major(1);    // Pt1.0000 XPT
+//! let palladium = Amount::<XPD>::from_major(1);   // Pd1.0000 XPD
+//! let diamond = Amount::<XDI>::from_major(1);     // Di1.0000 XDI
+//!
+//! // Base metals
+//! let copper = Amount::<XCU>::from_major(1000);   // Cu1000.0000 XCU
+//! let aluminum = Amount::<XAL>::from_major(1000); // Al1000.0000 XAL
+//!
+//! // Access commodity metadata
+//! println!("Gold region: {}", gold.currency_region());     // "Worldwide"
+//! println!("Gold type: {}", gold.currency_type());         // "Commodity"
+//! println!("Gold volatility: {}", gold.volatility_rating()); // "Medium"
 //! ```
 //!
 //! # Type Safety
