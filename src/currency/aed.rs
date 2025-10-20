@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// United Arab Emirates Dirham (AED)
 ///
@@ -22,6 +23,22 @@ impl Currency for AED {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "AED";
     const SYMBOL: &'static str = "د.إ";
+    
+    // Rich metadata
+    const NAME: &'static str = "United Arab Emirates Dirham";
+    const COUNTRY: &'static str = "United Arab Emirates";
+    const REGION: &'static str = "Middle East";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1973;
+    const ISO_4217_NUMBER: u16 = 784;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]
