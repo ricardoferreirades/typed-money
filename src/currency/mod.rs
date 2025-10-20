@@ -46,6 +46,43 @@
 //! - **ILS** - Israeli Shekel (2 decimal places)
 //! - **TRY** - Turkish Lira (2 decimal places)
 //!
+//! ## Regional Currencies
+//!
+//! ### European Regional
+//! - **RON** - Romanian Leu (2 decimal places)
+//! - **BGN** - Bulgarian Lev (2 decimal places)
+//! - **HRK** - Croatian Kuna (2 decimal places)
+//! - **RSD** - Serbian Dinar (2 decimal places)
+//! - **UAH** - Ukrainian Hryvnia (2 decimal places)
+//!
+//! ### Asian Regional
+//! - **THB** - Thai Baht (2 decimal places)
+//! - **MYR** - Malaysian Ringgit (2 decimal places)
+//! - **IDR** - Indonesian Rupiah (0 decimal places)
+//! - **PHP** - Philippine Peso (2 decimal places)
+//! - **VND** - Vietnamese Dong (0 decimal places)
+//!
+//! ### American Regional
+//! - **COP** - Colombian Peso (2 decimal places)
+//! - **PEN** - Peruvian Sol (2 decimal places)
+//! - **UYU** - Uruguayan Peso (2 decimal places)
+//! - **BOB** - Bolivian Boliviano (2 decimal places)
+//! - **PYG** - Paraguayan Guarani (0 decimal places)
+//!
+//! ### African Regional
+//! - **NGN** - Nigerian Naira (2 decimal places)
+//! - **KES** - Kenyan Shilling (2 decimal places)
+//! - **GHS** - Ghanaian Cedi (2 decimal places)
+//! - **MAD** - Moroccan Dirham (2 decimal places)
+//! - **TND** - Tunisian Dinar (3 decimal places)
+//!
+//! ### Middle Eastern Regional
+//! - **QAR** - Qatari Riyal (2 decimal places)
+//! - **KWD** - Kuwaiti Dinar (3 decimal places)
+//! - **BHD** - Bahraini Dinar (3 decimal places)
+//! - **OMR** - Omani Rial (3 decimal places)
+//! - **JOD** - Jordanian Dinar (3 decimal places)
+//!
 //! ## Cryptocurrencies
 //! - **BTC** - Bitcoin (8 decimal places - satoshis)
 //! - **ETH** - Ethereum (18 decimal places - wei)
@@ -55,7 +92,7 @@
 //! ## Using Built-in Currencies
 //!
 //! ```
-//! use typed_money::{Amount, Currency, USD, JPY, BTC, CAD, CNY, BRL};
+//! use typed_money::{Amount, Currency, USD, JPY, BTC, CAD, CNY, BRL, THB, NGN, QAR};
 //!
 //! let dollars = Amount::<USD>::from_major(100);  // $100.00
 //! let yen = Amount::<JPY>::from_minor(1000);     // ¥1000 (no decimals)
@@ -63,6 +100,9 @@
 //! let cad = Amount::<CAD>::from_major(50);       // C$50.00
 //! let yuan = Amount::<CNY>::from_major(200);     // ¥200.00
 //! let real = Amount::<BRL>::from_major(300);     // R$300.00
+//! let baht = Amount::<THB>::from_major(150);     // ฿150.00
+//! let naira = Amount::<NGN>::from_major(400);    // ₦400.00
+//! let riyal = Amount::<QAR>::from_major(250);    // ﷼250.00
 //!
 //! // Each currency respects its own decimal precision
 //! assert_eq!(USD::DECIMALS, 2);
@@ -71,6 +111,9 @@
 //! assert_eq!(CAD::DECIMALS, 2);
 //! assert_eq!(CNY::DECIMALS, 2);
 //! assert_eq!(BRL::DECIMALS, 2);
+//! assert_eq!(THB::DECIMALS, 2);
+//! assert_eq!(NGN::DECIMALS, 2);
+//! assert_eq!(QAR::DECIMALS, 2);
 //! ```
 //!
 //! ## Defining Custom Currencies
@@ -148,6 +191,41 @@ mod sar;
 mod try_currency;
 mod zar;
 
+// European Regional Currencies
+mod bgn;
+mod hrk;
+mod ron;
+mod rsd;
+mod uah;
+
+// Asian Regional Currencies
+mod idr;
+mod myr;
+mod php;
+mod thb;
+mod vnd;
+
+// American Regional Currencies
+mod bob;
+mod cop;
+mod pen;
+mod pyg;
+mod uyu;
+
+// African Regional Currencies
+mod ghs;
+mod kes;
+mod mad;
+mod ngn;
+mod tnd;
+
+// Middle Eastern Regional Currencies
+mod bhd;
+mod jod;
+mod kwd;
+mod omr;
+mod qar;
+
 pub use trait_def::Currency;
 
 // Core currencies
@@ -193,3 +271,38 @@ pub use ils::ILS;
 pub use sar::SAR;
 pub use try_currency::TRY;
 pub use zar::ZAR;
+
+// European Regional Currencies
+pub use bgn::BGN;
+pub use hrk::HRK;
+pub use ron::RON;
+pub use rsd::RSD;
+pub use uah::UAH;
+
+// Asian Regional Currencies
+pub use idr::IDR;
+pub use myr::MYR;
+pub use php::PHP;
+pub use thb::THB;
+pub use vnd::VND;
+
+// American Regional Currencies
+pub use bob::BOB;
+pub use cop::COP;
+pub use pen::PEN;
+pub use pyg::PYG;
+pub use uyu::UYU;
+
+// African Regional Currencies
+pub use ghs::GHS;
+pub use kes::KES;
+pub use mad::MAD;
+pub use ngn::NGN;
+pub use tnd::TND;
+
+// Middle Eastern Regional Currencies
+pub use bhd::BHD;
+pub use jod::JOD;
+pub use kwd::KWD;
+pub use omr::OMR;
+pub use qar::QAR;
