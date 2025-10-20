@@ -291,17 +291,17 @@ mod omr;
 mod qar;
 
 // Precious Metals
-mod xau;
 mod xag;
-mod xpt;
-mod xpd;
+mod xau;
 mod xdi;
+mod xpd;
+mod xpt;
 
 // Base Metals
-mod xcu;
 mod xal;
-mod xzn;
+mod xcu;
 mod xni;
+mod xzn;
 
 pub use trait_def::Currency;
 
@@ -407,14 +407,14 @@ pub use omr::OMR;
 pub use qar::QAR;
 
 // Precious Metals
-pub use xau::XAU;
 pub use xag::XAG;
-pub use xpt::XPT;
-pub use xpd::XPD;
+pub use xau::XAU;
 pub use xdi::XDI;
+pub use xpd::XPD;
+pub use xpt::XPT;
 
 // Base Metals
-pub use xcu::XCU;
 pub use xal::XAL;
-pub use xzn::XZN;
+pub use xcu::XCU;
 pub use xni::XNI;
+pub use xzn::XZN;

@@ -349,21 +349,21 @@ pub use currency::{
     USDT,
     UYU,
     VND,
+    XAG,
+    XAL,
+    // Precious Metals
+    XAU,
+    // Base Metals
+    XCU,
+    XDI,
+    XNI,
+    XPD,
+    XPT,
     XRP,
+    XZN,
     YFI,
     // African/Middle Eastern Currencies
     ZAR,
-    // Precious Metals
-    XAU,
-    XAG,
-    XPT,
-    XPD,
-    XDI,
-    // Base Metals
-    XCU,
-    XAL,
-    XZN,
-    XNI,
 };
 pub use error::{MoneyError, MoneyResult};
 pub use rate::Rate;
