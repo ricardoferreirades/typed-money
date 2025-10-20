@@ -107,12 +107,25 @@
 //! - **MKR** - Maker (18 decimal places - wei)
 //! - **YFI** - Yearn Finance (18 decimal places - wei)
 //!
+//! ## Precious Metals
+//! - **XAU** - Gold (4 decimal places - troy ounces)
+//! - **XAG** - Silver (4 decimal places - troy ounces)
+//! - **XPT** - Platinum (4 decimal places - troy ounces)
+//! - **XPD** - Palladium (4 decimal places - troy ounces)
+//! - **XDI** - Diamond (4 decimal places - carats)
+//!
+//! ## Base Metals
+//! - **XCU** - Copper (4 decimal places - metric tons)
+//! - **XAL** - Aluminum (4 decimal places - metric tons)
+//! - **XZN** - Zinc (4 decimal places - metric tons)
+//! - **XNI** - Nickel (4 decimal places - metric tons)
+//!
 //! # Examples
 //!
 //! ## Using Built-in Currencies
 //!
 //! ```
-//! use typed_money::{Amount, Currency, USD, JPY, BTC, ETH, LTC, ADA, CAD, CNY, BRL, THB, NGN, QAR};
+//! use typed_money::{Amount, Currency, USD, JPY, BTC, ETH, LTC, ADA, CAD, CNY, BRL, THB, NGN, QAR, XAU, XAG, XCU};
 //!
 //! let dollars = Amount::<USD>::from_major(100);  // $100.00
 //! let yen = Amount::<JPY>::from_minor(1000);     // ¥1000 (no decimals)
@@ -126,6 +139,9 @@
 //! let baht = Amount::<THB>::from_major(150);     // ฿150.00
 //! let naira = Amount::<NGN>::from_major(400);    // ₦400.00
 //! let riyal = Amount::<QAR>::from_major(250);    // ﷼250.00
+//! let gold = Amount::<XAU>::from_major(1);       // Au1.0000
+//! let silver = Amount::<XAG>::from_major(10);    // Ag10.0000
+//! let copper = Amount::<XCU>::from_major(5);     // Cu5.0000
 //!
 //! // Each currency respects its own decimal precision
 //! assert_eq!(USD::DECIMALS, 2);
@@ -137,6 +153,9 @@
 //! assert_eq!(THB::DECIMALS, 2);
 //! assert_eq!(NGN::DECIMALS, 2);
 //! assert_eq!(QAR::DECIMALS, 2);
+//! assert_eq!(XAU::DECIMALS, 4);
+//! assert_eq!(XAG::DECIMALS, 4);
+//! assert_eq!(XCU::DECIMALS, 4);
 //! ```
 //!
 //! ## Defining Custom Currencies
@@ -271,6 +290,19 @@ mod kwd;
 mod omr;
 mod qar;
 
+// Precious Metals
+mod xau;
+mod xag;
+mod xpt;
+mod xpd;
+mod xdi;
+
+// Base Metals
+mod xcu;
+mod xal;
+mod xzn;
+mod xni;
+
 pub use trait_def::Currency;
 
 // Core currencies
@@ -373,3 +405,16 @@ pub use jod::JOD;
 pub use kwd::KWD;
 pub use omr::OMR;
 pub use qar::QAR;
+
+// Precious Metals
+pub use xau::XAU;
+pub use xag::XAG;
+pub use xpt::XPT;
+pub use xpd::XPD;
+pub use xdi::XDI;
+
+// Base Metals
+pub use xcu::XCU;
+pub use xal::XAL;
+pub use xzn::XZN;
+pub use xni::XNI;
