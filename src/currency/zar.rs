@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// South African Rand (ZAR)
 ///
@@ -22,6 +23,22 @@ impl Currency for ZAR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "ZAR";
     const SYMBOL: &'static str = "R";
+    
+    // Rich metadata
+    const NAME: &'static str = "South African Rand";
+    const COUNTRY: &'static str = "South Africa";
+    const REGION: &'static str = "Africa";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1961;
+    const ISO_4217_NUMBER: u16 = 710;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]

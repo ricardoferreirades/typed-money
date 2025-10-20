@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Egyptian Pound (EGP)
 ///
@@ -22,6 +23,22 @@ impl Currency for EGP {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "EGP";
     const SYMBOL: &'static str = "£";
+    
+    // Rich metadata
+    const NAME: &'static str = "Egyptian Pound";
+    const COUNTRY: &'static str = "Egypt";
+    const REGION: &'static str = "Africa";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1834;
+    const ISO_4217_NUMBER: u16 = 818;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]
