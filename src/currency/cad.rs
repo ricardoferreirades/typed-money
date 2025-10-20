@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Canadian Dollar (CAD)
 ///
@@ -22,6 +23,22 @@ impl Currency for CAD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "CAD";
     const SYMBOL: &'static str = "C$";
+    
+    // Rich metadata
+    const NAME: &'static str = "Canadian Dollar";
+    const COUNTRY: &'static str = "Canada";
+    const REGION: &'static str = "North America";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1858;
+    const ISO_4217_NUMBER: u16 = 124;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]

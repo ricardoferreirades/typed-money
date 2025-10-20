@@ -1,6 +1,6 @@
 //! Japanese Yen currency implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Japanese Yen
 ///
@@ -19,6 +19,22 @@ impl Currency for JPY {
     const DECIMALS: u8 = 0;
     const CODE: &'static str = "JPY";
     const SYMBOL: &'static str = "¥";
+    
+    // Rich metadata
+    const NAME: &'static str = "Japanese Yen";
+    const COUNTRY: &'static str = "Japan";
+    const REGION: &'static str = "Asia";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1871;
+    const ISO_4217_NUMBER: u16 = 392;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]

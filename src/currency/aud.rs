@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Australian Dollar (AUD)
 ///
@@ -22,6 +23,22 @@ impl Currency for AUD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "AUD";
     const SYMBOL: &'static str = "A$";
+    
+    // Rich metadata
+    const NAME: &'static str = "Australian Dollar";
+    const COUNTRY: &'static str = "Australia";
+    const REGION: &'static str = "Oceania";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1966;
+    const ISO_4217_NUMBER: u16 = 036;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]
