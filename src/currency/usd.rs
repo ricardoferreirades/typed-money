@@ -1,6 +1,6 @@
 //! United States Dollar currency implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// United States Dollar
 ///
@@ -19,6 +19,22 @@ impl Currency for USD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "USD";
     const SYMBOL: &'static str = "$";
+    
+    // Rich metadata (users can provide this data)
+    const NAME: &'static str = "US Dollar";
+    const COUNTRY: &'static str = "United States";
+    const REGION: &'static str = "North America";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1792;
+    const ISO_4217_NUMBER: u16 = 840;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]
