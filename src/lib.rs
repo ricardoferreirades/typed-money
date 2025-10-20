@@ -146,6 +146,19 @@
 //! - **BTC** - Bitcoin (8 decimals)
 //! - **ETH** - Ethereum (18 decimals)
 //!
+//! ## Precious Metals
+//! - **XAU** - Gold (4 decimals - troy ounces)
+//! - **XAG** - Silver (4 decimals - troy ounces)
+//! - **XPT** - Platinum (4 decimals - troy ounces)
+//! - **XPD** - Palladium (4 decimals - troy ounces)
+//! - **XDI** - Diamond (4 decimals - carats)
+//!
+//! ## Base Metals
+//! - **XCU** - Copper (4 decimals - metric tons)
+//! - **XAL** - Aluminum (4 decimals - metric tons)
+//! - **XZN** - Zinc (4 decimals - metric tons)
+//! - **XNI** - Nickel (4 decimals - metric tons)
+//!
 //! # Feature Flags
 //!
 //! - `use_rust_decimal` (default) - Use rust_decimal backend
@@ -340,6 +353,17 @@ pub use currency::{
     YFI,
     // African/Middle Eastern Currencies
     ZAR,
+    // Precious Metals
+    XAU,
+    XAG,
+    XPT,
+    XPD,
+    XDI,
+    // Base Metals
+    XCU,
+    XAL,
+    XZN,
+    XNI,
 };
 pub use error::{MoneyError, MoneyResult};
 pub use rate::Rate;
