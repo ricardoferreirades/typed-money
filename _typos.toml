@@ -20,6 +20,42 @@ USD = "USD"
 EUR = "EUR"
 GBP = "GBP"
 JPY = "JPY"
+CAD = "CAD"
+CHF = "CHF"
+AUD = "AUD"
+NZD = "NZD"
+CNY = "CNY"
+KRW = "KRW"
+SGD = "SGD"
+HKD = "HKD"
+TWD = "TWD"
+INR = "INR"
+SEK = "SEK"
+NOK = "NOK"
+DKK = "DKK"
+PLN = "PLN"
+CZK = "CZK"
+HUF = "HUF"
+BRL = "BRL"
+MXN = "MXN"
+ARS = "ARS"
+CLP = "CLP"
+ZAR = "ZAR"
+EGP = "EGP"
+AED = "AED"
+SAR = "SAR"
+ILS = "ILS"
+TRY = "TRY"
+
+# Currency subdivisions
+fils = "fils"         # UAE Dirham subdivision
+halalas = "halalas"   # Saudi Riyal subdivision
+agorot = "agorot"     # Israeli Shekel subdivision
+kurus = "kuruş"       # Turkish Lira subdivision
+groszy = "groszy"     # Polish Złoty subdivision
+haleru = "haléřů"     # Czech Koruna subdivision
+piastres = "piastres" # Egyptian Pound subdivision
+centavos = "centavos" # Various Latin American currencies
 
 # Technical terms
 bigdecimal = "bigdecimal"
