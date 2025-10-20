@@ -14,7 +14,7 @@
 //! # Quick Start
 //!
 //! ```
-//! use typed_money::{Amount, USD, EUR, CAD, CNY, Rate, RoundingMode};
+//! use typed_money::{Amount, USD, EUR, CAD, CNY, THB, NGN, Rate, RoundingMode};
 //!
 //! // Create amounts
 //! let price = Amount::<USD>::from_major(100);  // $100.00
@@ -94,6 +94,43 @@
 //! - **SAR** - Saudi Riyal (2 decimals)
 //! - **ILS** - Israeli Shekel (2 decimals)
 //! - **TRY** - Turkish Lira (2 decimals)
+//!
+//! ## Regional Currencies
+//!
+//! ### European Regional
+//! - **RON** - Romanian Leu (2 decimals)
+//! - **BGN** - Bulgarian Lev (2 decimals)
+//! - **HRK** - Croatian Kuna (2 decimals)
+//! - **RSD** - Serbian Dinar (2 decimals)
+//! - **UAH** - Ukrainian Hryvnia (2 decimals)
+//!
+//! ### Asian Regional
+//! - **THB** - Thai Baht (2 decimals)
+//! - **MYR** - Malaysian Ringgit (2 decimals)
+//! - **IDR** - Indonesian Rupiah (0 decimals)
+//! - **PHP** - Philippine Peso (2 decimals)
+//! - **VND** - Vietnamese Dong (0 decimals)
+//!
+//! ### American Regional
+//! - **COP** - Colombian Peso (2 decimals)
+//! - **PEN** - Peruvian Sol (2 decimals)
+//! - **UYU** - Uruguayan Peso (2 decimals)
+//! - **BOB** - Bolivian Boliviano (2 decimals)
+//! - **PYG** - Paraguayan Guarani (0 decimals)
+//!
+//! ### African Regional
+//! - **NGN** - Nigerian Naira (2 decimals)
+//! - **KES** - Kenyan Shilling (2 decimals)
+//! - **GHS** - Ghanaian Cedi (2 decimals)
+//! - **MAD** - Moroccan Dirham (2 decimals)
+//! - **TND** - Tunisian Dinar (3 decimals)
+//!
+//! ### Middle Eastern Regional
+//! - **QAR** - Qatari Riyal (2 decimals)
+//! - **KWD** - Kuwaiti Dinar (3 decimals)
+//! - **BHD** - Bahraini Dinar (3 decimals)
+//! - **OMR** - Omani Rial (3 decimals)
+//! - **JOD** - Jordanian Dinar (3 decimals)
 //!
 //! ## Cryptocurrencies
 //! - **BTC** - Bitcoin (8 decimals)
@@ -244,6 +281,36 @@ pub use currency::{
     USD,
     // African/Middle Eastern Currencies
     ZAR,
+    // European Regional Currencies
+    BGN,
+    HRK,
+    RON,
+    RSD,
+    UAH,
+    // Asian Regional Currencies
+    IDR,
+    MYR,
+    PHP,
+    THB,
+    VND,
+    // American Regional Currencies
+    BOB,
+    COP,
+    PEN,
+    PYG,
+    UYU,
+    // African Regional Currencies
+    GHS,
+    KES,
+    MAD,
+    NGN,
+    TND,
+    // Middle Eastern Regional Currencies
+    BHD,
+    JOD,
+    KWD,
+    OMR,
+    QAR,
 };
 pub use error::{MoneyError, MoneyResult};
 pub use rate::Rate;
