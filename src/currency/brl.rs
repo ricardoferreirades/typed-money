@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Brazilian Real (BRL)
 ///
@@ -22,6 +23,22 @@ impl Currency for BRL {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "BRL";
     const SYMBOL: &'static str = "R$";
+    
+    // Rich metadata
+    const NAME: &'static str = "Brazilian Real";
+    const COUNTRY: &'static str = "Brazil";
+    const REGION: &'static str = "South America";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1994;
+    const ISO_4217_NUMBER: u16 = 986;
+    const THOUSANDS_SEPARATOR: char = '.';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]
