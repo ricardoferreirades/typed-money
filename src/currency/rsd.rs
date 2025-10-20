@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Serbian Dinar (RSD)
 ///
@@ -22,6 +23,22 @@ impl Currency for RSD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "RSD";
     const SYMBOL: &'static str = "дин";
+    
+    // Rich metadata
+    const NAME: &'static str = "Serbian Dinar";
+    const COUNTRY: &'static str = "Serbia";
+    const REGION: &'static str = "Europe";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 2003;
+    const ISO_4217_NUMBER: u16 = 941;
+    const THOUSANDS_SEPARATOR: char = '.';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]

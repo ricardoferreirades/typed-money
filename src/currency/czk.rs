@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Czech Koruna (CZK)
 ///
@@ -22,6 +23,22 @@ impl Currency for CZK {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "CZK";
     const SYMBOL: &'static str = "Kč";
+    
+    // Rich metadata
+    const NAME: &'static str = "Czech Koruna";
+    const COUNTRY: &'static str = "Czech Republic";
+    const REGION: &'static str = "Europe";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1993;
+    const ISO_4217_NUMBER: u16 = 203;
+    const THOUSANDS_SEPARATOR: char = ' ';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]

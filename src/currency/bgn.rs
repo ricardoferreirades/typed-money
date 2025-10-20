@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Bulgarian Lev (BGN)
 ///
@@ -22,6 +23,22 @@ impl Currency for BGN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "BGN";
     const SYMBOL: &'static str = "лв";
+    
+    // Rich metadata
+    const NAME: &'static str = "Bulgarian Lev";
+    const COUNTRY: &'static str = "Bulgaria";
+    const REGION: &'static str = "Europe";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1999;
+    const ISO_4217_NUMBER: u16 = 975;
+    const THOUSANDS_SEPARATOR: char = ' ';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]

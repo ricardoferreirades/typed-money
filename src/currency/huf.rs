@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Hungarian Forint (HUF)
 ///
@@ -22,6 +23,22 @@ impl Currency for HUF {
     const DECIMALS: u8 = 0; // Hungarian Forint typically doesn't use decimal places
     const CODE: &'static str = "HUF";
     const SYMBOL: &'static str = "Ft";
+    
+    // Rich metadata
+    const NAME: &'static str = "Hungarian Forint";
+    const COUNTRY: &'static str = "Hungary";
+    const REGION: &'static str = "Europe";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1946;
+    const ISO_4217_NUMBER: u16 = 348;
+    const THOUSANDS_SEPARATOR: char = ' ';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]
