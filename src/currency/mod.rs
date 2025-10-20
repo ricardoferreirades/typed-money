@@ -86,17 +86,40 @@
 //! ## Cryptocurrencies
 //! - **BTC** - Bitcoin (8 decimal places - satoshis)
 //! - **ETH** - Ethereum (18 decimal places - wei)
+//! - **LTC** - Litecoin (8 decimal places - litoshis)
+//! - **BCH** - Bitcoin Cash (8 decimal places - satoshis)
+//! - **XRP** - XRP (6 decimal places - drops)
+//! - **ADA** - Cardano (6 decimal places - lovelace)
+//! - **DOT** - Polkadot (10 decimal places - planck)
+//! - **LINK** - Chainlink (18 decimal places - wei)
+//! - **UNI** - Uniswap (18 decimal places - wei)
+//! - **AAVE** - Aave (18 decimal places - wei)
+//!
+//! ## Stablecoins
+//! - **USDT** - Tether (6 decimal places - micro)
+//! - **USDC** - USD Coin (6 decimal places - micro)
+//! - **DAI** - Dai (18 decimal places - wei)
+//! - **BUSD** - Binance USD (18 decimal places - wei)
+//!
+//! ## DeFi Tokens
+//! - **SUSHI** - SushiSwap (18 decimal places - wei)
+//! - **COMP** - Compound (18 decimal places - wei)
+//! - **MKR** - Maker (18 decimal places - wei)
+//! - **YFI** - Yearn Finance (18 decimal places - wei)
 //!
 //! # Examples
 //!
 //! ## Using Built-in Currencies
 //!
 //! ```
-//! use typed_money::{Amount, Currency, USD, JPY, BTC, CAD, CNY, BRL, THB, NGN, QAR};
+//! use typed_money::{Amount, Currency, USD, JPY, BTC, ETH, LTC, ADA, CAD, CNY, BRL, THB, NGN, QAR};
 //!
 //! let dollars = Amount::<USD>::from_major(100);  // $100.00
 //! let yen = Amount::<JPY>::from_minor(1000);     // ¥1000 (no decimals)
 //! let bitcoin = Amount::<BTC>::from_minor(100_000_000);  // 1.00000000 BTC
+//! let ethereum = Amount::<ETH>::from_minor(1_000_000_000_000_000_000);  // 1.000000000000000000 ETH
+//! let litecoin = Amount::<LTC>::from_major(1);   // Ł1.00000000
+//! let cardano = Amount::<ADA>::from_major(1000); // ₳1000.000000
 //! let cad = Amount::<CAD>::from_major(50);       // C$50.00
 //! let yuan = Amount::<CNY>::from_major(200);     // ¥200.00
 //! let real = Amount::<BRL>::from_major(300);     // R$300.00
@@ -154,6 +177,28 @@ mod eur;
 mod gbp;
 mod jpy;
 mod usd;
+
+// Major Cryptocurrencies
+mod aave;
+mod ada;
+mod bch;
+mod dot;
+mod link;
+mod ltc;
+mod uni;
+mod xrp;
+
+// Stablecoins
+mod busd;
+mod dai;
+mod usdc;
+mod usdt;
+
+// DeFi Tokens
+mod comp;
+mod mkr;
+mod sushi;
+mod yfi;
 
 // Major Fiat Currencies
 mod aud;
@@ -235,6 +280,28 @@ pub use eur::EUR;
 pub use gbp::GBP;
 pub use jpy::JPY;
 pub use usd::USD;
+
+// Major Cryptocurrencies
+pub use aave::AAVE;
+pub use ada::ADA;
+pub use bch::BCH;
+pub use dot::DOT;
+pub use link::LINK;
+pub use ltc::LTC;
+pub use uni::UNI;
+pub use xrp::XRP;
+
+// Stablecoins
+pub use busd::BUSD;
+pub use dai::DAI;
+pub use usdc::USDC;
+pub use usdt::USDT;
+
+// DeFi Tokens
+pub use comp::COMP;
+pub use mkr::MKR;
+pub use sushi::SUSHI;
+pub use yfi::YFI;
 
 // Major Fiat Currencies
 pub use aud::AUD;
