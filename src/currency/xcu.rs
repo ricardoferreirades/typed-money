@@ -1,6 +1,6 @@
 //! Copper (XCU) base metal implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Copper (XCU)
 ///
@@ -22,6 +22,22 @@ impl Currency for XCU {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XCU";
     const SYMBOL: &'static str = "Cu";
+    
+    // Commodity metadata
+    const NAME: &'static str = "Copper";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Commodity;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 0; // Copper has been used for millennia
+    const ISO_4217_NUMBER: u16 = 0; // No official ISO code for base metals
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]

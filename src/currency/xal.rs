@@ -1,6 +1,6 @@
 //! Aluminum (XAL) base metal implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Aluminum (XAL)
 ///
@@ -22,6 +22,22 @@ impl Currency for XAL {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XAL";
     const SYMBOL: &'static str = "Al";
+    
+    // Commodity metadata
+    const NAME: &'static str = "Aluminum";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Commodity;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 0; // Aluminum has been used for centuries
+    const ISO_4217_NUMBER: u16 = 0; // No official ISO code for base metals
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]
