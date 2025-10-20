@@ -1,105 +1,118 @@
-# Typed Money 💰
+# Typed Money
 
 [![Crates.io](https://img.shields.io/crates/v/typed-money.svg)](https://crates.io/crates/typed-money)
 [![Documentation](https://docs.rs/typed-money/badge.svg)](https://docs.rs/typed-money)
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/License-MIT%20OR%20Apache--2.0-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://github.com/ricardoferreirades/typed-money/workflows/CI/badge.svg)](https://github.com/ricardoferreirades/typed-money/actions)
 
-A **type-safe money library** for Rust that prevents currency mixing bugs at **compile time**. Zero runtime overhead, maximum safety.
+A type-safe money library for Rust that prevents currency mixing bugs at compile time. Zero runtime overhead, maximum safety.
 
-## 🎉 **v0.2.0 - Major Release!**
+## Overview
 
-**NEW FEATURES:**
-- 🌍 **69 currencies** with full internationalization support
-- 📊 **Rich metadata system** - Country, region, volatility, liquidity ratings
-- 💎 **Precious metals** - Gold, Silver, Platinum, Palladium, Diamond
-- 🏭 **Base metals** - Copper, Aluminum, Zinc, Nickel  
-- 🚀 **Expanded crypto** - Major cryptos, stablecoins, DeFi tokens
-- 🎨 **Locale formatting** - European, Asian, American, African styles
-- 📈 **Portfolio analysis** - Built-in trading insights and risk assessment
+Typed Money solves a fundamental problem in financial software: preventing currency mixing errors that can lead to costly bugs, incorrect calculations, and financial losses. Traditional approaches rely on runtime checks or primitive types that offer no protection against accidentally adding dollars to euros or mixing different currency units.
 
-## 🚀 Quick Start
+This library provides compile-time type safety for monetary values, ensuring that currency operations are explicit and safe. Every currency is a distinct type, making it impossible to accidentally mix currencies in arithmetic operations. The compiler catches these errors before your code ever runs, eliminating an entire class of financial bugs.
 
-```toml
-[dependencies]
-typed-money = "0.2.0"
-```
+## Key Benefits
 
-```rust
-use typed_money::{Amount, USD, EUR, Rate};
+### Compile-Time Safety
+- **Impossible currency mixing**: The compiler prevents adding USD to EUR at build time
+- **Zero runtime overhead**: Type safety comes at no performance cost
+- **Explicit conversions**: All currency conversions must be intentional and documented
 
-// Type-safe money operations
-let usd_amount = Amount::<USD>::from_major(100); // $100.00
-let eur_amount = Amount::<EUR>::from_major(85);  // €85.00
+### Financial Precision
+- **Deterministic arithmetic**: No floating-point errors, uses decimal arithmetic
+- **Currency-aware precision**: Automatic handling of currency-specific decimal places
+- **Multiple rounding modes**: Seven rounding strategies for different business requirements
 
-// Compile-time currency safety - this won't compile!
-// let total = usd_amount + eur_amount; // ❌ Error: cannot add USD and EUR
+### Developer Experience
+- **Clear error messages**: Compiler errors guide you to correct usage
+- **Rich metadata**: Access currency information, formatting rules, and trading characteristics
+- **Comprehensive examples**: Extensive documentation and examples for all features
 
-// Explicit currency conversion
-let rate = Rate::<USD, EUR>::new(0.85);
-let converted = usd_amount.convert(&rate); // €85.00
+### Performance
+- **Sub-nanosecond operations**: All arithmetic and conversions are O(1)
+- **Memory efficient**: Minimal allocation with optimized memory layout
+- **Scalable**: Handles high-frequency trading and large-scale financial applications
 
-// Safe arithmetic within same currency
-let total = usd_amount + Amount::<USD>::from_major(50); // $150.00
-```
+## Use Cases
 
-## ✨ Key Features
+### Financial Applications
+- **Banking systems**: Account balances, transfers, and currency conversions
+- **Trading platforms**: Order management, portfolio calculations, and risk assessment
+- **Payment processing**: Multi-currency transactions and settlement
+- **Accounting software**: Financial reporting and compliance calculations
 
-### 🛡️ **Compile-Time Safety**
-- **Impossible currency mixing** - The compiler catches bugs before runtime
-- **Zero runtime overhead** - Type safety comes at no performance cost
-- **Explicit conversions** - All currency conversions must be intentional
+### E-commerce
+- **Shopping carts**: Multi-currency pricing and tax calculations
+- **Marketplace platforms**: Seller payments in different currencies
+- **Subscription billing**: Recurring payments with currency conversion
+- **Inventory management**: Cost tracking across different currencies
 
-### ⚡ **High Performance**
-- **O(1) operations** - All arithmetic and conversions are constant time
-- **~5ns operations** - Benchmarked performance with sub-nanosecond precision
-- **Zero-cost abstractions** - Type safety without runtime checks
+### Cryptocurrency
+- **Trading bots**: Automated trading with multiple cryptocurrencies
+- **Wallet applications**: Balance tracking and transaction management
+- **DeFi protocols**: Yield farming and liquidity calculations
+- **Portfolio management**: Multi-asset portfolio tracking
 
-### 🎯 **Precision & Reliability**
-- **Deterministic arithmetic** - No floating-point errors, uses `rust_decimal`
-- **7 rounding modes** - HalfUp, HalfDown, HalfEven, Up, Down, Ceiling, Floor
-- **Precision control** - Automatic handling of currency-specific decimal places
+### Enterprise Systems
+- **ERP systems**: Financial modules with multi-currency support
+- **Risk management**: Exposure calculations across currencies
+- **Compliance reporting**: Regulatory calculations and reporting
+- **International operations**: Multi-country financial management
 
-### 🌍 **Comprehensive Currency Support**
-- **69 currencies** with full internationalization support
-- **Major fiat**: USD, EUR, GBP, JPY, CHF, CAD, AUD, NZD
-- **Regional currencies**: Asian, European, American, African, Middle Eastern
-- **Cryptocurrencies**: BTC, ETH, LTC, BCH, XRP, ADA, DOT, LINK, UNI, AAVE
-- **Stablecoins**: USDT, USDC, DAI, BUSD
-- **DeFi tokens**: SUSHI, COMP, MKR, YFI
-- **Precious metals**: XAU (Gold), XAG (Silver), XPT (Platinum), XPD (Palladium), XDI (Diamond)
-- **Base metals**: XCU (Copper), XAL (Aluminum), XZN (Zinc), XNI (Nickel)
-- **Rich metadata**: Country, region, volatility, liquidity ratings, formatting rules
+### Gaming and Virtual Economies
+- **Game currencies**: In-game money with multiple currency types
+- **Virtual marketplaces**: Player-to-player trading systems
+- **Subscription models**: Premium currency and real money integration
+- **Economic simulation**: Virtual economy modeling and analysis
 
-## 📚 Documentation
+## Problem Solved
 
-- **[Full API Documentation](https://docs.rs/typed-money)** - Complete reference
-- **[Examples](https://docs.rs/typed-money/latest/typed_money/#examples)** - Comprehensive usage examples
-- **[Performance Benchmarks](https://github.com/ricardoferreirades/typed-money#performance)** - Detailed performance analysis
-
-## 🎯 Why Typed Money?
-
-### ❌ **Problems with Traditional Approaches**
+### Traditional Approach Problems
 
 ```rust
 // Traditional approach - runtime errors possible
-let usd = 100.0;
-let eur = 85.0;
-let total = usd + eur; // 😱 Bug! Mixing currencies
+let usd_balance = 1000.0;
+let eur_balance = 850.0;
+let total = usd_balance + eur_balance; // Bug! Mixing currencies
 ```
 
-### ✅ **Typed Money Solution**
+### Typed Money Solution
 
 ```rust
 // Type-safe approach - compile-time safety
-let usd = Amount::<USD>::from_major(100);
-let eur = Amount::<EUR>::from_major(85);
-// let total = usd + eur; // ❌ Compile error - caught at build time!
+let usd_balance = Amount::<USD>::from_major(1000);
+let eur_balance = Amount::<EUR>::from_major(850);
+// let total = usd_balance + eur_balance; // Compile error - caught at build time!
 ```
 
-## 🚀 Usage Examples
+## Quick Start
 
-### Basic Arithmetic
+Add to your `Cargo.toml`:
+
+```toml
+[dependencies]
+typed-money = "*"
+```
+
+## Basic Usage
+
+### Creating Amounts
+
+```rust
+use typed_money::{Amount, USD, EUR};
+
+// Create amounts from major units (dollars, euros)
+let usd_amount = Amount::<USD>::from_major(100); // $100.00
+let eur_amount = Amount::<EUR>::from_major(85);  // €85.00
+
+// Create amounts from minor units (cents, euro cents)
+let usd_cents = Amount::<USD>::from_minor(10000); // $100.00
+let eur_cents = Amount::<EUR>::from_minor(8500);  // €85.00
+```
+
+### Safe Arithmetic
 
 ```rust
 use typed_money::{Amount, USD};
@@ -111,6 +124,9 @@ let total = price + tax;                        // $108.90
 // Scalar operations
 let discounted = total * 2;                     // $217.80
 let half_price = total / 2;                     // $54.45
+
+// This won't compile - different currencies
+// let mixed = price + Amount::<EUR>::from_major(10); // Error!
 ```
 
 ### Currency Conversion
@@ -122,11 +138,13 @@ let usd_amount = Amount::<USD>::from_major(100);
 let rate = Rate::<USD, EUR>::new(0.85);
 let eur_amount = usd_amount.convert(&rate);     // €85.00
 
-// Rate metadata for auditability
+// Rate with metadata for auditability
 let rate_with_metadata = Rate::<USD, EUR>::new(0.85)
     .with_timestamp_unix_secs(1_700_000_000)
     .with_source("ECB");
 ```
+
+## Advanced Features
 
 ### Rounding Modes
 
@@ -165,7 +183,7 @@ let json = serde_json::to_string(&amount)?; // "{\"value\":\"100.00\",\"currency
 let deserialized: Amount<USD> = serde_json::from_str(&json)?;
 ```
 
-### Internationalization & Metadata
+### Internationalization
 
 ```rust
 use typed_money::{Amount, USD, EUR, BRL, CurrencyMetadata};
@@ -185,29 +203,12 @@ println!("European format: {}", eur_amount); // "€1.234,00 EUR"
 
 let brl_amount = Amount::<BRL>::from_major(1234);
 println!("Brazilian format: {}", brl_amount); // "R$1.234,00 BRL"
-
-// Portfolio analysis
-let portfolio = vec![
-    ("USD", Amount::<USD>::from_major(10000)),
-    ("EUR", Amount::<EUR>::from_major(8500)),
-    ("BTC", Amount::<BTC>::from_major(1)),
-    ("XAU", Amount::<XAU>::from_major(10)),
-];
-
-for (name, amount) in &portfolio {
-    println!("{}: {} - Type: {}, Volatility: {}, Liquidity: {}", 
-        name, amount, 
-        amount.currency_type(),
-        amount.volatility_rating(),
-        amount.liquidity_rating()
-    );
-}
 ```
 
-### Precious Metals & Commodities
+### Precious Metals and Commodities
 
 ```rust
-use typed_money::{Amount, XAU, XAG, XPT, XPD, XDI};
+use typed_money::{Amount, XAU, XAG, XPT, XPD, XDI, XCU, XAL, CurrencyMetadata};
 
 // Precious metals with 4 decimal precision
 let gold = Amount::<XAU>::from_major(1);        // Au1.0000 XAU
@@ -226,8 +227,6 @@ println!("Gold type: {}", gold.currency_type());         // "Commodity"
 println!("Gold volatility: {}", gold.volatility_rating()); // "Medium"
 ```
 
-## 🏗️ Advanced Features
-
 ### Custom Currencies
 
 ```rust
@@ -245,25 +244,21 @@ impl Currency for CAD {
 let cad_amount = Amount::<CAD>::from_major(100); // C$100.00
 ```
 
-### Feature Flags
+## Supported Currencies
 
-```toml
-[dependencies]
-typed-money = { version = "0.2.0", features = ["serde_support", "conversion_tracking"] }
-```
+The library supports 69 currencies across multiple categories:
 
-- **`serde_support`** - Enable JSON serialization
-- **`conversion_tracking`** - Track currency conversions for auditing
-- **`use_bigdecimal`** - Use `bigdecimal` instead of `rust_decimal`
+- **Major fiat currencies**: USD, EUR, GBP, JPY, CHF, CAD, AUD, NZD
+- **Regional currencies**: Asian, European, American, African, Middle Eastern
+- **Cryptocurrencies**: BTC, ETH, LTC, BCH, XRP, ADA, DOT, LINK, UNI, AAVE
+- **Stablecoins**: USDT, USDC, DAI, BUSD
+- **DeFi tokens**: SUSHI, COMP, MKR, YFI
+- **Precious metals**: XAU (Gold), XAG (Silver), XPT (Platinum), XPD (Palladium), XDI (Diamond)
+- **Base metals**: XCU (Copper), XAL (Aluminum), XZN (Zinc), XNI (Nickel)
 
-### No-std Support
+See [CURRENCIES.md](CURRENCIES.md) for a complete reference.
 
-```toml
-[dependencies]
-typed-money = { version = "0.2.0", default-features = false }
-```
-
-## 📊 Performance
+## Performance
 
 Benchmarked on Apple M1 Pro:
 
@@ -275,44 +270,35 @@ Benchmarked on Apple M1 Pro:
 | Rounding | ~5.0ns | 200M ops/sec |
 | Equality Check | ~3.2ns | 312M ops/sec |
 
-**10-20x faster** than runtime-checked alternatives!
+See [PERFORMANCE.md](PERFORMANCE.md) for detailed benchmarks.
 
-## 🛠️ Development
+## Feature Flags
 
-### Prerequisites
-
-- [Rust](https://rustup.rs/) 1.70+
-- [Make](https://www.gnu.org/software/make/)
-
-### Setup
-
-```bash
-git clone https://github.com/ricardoferreirades/typed-money.git
-cd typed-money
-make setup
+```toml
+[dependencies]
+typed-money = { features = ["serde_support", "conversion_tracking"] }
 ```
 
-### Available Commands
+- **`serde_support`** - Enable JSON serialization
+- **`conversion_tracking`** - Track currency conversions for auditing
+- **`use_bigdecimal`** - Use `bigdecimal` instead of `rust_decimal`
 
-```bash
-# Development
-make test         # Run all tests (437 unit + doctests)
-make bench        # Run performance benchmarks
-make bench-open   # Open benchmark HTML reports
-make doc          # Build documentation
-make doc-open     # Build and open docs in browser
+## No-std Support
 
-# Quality
-make quality      # Run all quality checks
-make fmt          # Format code
-make lint         # Run clippy linter
-make spell        # Check spelling
-
-# Examples
-make run          # Run examples
+```toml
+[dependencies]
+typed-money = { default-features = false }
 ```
 
-### Running Examples
+## Documentation
+
+- **[Full API Documentation](https://docs.rs/typed-money)** - Complete reference
+- **[Examples](https://docs.rs/typed-money/latest/typed_money/#examples)** - Comprehensive usage examples
+- **[Currency Reference](CURRENCIES.md)** - Complete list of supported currencies
+- **[Internationalization Guide](INTERNATIONALIZATION.md)** - Locale formatting and metadata
+- **[Performance Analysis](PERFORMANCE.md)** - Detailed benchmarks and optimization tips
+
+## Examples
 
 ```bash
 # Basic usage
@@ -333,75 +319,36 @@ cargo run --example serialization
 # Custom currencies
 cargo run --example custom_currency
 
-# NEW: Internationalization features
+# Internationalization features
 cargo run --example internationalization
 
-# NEW: Currency metadata
+# Currency metadata
 cargo run --example currency_metadata
 
-# NEW: Precious metals
+# Precious metals
 cargo run --example precious_metals
-
-# NEW: Global currencies
-cargo run --example global_currencies
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Quick Contribution Setup
-
-```bash
-make setup        # Install dependencies and git hooks
-make quality      # Ensure all checks pass
-```
-
-### Development Workflow
-
-1. **Fork** the repository
-2. **Create** a feature branch
-3. **Make** your changes
-4. **Run** `make quality` to ensure everything passes
-5. **Submit** a pull request
-
-## 📄 License
-
-Dual-licensed under **MIT OR Apache-2.0**. See [LICENSE-MIT](LICENSE-MIT) for details.
-
-## 🎯 Use Cases
-
-- **Financial applications** - Banking, trading, accounting
-- **E-commerce** - Shopping carts, pricing, payments
-- **Cryptocurrency** - Trading platforms, wallets
-- **Gaming** - Virtual economies, in-game currencies
-- **Enterprise** - ERP systems, financial reporting
-
-## 🌟 Why Choose Typed Money?
+## Why Choose Typed Money?
 
 | Feature | Typed Money | Traditional Libraries |
 |---------|-------------|----------------------|
-| **Type Safety** | ✅ Compile-time | ❌ Runtime checks |
-| **Performance** | ✅ ~5ns operations | ❌ ~50-100ns |
-| **Currency Mixing** | ✅ Impossible | ❌ Runtime errors |
-| **Precision** | ✅ Deterministic | ❌ Floating-point errors |
-| **Documentation** | ✅ Comprehensive | ❌ Often minimal |
-| **Testing** | ✅ 437 tests | ❌ Variable coverage |
+| **Type Safety** | Compile-time | Runtime checks |
+| **Performance** | ~5ns operations | ~50-100ns |
+| **Currency Mixing** | Impossible | Runtime errors |
+| **Precision** | Deterministic | Floating-point errors |
+| **Documentation** | Comprehensive | Often minimal |
+| **Testing** | 437 tests | Variable coverage |
 
-## 📈 Roadmap
+## Contributing
 
-- [x] **Additional currencies** - 69 currencies with full internationalization support
-- [x] **Currency formatting for different locales** - Complete i18n implementation
-- [x] **Rich metadata system** - Country, region, volatility, liquidity ratings
-- [x] **Precious metals support** - Gold, Silver, Platinum, Palladium, Diamond
-- [x] **Base metals support** - Copper, Aluminum, Zinc, Nickel
-- [x] **Cryptocurrency expansion** - Major cryptos, stablecoins, DeFi tokens
-- [ ] Historical exchange rates
-- [ ] Integration with external rate providers
-- [ ] WebAssembly support
-- [ ] Real-time rate updates
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## 🙏 Acknowledgments
+## License
+
+Dual-licensed under **MIT OR Apache-2.0**. See [LICENSE-MIT](LICENSE-MIT) for details.
+
+## Acknowledgments
 
 - Built with [rust_decimal](https://crates.io/crates/rust_decimal) for precise decimal arithmetic
 - Inspired by [Money](https://github.com/RubyMoney/money) and similar type-safe money libraries
@@ -409,4 +356,4 @@ Dual-licensed under **MIT OR Apache-2.0**. See [LICENSE-MIT](LICENSE-MIT) for de
 
 ---
 
-**Made with ❤️ in Rust** | [Report Bug](https://github.com/ricardoferreirades/typed-money/issues) | [Request Feature](https://github.com/ricardoferreirades/typed-money/issues)
+**Made with Rust** | [Report Bug](https://github.com/ricardoferreirades/typed-money/issues) | [Request Feature](https://github.com/ricardoferreirades/typed-money/issues)
