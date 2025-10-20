@@ -429,28 +429,36 @@
 **Functional (F13):** Support for regional and emerging market currencies  
 **Non-Functional (NF5):** Extensibility for new markets
 
-- [ ] **European Regional:**
-  - [ ] `RON` - Romanian Leu (2 decimals)
-  - [ ] `BGN` - Bulgarian Lev (2 decimals)
-  - [ ] `HRK` - Croatian Kuna (2 decimals)
-  - [ ] `RSD` - Serbian Dinar (2 decimals)
-  - [ ] `UAH` - Ukrainian Hryvnia (2 decimals)
-- [ ] **Asian Regional:**
-  - [ ] `THB` - Thai Baht (2 decimals)
-  - [ ] `MYR` - Malaysian Ringgit (2 decimals)
-  - [ ] `IDR` - Indonesian Rupiah (2 decimals)
-  - [ ] `PHP` - Philippine Peso (2 decimals)
-  - [ ] `VND` - Vietnamese Dong (0 decimals)
-- [ ] **American Regional:**
-  - [ ] `COP` - Colombian Peso (2 decimals)
-  - [ ] `PEN` - Peruvian Sol (2 decimals)
-  - [ ] `UYU` - Uruguayan Peso (2 decimals)
-  - [ ] `BOB` - Bolivian Boliviano (2 decimals)
-- [ ] **African Regional:**
-  - [ ] `NGN` - Nigerian Naira (2 decimals)
-  - [ ] `KES` - Kenyan Shilling (2 decimals)
-  - [ ] `GHS` - Ghanaian Cedi (2 decimals)
-  - [ ] `MAD` - Moroccan Dirham (2 decimals)
+- [x] **European Regional:**
+  - [x] `RON` - Romanian Leu (2 decimals)
+  - [x] `BGN` - Bulgarian Lev (2 decimals)
+  - [x] `HRK` - Croatian Kuna (2 decimals)
+  - [x] `RSD` - Serbian Dinar (2 decimals)
+  - [x] `UAH` - Ukrainian Hryvnia (2 decimals)
+- [x] **Asian Regional:**
+  - [x] `THB` - Thai Baht (2 decimals)
+  - [x] `MYR` - Malaysian Ringgit (2 decimals)
+  - [x] `IDR` - Indonesian Rupiah (0 decimals)
+  - [x] `PHP` - Philippine Peso (2 decimals)
+  - [x] `VND` - Vietnamese Dong (0 decimals)
+- [x] **American Regional:**
+  - [x] `COP` - Colombian Peso (2 decimals)
+  - [x] `PEN` - Peruvian Sol (2 decimals)
+  - [x] `UYU` - Uruguayan Peso (2 decimals)
+  - [x] `BOB` - Bolivian Boliviano (2 decimals)
+  - [x] `PYG` - Paraguayan Guarani (0 decimals)
+- [x] **African Regional:**
+  - [x] `NGN` - Nigerian Naira (2 decimals)
+  - [x] `KES` - Kenyan Shilling (2 decimals)
+  - [x] `GHS` - Ghanaian Cedi (2 decimals)
+  - [x] `MAD` - Moroccan Dirham (2 decimals)
+  - [x] `TND` - Tunisian Dinar (3 decimals)
+- [x] **Middle Eastern Regional:**
+  - [x] `QAR` - Qatari Riyal (2 decimals)
+  - [x] `KWD` - Kuwaiti Dinar (3 decimals)
+  - [x] `BHD` - Bahraini Dinar (3 decimals)
+  - [x] `OMR` - Omani Rial (3 decimals)
+  - [x] `JOD` - Jordanian Dinar (3 decimals)
 
 ### 11.3 Cryptocurrencies
 **Functional (F13):** Support for major cryptocurrencies  
@@ -597,10 +605,10 @@
 ### 🚧 **IN PROGRESS PHASES: 1/7**
 - **Phase 7** - Global Currency Coverage 🚧
 
-### 📊 **Overall Progress: 88% Complete**
+### 📊 **Overall Progress: 91% Complete**
 - **Total Sections:** 32
-- **Completed:** 27 ✅
-- **In Progress:** 4 🚧
+- **Completed:** 28 ✅
+- **In Progress:** 3 🚧
 - **Skipped:** 1 ❌ (Custom Units - focused on money only)
 - **Remaining:** 0
 
@@ -625,3 +633,4 @@ The typed-money library is **feature-complete** and ready for:
 - ✅ 6 comprehensive example files
 - ✅ Complete API documentation
 - ✅ **30+ Global Currencies** - Major fiat currencies from all continents (Section 11.1)
+- ✅ **25+ Regional Currencies** - Regional and emerging market currencies (Section 11.2)
