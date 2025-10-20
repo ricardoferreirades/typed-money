@@ -43,7 +43,7 @@ mod tests {
     }
 
     #[test]
-    fn test_uyu_amount_with_centesimos() {
+    fn test_uyu_amount_with_centésimos() {
         let amount = Amount::<UYU>::from_minor(10050); // 100.50 UYU
         assert_eq!(amount.to_major_floor(), 100);
         assert_eq!(amount.to_minor(), 10050);
