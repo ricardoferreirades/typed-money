@@ -9,6 +9,7 @@ mod constructors;
 mod conversions;
 mod currency_conversion;
 mod display;
+mod metadata;
 mod parsing;
 mod precision;
 mod rounding;
@@ -16,4 +17,5 @@ mod rounding;
 mod serialization;
 mod type_def;
 
+pub use metadata::CurrencyMetadata;
 pub use type_def::Amount;
