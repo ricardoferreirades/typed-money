@@ -83,16 +83,16 @@ haleru = "haléřů"     # Czech Koruna subdivision
 piastres = "piastres" # Egyptian Pound subdivision
 centavos = "centavos" # Various Latin American currencies
 # Regional currency subdivisions
-bani = "bani"         # Romanian Leu subdivision
-stotinki = "stotinki" # Bulgarian Lev subdivision
-lipa = "lipa"         # Croatian Kuna subdivision
-para = "para"         # Serbian Dinar subdivision
-kopiyok = "kopiyok"   # Ukrainian Hryvnia subdivision
-satang = "satang"     # Thai Baht subdivision
-sen = "sen"           # Malaysian Ringgit subdivision
+bani = "bani"             # Romanian Leu subdivision
+stotinki = "stotinki"     # Bulgarian Lev subdivision
+lipa = "lipa"             # Croatian Kuna subdivision
+para = "para"             # Serbian Dinar subdivision
+kopiyok = "kopiyok"       # Ukrainian Hryvnia subdivision
+satang = "satang"         # Thai Baht subdivision
+sen = "sen"               # Malaysian Ringgit subdivision
 centesimos = "centésimos" # Uruguayan Peso subdivision
-baisa = "baisa"       # Omani Rial subdivision
-millimes = "millimes" # Tunisian Dinar subdivision
+baisa = "baisa"           # Omani Rial subdivision
+millimes = "millimes"     # Tunisian Dinar subdivision
 
 # Technical terms
 bigdecimal = "bigdecimal"

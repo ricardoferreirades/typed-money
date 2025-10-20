@@ -247,6 +247,12 @@ pub use currency::{
     AED,
     ARS,
     AUD,
+    // European Regional Currencies
+    BGN,
+    // Middle Eastern Regional Currencies
+    BHD,
+    // American Regional Currencies
+    BOB,
     // American Currencies
     BRL,
     BTC,
@@ -256,61 +262,55 @@ pub use currency::{
     CLP,
     // Asian Currencies
     CNY,
+    COP,
     CZK,
     DKK,
     EGP,
     ETH,
     EUR,
     GBP,
+    // African Regional Currencies
+    GHS,
     HKD,
+    HRK,
     HUF,
+    // Asian Regional Currencies
+    IDR,
     ILS,
     INR,
+    JOD,
     JPY,
+    KES,
     KRW,
+    KWD,
+    MAD,
     MXN,
+    MYR,
+    NGN,
     NOK,
     NZD,
+    OMR,
+    PEN,
+    PHP,
     PLN,
+    PYG,
+    QAR,
+    RON,
+    RSD,
     SAR,
     // European Currencies
     SEK,
     SGD,
+    THB,
+    TND,
     TRY,
     TWD,
+    UAH,
     USD,
+    UYU,
+    VND,
     // African/Middle Eastern Currencies
     ZAR,
-    // European Regional Currencies
-    BGN,
-    HRK,
-    RON,
-    RSD,
-    UAH,
-    // Asian Regional Currencies
-    IDR,
-    MYR,
-    PHP,
-    THB,
-    VND,
-    // American Regional Currencies
-    BOB,
-    COP,
-    PEN,
-    PYG,
-    UYU,
-    // African Regional Currencies
-    GHS,
-    KES,
-    MAD,
-    NGN,
-    TND,
-    // Middle Eastern Regional Currencies
-    BHD,
-    JOD,
-    KWD,
-    OMR,
-    QAR,
 };
 pub use error::{MoneyError, MoneyResult};
 pub use rate::Rate;
