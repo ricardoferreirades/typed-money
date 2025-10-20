@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Aave (AAVE)
 ///
@@ -23,6 +24,22 @@ impl Currency for AAVE {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "AAVE";
     const SYMBOL: &'static str = "AAVE";
+    
+    // Cryptocurrency metadata
+    const NAME: &'static str = "Aave";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Cryptocurrency;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 2020;
+    const ISO_4217_NUMBER: u16 = 0; // No official ISO code for cryptocurrencies
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]
