@@ -1,6 +1,6 @@
 //! Silver (XAG) precious metal implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Silver (XAG)
 ///
@@ -22,6 +22,22 @@ impl Currency for XAG {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XAG";
     const SYMBOL: &'static str = "Ag";
+    
+    // Commodity metadata
+    const NAME: &'static str = "Silver";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Commodity;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 0; // Silver has been used for millennia
+    const ISO_4217_NUMBER: u16 = 961; // ISO 4217 code for silver
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]

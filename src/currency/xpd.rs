@@ -1,6 +1,6 @@
 //! Palladium (XPD) precious metal implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Palladium (XPD)
 ///
@@ -22,6 +22,22 @@ impl Currency for XPD {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XPD";
     const SYMBOL: &'static str = "Pd";
+    
+    // Commodity metadata
+    const NAME: &'static str = "Palladium";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Commodity;
+    const IS_MAJOR: bool = true;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 0; // Palladium has been used for centuries
+    const ISO_4217_NUMBER: u16 = 964; // ISO 4217 code for palladium
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]

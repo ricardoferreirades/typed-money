@@ -1,6 +1,6 @@
 //! Diamond (XDI) precious metal implementation.
 
-use super::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Diamond (XDI)
 ///
@@ -22,6 +22,22 @@ impl Currency for XDI {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XDI";
     const SYMBOL: &'static str = "♦";
+    
+    // Commodity metadata
+    const NAME: &'static str = "Diamond";
+    const COUNTRY: &'static str = "Global";
+    const REGION: &'static str = "Worldwide";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Commodity;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 0; // Diamonds have been used for millennia
+    const ISO_4217_NUMBER: u16 = 0; // No official ISO code for diamonds
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]
