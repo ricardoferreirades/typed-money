@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Philippine Peso (PHP)
 ///
@@ -22,6 +23,22 @@ impl Currency for PHP {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "PHP";
     const SYMBOL: &'static str = "₱";
+    
+    // Rich metadata
+    const NAME: &'static str = "Philippine Peso";
+    const COUNTRY: &'static str = "Philippines";
+    const REGION: &'static str = "Asia";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1949;
+    const ISO_4217_NUMBER: u16 = 608;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]

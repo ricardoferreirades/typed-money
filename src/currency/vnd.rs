@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Vietnamese Dong (VND)
 ///
@@ -22,6 +23,22 @@ impl Currency for VND {
     const DECIMALS: u8 = 0; // Vietnamese Dong typically doesn't use decimal places
     const CODE: &'static str = "VND";
     const SYMBOL: &'static str = "₫";
+    
+    // Rich metadata
+    const NAME: &'static str = "Vietnamese Dong";
+    const COUNTRY: &'static str = "Vietnam";
+    const REGION: &'static str = "Asia";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1978;
+    const ISO_4217_NUMBER: u16 = 704;
+    const THOUSANDS_SEPARATOR: char = '.';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]

@@ -1,4 +1,5 @@
 use crate::Currency;
+use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Singapore Dollar (SGD)
 ///
@@ -22,6 +23,22 @@ impl Currency for SGD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "SGD";
     const SYMBOL: &'static str = "S$";
+    
+    // Rich metadata
+    const NAME: &'static str = "Singapore Dollar";
+    const COUNTRY: &'static str = "Singapore";
+    const REGION: &'static str = "Asia";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = true;
+    const INTRODUCED_YEAR: u16 = 1967;
+    const ISO_4217_NUMBER: u16 = 702;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Low;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::High;
 }
 
 #[cfg(test)]
