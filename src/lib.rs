@@ -263,10 +263,15 @@ mod rounding;
 #[cfg(feature = "conversion_tracking")]
 pub mod conversion_tracking;
 
-pub use amount::Amount;
+pub use amount::{Amount, CurrencyMetadata};
 pub use currency::{
     // Core currencies
     Currency,
+    // Currency metadata types
+    CurrencyType,
+    LiquidityRating,
+    SymbolPosition,
+    VolatilityRating,
     AAVE,
     // Major Cryptocurrencies
     ADA,

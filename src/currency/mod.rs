@@ -187,6 +187,7 @@
 //! println!("GBP decimals: {}", GBP::DECIMALS);  // 2
 //! ```
 
+mod metadata;
 mod trait_def;
 
 // Built-in currencies
@@ -303,6 +304,7 @@ mod xcu;
 mod xni;
 mod xzn;
 
+pub use metadata::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 pub use trait_def::Currency;
 
 // Core currencies
