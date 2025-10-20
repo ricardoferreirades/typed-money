@@ -490,16 +490,17 @@
 **Functional (F13):** Support for precious metal trading  
 **Non-Functional (NF5):** Extensibility for commodity trading
 
-- [ ] **Major Precious Metals:**
-  - [ ] `XAU` - Gold (4 decimals - troy ounces)
-  - [ ] `XAG` - Silver (4 decimals - troy ounces)
-  - [ ] `XPT` - Platinum (4 decimals - troy ounces)
-  - [ ] `XPD` - Palladium (4 decimals - troy ounces)
-- [ ] **Base Metals:**
-  - [ ] `XCU` - Copper (4 decimals - metric tons)
-  - [ ] `XAL` - Aluminum (4 decimals - metric tons)
-  - [ ] `XZN` - Zinc (4 decimals - metric tons)
-  - [ ] `XNI` - Nickel (4 decimals - metric tons)
+- [x] **Major Precious Metals:**
+  - [x] `XAU` - Gold (4 decimals - troy ounces)
+  - [x] `XAG` - Silver (4 decimals - troy ounces)
+  - [x] `XPT` - Platinum (4 decimals - troy ounces)
+  - [x] `XPD` - Palladium (4 decimals - troy ounces)
+  - [x] `XDI` - Diamond (4 decimals - carats)
+- [x] **Base Metals:**
+  - [x] `XCU` - Copper (4 decimals - metric tons)
+  - [x] `XAL` - Aluminum (4 decimals - metric tons)
+  - [x] `XZN` - Zinc (4 decimals - metric tons)
+  - [x] `XNI` - Nickel (4 decimals - metric tons)
 
 ### 11.5 Currency Metadata
 **Functional (F13):** Rich currency information  
