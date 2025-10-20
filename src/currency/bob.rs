@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Bolivian Boliviano (BOB)
 ///
@@ -22,6 +22,22 @@ impl Currency for BOB {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "BOB";
     const SYMBOL: &'static str = "Bs";
+    
+    // Rich metadata
+    const NAME: &'static str = "Bolivian Boliviano";
+    const COUNTRY: &'static str = "Bolivia";
+    const REGION: &'static str = "South America";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1987;
+    const ISO_4217_NUMBER: u16 = 068;
+    const THOUSANDS_SEPARATOR: char = '.';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]

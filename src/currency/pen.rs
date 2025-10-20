@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Peruvian Sol (PEN)
 ///
@@ -22,6 +22,22 @@ impl Currency for PEN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "PEN";
     const SYMBOL: &'static str = "S/";
+    
+    // Rich metadata
+    const NAME: &'static str = "Peruvian Sol";
+    const COUNTRY: &'static str = "Peru";
+    const REGION: &'static str = "South America";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1991;
+    const ISO_4217_NUMBER: u16 = 604;
+    const THOUSANDS_SEPARATOR: char = '.';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]
