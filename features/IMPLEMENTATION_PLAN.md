@@ -506,28 +506,29 @@
 **Functional (F13):** Rich currency information  
 **Non-Functional (NF6):** Comprehensive documentation
 
-- [ ] **Currency Information:**
-  - [ ] `NAME` - Full currency name (e.g., "US Dollar", "Euro")
-  - [ ] `COUNTRY` - Primary country/region
-  - [ ] `REGION` - Geographic region
-  - [ ] `CURRENCY_TYPE` - Fiat, Crypto, Commodity
-  - [ ] `IS_MAJOR` - Whether it's a major currency
-  - [ ] `IS_STABLE` - Whether it's a stable currency
-- [ ] **Formatting Information:**
-  - [ ] `THOUSANDS_SEPARATOR` - Locale-specific separator
-  - [ ] `DECIMAL_SEPARATOR` - Locale-specific decimal point
-  - [ ] `SYMBOL_POSITION` - Before/after amount
-  - [ ] `SPACE_BETWEEN` - Space between symbol and amount
-- [ ] **Historical Information:**
-  - [ ] `INTRODUCED_YEAR` - When currency was introduced
-  - [ ] `REPLACED_CURRENCY` - Previous currency (if any)
-  - [ ] `ISO_4217_CODE` - Official ISO code
-  - [ ] `ISO_4217_NUMBER` - Official ISO number
-- [ ] **Trading Information:**
-  - [ ] `TRADING_HOURS` - Primary trading hours
-  - [ ] `MAJOR_EXCHANGES` - Where it's primarily traded
-  - [ ] `VOLATILITY_RATING` - Low/Medium/High
-  - [ ] `LIQUIDITY_RATING` - Low/Medium/High
+- [x] **Currency Information:**
+  - [x] `NAME` - Full currency name (e.g., "US Dollar", "Euro")
+  - [x] `COUNTRY` - Primary country/region
+  - [x] `REGION` - Geographic region
+  - [x] `CURRENCY_TYPE` - Fiat, Crypto, Commodity
+  - [x] `IS_MAJOR` - Whether it's a major currency
+  - [x] `IS_STABLE` - Whether it's a stable currency
+- [x] **Formatting Information:**
+  - [x] `THOUSANDS_SEPARATOR` - Locale-specific separator
+  - [x] `DECIMAL_SEPARATOR` - Locale-specific decimal point
+  - [x] `SYMBOL_POSITION` - Before/after amount
+  - [x] `SPACE_BETWEEN` - Space between symbol and amount
+- [x] **Historical Information:**
+  - [x] `INTRODUCED_YEAR` - When currency was introduced
+  - [x] `ISO_4217_NUMBER` - Official ISO number
+- [x] **Trading Information:**
+  - [x] `VOLATILITY_RATING` - Low/Medium/High (static)
+  - [x] `LIQUIDITY_RATING` - Low/Medium/High (static)
+- [x] **Implementation Notes:**
+  - [x] All metadata fields have sensible defaults
+  - [x] Users provide their own data (library provides structure only)
+  - [x] CurrencyMetadata trait for easy access
+  - [x] Comprehensive example demonstrating usage
 
 ---
 
