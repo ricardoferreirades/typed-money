@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Bahraini Dinar (BHD)
 ///
@@ -23,7 +23,7 @@ impl Currency for BHD {
     const DECIMALS: u8 = 3; // Bahraini Dinar uses 3 decimal places (fils)
     const CODE: &'static str = "BHD";
     const SYMBOL: &'static str = "د.ب";
-    
+
     // Rich metadata
     const NAME: &'static str = "Bahraini Dinar";
     const COUNTRY: &'static str = "Bahrain";
@@ -32,7 +32,7 @@ impl Currency for BHD {
     const IS_MAJOR: bool = false;
     const IS_STABLE: bool = true;
     const INTRODUCED_YEAR: u16 = 1965;
-    const ISO_4217_NUMBER: u16 = 048;
+    const ISO_4217_NUMBER: u16 = 48;
     const THOUSANDS_SEPARATOR: char = ',';
     const DECIMAL_SEPARATOR: char = '.';
     const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;

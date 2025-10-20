@@ -1,6 +1,6 @@
 //! Japanese Yen currency implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Japanese Yen
 ///
@@ -19,7 +19,7 @@ impl Currency for JPY {
     const DECIMALS: u8 = 0;
     const CODE: &'static str = "JPY";
     const SYMBOL: &'static str = "¥";
-    
+
     // Rich metadata
     const NAME: &'static str = "Japanese Yen";
     const COUNTRY: &'static str = "Japan";

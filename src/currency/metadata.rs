@@ -119,12 +119,12 @@ mod tests {
         // Test that enums can be ordered consistently
         assert!(CurrencyType::Fiat < CurrencyType::Cryptocurrency);
         assert!(CurrencyType::Cryptocurrency < CurrencyType::Commodity);
-        
+
         assert!(SymbolPosition::Before < SymbolPosition::After);
-        
+
         assert!(VolatilityRating::Low < VolatilityRating::Medium);
         assert!(VolatilityRating::Medium < VolatilityRating::High);
-        
+
         assert!(LiquidityRating::Low < LiquidityRating::Medium);
         assert!(LiquidityRating::Medium < LiquidityRating::High);
     }

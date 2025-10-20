@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Moroccan Dirham (MAD)
 ///
@@ -22,7 +22,7 @@ impl Currency for MAD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "MAD";
     const SYMBOL: &'static str = "د.م.";
-    
+
     // Rich metadata
     const NAME: &'static str = "Moroccan Dirham";
     const COUNTRY: &'static str = "Morocco";

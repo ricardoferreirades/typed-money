@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Aave (AAVE)
 ///
@@ -24,7 +24,7 @@ impl Currency for AAVE {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "AAVE";
     const SYMBOL: &'static str = "AAVE";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Aave";
     const COUNTRY: &'static str = "Global";

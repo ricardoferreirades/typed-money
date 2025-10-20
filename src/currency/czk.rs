@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Czech Koruna (CZK)
 ///
@@ -23,7 +23,7 @@ impl Currency for CZK {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "CZK";
     const SYMBOL: &'static str = "Kč";
-    
+
     // Rich metadata
     const NAME: &'static str = "Czech Koruna";
     const COUNTRY: &'static str = "Czech Republic";

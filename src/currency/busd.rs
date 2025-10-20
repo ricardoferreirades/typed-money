@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Binance USD (BUSD)
 ///
@@ -24,7 +24,7 @@ impl Currency for BUSD {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "BUSD";
     const SYMBOL: &'static str = "BUSD";
-    
+
     // Stablecoin metadata
     const NAME: &'static str = "Binance USD";
     const COUNTRY: &'static str = "Global";

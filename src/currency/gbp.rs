@@ -1,6 +1,6 @@
 //! British Pound Sterling currency implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// British Pound Sterling
 ///
@@ -19,7 +19,7 @@ impl Currency for GBP {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "GBP";
     const SYMBOL: &'static str = "£";
-    
+
     // Rich metadata
     const NAME: &'static str = "British Pound Sterling";
     const COUNTRY: &'static str = "United Kingdom";

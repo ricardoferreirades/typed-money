@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// SushiSwap (SUSHI)
 ///
@@ -23,7 +23,7 @@ impl Currency for SUSHI {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "SUSHI";
     const SYMBOL: &'static str = "SUSHI";
-    
+
     // Rich metadata
     const NAME: &'static str = "SushiSwap";
     const COUNTRY: &'static str = "Global";

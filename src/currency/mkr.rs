@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Maker (MKR)
 ///
@@ -23,7 +23,7 @@ impl Currency for MKR {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "MKR";
     const SYMBOL: &'static str = "MKR";
-    
+
     // Rich metadata
     const NAME: &'static str = "Maker";
     const COUNTRY: &'static str = "Global";

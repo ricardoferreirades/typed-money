@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Chainlink (LINK)
 ///
@@ -24,7 +24,7 @@ impl Currency for LINK {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "LINK";
     const SYMBOL: &'static str = "LINK";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Chainlink";
     const COUNTRY: &'static str = "Global";

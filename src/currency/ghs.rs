@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Ghanaian Cedi (GHS)
 ///
@@ -22,7 +22,7 @@ impl Currency for GHS {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "GHS";
     const SYMBOL: &'static str = "₵";
-    
+
     // Rich metadata
     const NAME: &'static str = "Ghanaian Cedi";
     const COUNTRY: &'static str = "Ghana";

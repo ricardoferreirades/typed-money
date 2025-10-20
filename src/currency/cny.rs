@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Chinese Yuan (CNY)
 ///
@@ -23,7 +23,7 @@ impl Currency for CNY {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "CNY";
     const SYMBOL: &'static str = "¥";
-    
+
     // Rich metadata
     const NAME: &'static str = "Chinese Yuan";
     const COUNTRY: &'static str = "China";

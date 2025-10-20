@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// South Korean Won (KRW)
 ///
@@ -23,7 +23,7 @@ impl Currency for KRW {
     const DECIMALS: u8 = 0; // Korean Won typically doesn't use decimal places
     const CODE: &'static str = "KRW";
     const SYMBOL: &'static str = "₩";
-    
+
     // Rich metadata
     const NAME: &'static str = "South Korean Won";
     const COUNTRY: &'static str = "South Korea";

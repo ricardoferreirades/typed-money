@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Polish Złoty (PLN)
 ///
@@ -23,7 +23,7 @@ impl Currency for PLN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "PLN";
     const SYMBOL: &'static str = "zł";
-    
+
     // Rich metadata
     const NAME: &'static str = "Polish Złoty";
     const COUNTRY: &'static str = "Poland";

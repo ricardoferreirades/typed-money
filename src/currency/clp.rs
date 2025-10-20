@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Chilean Peso (CLP)
 ///
@@ -23,7 +23,7 @@ impl Currency for CLP {
     const DECIMALS: u8 = 0; // Chilean Peso typically doesn't use decimal places
     const CODE: &'static str = "CLP";
     const SYMBOL: &'static str = "$";
-    
+
     // Rich metadata
     const NAME: &'static str = "Chilean Peso";
     const COUNTRY: &'static str = "Chile";

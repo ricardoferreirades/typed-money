@@ -1,16 +1,16 @@
-use typed_money::{Amount, USD, EUR, BTC, XAU};
+use typed_money::{Amount, BTC, EUR, USD, XAU};
 
 fn main() {
     println!("🚀 Typed-Money Library - Compilation Successful!");
     println!("=================================================");
     println!();
-    
+
     // Quick demonstration that everything is working
     let usd_amount = Amount::<USD>::from_major(1000);
     let eur_amount = Amount::<EUR>::from_major(850);
     let btc_amount = Amount::<BTC>::from_major(1);
     let gold_amount = Amount::<XAU>::from_major(10);
-    
+
     println!("✅ Library Status: All systems operational!");
     println!();
     println!("💰 Quick Demo:");

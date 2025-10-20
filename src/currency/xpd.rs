@@ -1,6 +1,6 @@
 //! Palladium (XPD) precious metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Palladium (XPD)
 ///
@@ -22,7 +22,7 @@ impl Currency for XPD {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XPD";
     const SYMBOL: &'static str = "Pd";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Palladium";
     const COUNTRY: &'static str = "Global";

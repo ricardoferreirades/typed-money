@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// South African Rand (ZAR)
 ///
@@ -23,7 +23,7 @@ impl Currency for ZAR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "ZAR";
     const SYMBOL: &'static str = "R";
-    
+
     // Rich metadata
     const NAME: &'static str = "South African Rand";
     const COUNTRY: &'static str = "South Africa";

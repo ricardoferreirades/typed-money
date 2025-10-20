@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Hungarian Forint (HUF)
 ///
@@ -23,7 +23,7 @@ impl Currency for HUF {
     const DECIMALS: u8 = 0; // Hungarian Forint typically doesn't use decimal places
     const CODE: &'static str = "HUF";
     const SYMBOL: &'static str = "Ft";
-    
+
     // Rich metadata
     const NAME: &'static str = "Hungarian Forint";
     const COUNTRY: &'static str = "Hungary";

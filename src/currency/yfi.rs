@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Yearn Finance (YFI)
 ///
@@ -23,7 +23,7 @@ impl Currency for YFI {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "YFI";
     const SYMBOL: &'static str = "YFI";
-    
+
     // Rich metadata
     const NAME: &'static str = "Yearn Finance";
     const COUNTRY: &'static str = "Global";

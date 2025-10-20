@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Ukrainian Hryvnia (UAH)
 ///
@@ -23,7 +23,7 @@ impl Currency for UAH {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "UAH";
     const SYMBOL: &'static str = "₴";
-    
+
     // Rich metadata
     const NAME: &'static str = "Ukrainian Hryvnia";
     const COUNTRY: &'static str = "Ukraine";

@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// USD Coin (USDC)
 ///
@@ -24,7 +24,7 @@ impl Currency for USDC {
     const DECIMALS: u8 = 6;
     const CODE: &'static str = "USDC";
     const SYMBOL: &'static str = "USDC";
-    
+
     // Stablecoin metadata
     const NAME: &'static str = "USD Coin";
     const COUNTRY: &'static str = "Global";

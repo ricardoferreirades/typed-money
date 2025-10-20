@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Litecoin (LTC)
 ///
@@ -24,7 +24,7 @@ impl Currency for LTC {
     const DECIMALS: u8 = 8;
     const CODE: &'static str = "LTC";
     const SYMBOL: &'static str = "Ł";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Litecoin";
     const COUNTRY: &'static str = "Global";

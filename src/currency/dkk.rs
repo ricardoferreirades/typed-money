@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Danish Krone (DKK)
 ///
@@ -23,7 +23,7 @@ impl Currency for DKK {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "DKK";
     const SYMBOL: &'static str = "kr";
-    
+
     // Rich metadata
     const NAME: &'static str = "Danish Krone";
     const COUNTRY: &'static str = "Denmark";

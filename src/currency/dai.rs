@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Dai (DAI)
 ///
@@ -24,7 +24,7 @@ impl Currency for DAI {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "DAI";
     const SYMBOL: &'static str = "DAI";
-    
+
     // Stablecoin metadata
     const NAME: &'static str = "Dai";
     const COUNTRY: &'static str = "Global";

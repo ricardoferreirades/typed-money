@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Bitcoin Cash (BCH)
 ///
@@ -24,7 +24,7 @@ impl Currency for BCH {
     const DECIMALS: u8 = 8;
     const CODE: &'static str = "BCH";
     const SYMBOL: &'static str = "₿";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Bitcoin Cash";
     const COUNTRY: &'static str = "Global";

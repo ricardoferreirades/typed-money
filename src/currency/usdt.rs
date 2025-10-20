@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Tether (USDT)
 ///
@@ -23,7 +23,7 @@ impl Currency for USDT {
     const DECIMALS: u8 = 6;
     const CODE: &'static str = "USDT";
     const SYMBOL: &'static str = "USDT";
-    
+
     // Stablecoin metadata
     const NAME: &'static str = "Tether";
     const COUNTRY: &'static str = "Global";

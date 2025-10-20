@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Egyptian Pound (EGP)
 ///
@@ -23,7 +23,7 @@ impl Currency for EGP {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "EGP";
     const SYMBOL: &'static str = "£";
-    
+
     // Rich metadata
     const NAME: &'static str = "Egyptian Pound";
     const COUNTRY: &'static str = "Egypt";

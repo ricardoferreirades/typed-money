@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Jordanian Dinar (JOD)
 ///
@@ -23,7 +23,7 @@ impl Currency for JOD {
     const DECIMALS: u8 = 3; // Jordanian Dinar uses 3 decimal places (fils)
     const CODE: &'static str = "JOD";
     const SYMBOL: &'static str = "د.ا";
-    
+
     // Rich metadata
     const NAME: &'static str = "Jordanian Dinar";
     const COUNTRY: &'static str = "Jordan";

@@ -1,6 +1,6 @@
 //! Euro currency implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Euro
 ///
@@ -19,7 +19,7 @@ impl Currency for EUR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "EUR";
     const SYMBOL: &'static str = "€";
-    
+
     // Rich metadata
     const NAME: &'static str = "Euro";
     const COUNTRY: &'static str = "European Union";

@@ -1,6 +1,6 @@
 //! Silver (XAG) precious metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Silver (XAG)
 ///
@@ -22,7 +22,7 @@ impl Currency for XAG {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XAG";
     const SYMBOL: &'static str = "Ag";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Silver";
     const COUNTRY: &'static str = "Global";

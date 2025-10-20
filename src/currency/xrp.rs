@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// XRP (XRP)
 ///
@@ -24,7 +24,7 @@ impl Currency for XRP {
     const DECIMALS: u8 = 6;
     const CODE: &'static str = "XRP";
     const SYMBOL: &'static str = "XRP";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "XRP";
     const COUNTRY: &'static str = "Global";

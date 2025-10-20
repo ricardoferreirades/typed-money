@@ -136,7 +136,7 @@ impl<C: Currency> CurrencyMetadata for Amount<C> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+    use crate::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
     // Test currency with minimal metadata
     #[derive(Debug, Copy, Clone)]
@@ -157,7 +157,7 @@ mod tests {
         const DECIMALS: u8 = 2;
         const CODE: &'static str = "RICH";
         const SYMBOL: &'static str = "R";
-        
+
         const NAME: &'static str = "Rich Test Currency";
         const COUNTRY: &'static str = "Test Country";
         const REGION: &'static str = "Test Region";
@@ -177,20 +177,20 @@ mod tests {
     #[test]
     fn test_minimal_currency_metadata() {
         let amount = Amount::<TestCurrency>::from_major(100);
-        
+
         // Test default values
         assert_eq!(amount.currency_name(), "");
         assert_eq!(amount.currency_country(), "");
         assert_eq!(amount.currency_region(), "");
         assert_eq!(amount.currency_type(), CurrencyType::Fiat);
-        assert_eq!(amount.is_major_currency(), false);
-        assert_eq!(amount.is_stable_currency(), false);
+        assert!(!amount.is_major_currency());
+        assert!(!amount.is_stable_currency());
         assert_eq!(amount.currency_introduced_year(), 0);
         assert_eq!(amount.currency_iso_number(), 0);
         assert_eq!(amount.thousands_separator(), ',');
         assert_eq!(amount.decimal_separator(), '.');
         assert_eq!(amount.symbol_position(), SymbolPosition::Before);
-        assert_eq!(amount.space_between_symbol(), false);
+        assert!(!amount.space_between_symbol());
         assert_eq!(amount.volatility_rating(), VolatilityRating::Medium);
         assert_eq!(amount.liquidity_rating(), LiquidityRating::Medium);
     }
@@ -198,20 +198,20 @@ mod tests {
     #[test]
     fn test_rich_currency_metadata() {
         let amount = Amount::<RichTestCurrency>::from_major(100);
-        
+
         // Test custom values
         assert_eq!(amount.currency_name(), "Rich Test Currency");
         assert_eq!(amount.currency_country(), "Test Country");
         assert_eq!(amount.currency_region(), "Test Region");
         assert_eq!(amount.currency_type(), CurrencyType::Fiat);
-        assert_eq!(amount.is_major_currency(), true);
-        assert_eq!(amount.is_stable_currency(), true);
+        assert!(amount.is_major_currency());
+        assert!(amount.is_stable_currency());
         assert_eq!(amount.currency_introduced_year(), 2024);
         assert_eq!(amount.currency_iso_number(), 999);
         assert_eq!(amount.thousands_separator(), '.');
         assert_eq!(amount.decimal_separator(), ',');
         assert_eq!(amount.symbol_position(), SymbolPosition::After);
-        assert_eq!(amount.space_between_symbol(), true);
+        assert!(amount.space_between_symbol());
         assert_eq!(amount.volatility_rating(), VolatilityRating::Low);
         assert_eq!(amount.liquidity_rating(), LiquidityRating::High);
     }
@@ -220,9 +220,12 @@ mod tests {
     fn test_currency_info_formatting() {
         let minimal_amount = Amount::<TestCurrency>::from_major(100);
         let rich_amount = Amount::<RichTestCurrency>::from_major(100);
-        
+
         // Test info formatting
         assert_eq!(minimal_amount.currency_info(), " (TEST) -  - Fiat - Minor");
-        assert_eq!(rich_amount.currency_info(), "Rich Test Currency (RICH) - Test Country - Fiat - Major");
+        assert_eq!(
+            rich_amount.currency_info(),
+            "Rich Test Currency (RICH) - Test Country - Fiat - Major"
+        );
     }
 }

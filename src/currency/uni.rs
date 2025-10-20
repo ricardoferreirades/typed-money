@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Uniswap (UNI)
 ///
@@ -23,7 +23,7 @@ impl Currency for UNI {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "UNI";
     const SYMBOL: &'static str = "UNI";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Uniswap";
     const COUNTRY: &'static str = "Global";

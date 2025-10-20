@@ -1,6 +1,6 @@
 //! Ethereum currency implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Ethereum
 ///
@@ -19,7 +19,7 @@ impl Currency for ETH {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "ETH";
     const SYMBOL: &'static str = "Ξ";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Ethereum";
     const COUNTRY: &'static str = "Global";

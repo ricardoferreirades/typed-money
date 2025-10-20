@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Israeli Shekel (ILS)
 ///
@@ -23,7 +23,7 @@ impl Currency for ILS {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "ILS";
     const SYMBOL: &'static str = "₪";
-    
+
     // Rich metadata
     const NAME: &'static str = "Israeli Shekel";
     const COUNTRY: &'static str = "Israel";

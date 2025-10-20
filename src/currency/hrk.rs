@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Croatian Kuna (HRK)
 ///
@@ -23,7 +23,7 @@ impl Currency for HRK {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "HRK";
     const SYMBOL: &'static str = "kn";
-    
+
     // Rich metadata (Historical currency - replaced by EUR in 2023)
     const NAME: &'static str = "Croatian Kuna";
     const COUNTRY: &'static str = "Croatia";

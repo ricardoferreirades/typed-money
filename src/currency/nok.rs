@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Norwegian Krone (NOK)
 ///
@@ -23,7 +23,7 @@ impl Currency for NOK {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "NOK";
     const SYMBOL: &'static str = "kr";
-    
+
     // Rich metadata
     const NAME: &'static str = "Norwegian Krone";
     const COUNTRY: &'static str = "Norway";

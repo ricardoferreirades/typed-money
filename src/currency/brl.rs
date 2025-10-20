@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Brazilian Real (BRL)
 ///
@@ -23,7 +23,7 @@ impl Currency for BRL {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "BRL";
     const SYMBOL: &'static str = "R$";
-    
+
     // Rich metadata
     const NAME: &'static str = "Brazilian Real";
     const COUNTRY: &'static str = "Brazil";

@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Indian Rupee (INR)
 ///
@@ -23,7 +23,7 @@ impl Currency for INR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "INR";
     const SYMBOL: &'static str = "₹";
-    
+
     // Rich metadata
     const NAME: &'static str = "Indian Rupee";
     const COUNTRY: &'static str = "India";

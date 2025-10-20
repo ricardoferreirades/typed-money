@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Paraguayan Guarani (PYG)
 ///
@@ -22,7 +22,7 @@ impl Currency for PYG {
     const DECIMALS: u8 = 0; // Paraguayan Guarani has no subdivisions
     const CODE: &'static str = "PYG";
     const SYMBOL: &'static str = "₲";
-    
+
     // Rich metadata
     const NAME: &'static str = "Paraguayan Guarani";
     const COUNTRY: &'static str = "Paraguay";

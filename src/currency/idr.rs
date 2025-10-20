@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Indonesian Rupiah (IDR)
 ///
@@ -23,7 +23,7 @@ impl Currency for IDR {
     const DECIMALS: u8 = 0; // Indonesian Rupiah typically doesn't use decimal places
     const CODE: &'static str = "IDR";
     const SYMBOL: &'static str = "Rp";
-    
+
     // Rich metadata
     const NAME: &'static str = "Indonesian Rupiah";
     const COUNTRY: &'static str = "Indonesia";

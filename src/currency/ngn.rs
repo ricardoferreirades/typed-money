@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Nigerian Naira (NGN)
 ///
@@ -22,7 +22,7 @@ impl Currency for NGN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "NGN";
     const SYMBOL: &'static str = "₦";
-    
+
     // Rich metadata
     const NAME: &'static str = "Nigerian Naira";
     const COUNTRY: &'static str = "Nigeria";

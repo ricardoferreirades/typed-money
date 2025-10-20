@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Cardano (ADA)
 ///
@@ -24,7 +24,7 @@ impl Currency for ADA {
     const DECIMALS: u8 = 6;
     const CODE: &'static str = "ADA";
     const SYMBOL: &'static str = "₳";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Cardano";
     const COUNTRY: &'static str = "Global";

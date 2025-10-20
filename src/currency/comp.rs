@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Compound (COMP)
 ///
@@ -23,7 +23,7 @@ impl Currency for COMP {
     const DECIMALS: u8 = 18;
     const CODE: &'static str = "COMP";
     const SYMBOL: &'static str = "COMP";
-    
+
     // Rich metadata
     const NAME: &'static str = "Compound";
     const COUNTRY: &'static str = "Global";

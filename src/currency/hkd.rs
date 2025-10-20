@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Hong Kong Dollar (HKD)
 ///
@@ -23,7 +23,7 @@ impl Currency for HKD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "HKD";
     const SYMBOL: &'static str = "HK$";
-    
+
     // Rich metadata
     const NAME: &'static str = "Hong Kong Dollar";
     const COUNTRY: &'static str = "Hong Kong";

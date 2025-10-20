@@ -1,6 +1,6 @@
 //! United States Dollar currency implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// United States Dollar
 ///
@@ -19,7 +19,7 @@ impl Currency for USD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "USD";
     const SYMBOL: &'static str = "$";
-    
+
     // Rich metadata (users can provide this data)
     const NAME: &'static str = "US Dollar";
     const COUNTRY: &'static str = "United States";

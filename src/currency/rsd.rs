@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Serbian Dinar (RSD)
 ///
@@ -23,7 +23,7 @@ impl Currency for RSD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "RSD";
     const SYMBOL: &'static str = "дин";
-    
+
     // Rich metadata
     const NAME: &'static str = "Serbian Dinar";
     const COUNTRY: &'static str = "Serbia";

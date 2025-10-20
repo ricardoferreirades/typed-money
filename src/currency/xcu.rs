@@ -1,6 +1,6 @@
 //! Copper (XCU) base metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Copper (XCU)
 ///
@@ -22,7 +22,7 @@ impl Currency for XCU {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XCU";
     const SYMBOL: &'static str = "Cu";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Copper";
     const COUNTRY: &'static str = "Global";

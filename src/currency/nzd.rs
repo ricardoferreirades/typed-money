@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// New Zealand Dollar (NZD)
 ///
@@ -24,7 +24,7 @@ impl Currency for NZD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "NZD";
     const SYMBOL: &'static str = "NZ$";
-    
+
     // Rich metadata
     const NAME: &'static str = "New Zealand Dollar";
     const COUNTRY: &'static str = "New Zealand";

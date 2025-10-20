@@ -1,6 +1,6 @@
 //! Bitcoin currency implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Bitcoin
 ///
@@ -19,7 +19,7 @@ impl Currency for BTC {
     const DECIMALS: u8 = 8;
     const CODE: &'static str = "BTC";
     const SYMBOL: &'static str = "₿";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Bitcoin";
     const COUNTRY: &'static str = "Global";

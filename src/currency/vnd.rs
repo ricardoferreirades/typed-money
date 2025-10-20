@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Vietnamese Dong (VND)
 ///
@@ -23,7 +23,7 @@ impl Currency for VND {
     const DECIMALS: u8 = 0; // Vietnamese Dong typically doesn't use decimal places
     const CODE: &'static str = "VND";
     const SYMBOL: &'static str = "₫";
-    
+
     // Rich metadata
     const NAME: &'static str = "Vietnamese Dong";
     const COUNTRY: &'static str = "Vietnam";

@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Colombian Peso (COP)
 ///
@@ -22,7 +22,7 @@ impl Currency for COP {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "COP";
     const SYMBOL: &'static str = "$";
-    
+
     // Rich metadata
     const NAME: &'static str = "Colombian Peso";
     const COUNTRY: &'static str = "Colombia";

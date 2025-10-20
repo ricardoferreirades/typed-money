@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Uruguayan Peso (UYU)
 ///
@@ -22,7 +22,7 @@ impl Currency for UYU {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "UYU";
     const SYMBOL: &'static str = "$U";
-    
+
     // Rich metadata
     const NAME: &'static str = "Uruguayan Peso";
     const COUNTRY: &'static str = "Uruguay";

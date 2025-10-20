@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// United Arab Emirates Dirham (AED)
 ///
@@ -23,7 +23,7 @@ impl Currency for AED {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "AED";
     const SYMBOL: &'static str = "د.إ";
-    
+
     // Rich metadata
     const NAME: &'static str = "United Arab Emirates Dirham";
     const COUNTRY: &'static str = "United Arab Emirates";

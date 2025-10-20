@@ -2,7 +2,7 @@
 
 use std::fmt;
 
-use super::metadata::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::metadata::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Trait representing a currency type.
 ///
@@ -55,7 +55,7 @@ use super::metadata::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityR
 /// ```
 pub trait Currency: Copy + Clone + fmt::Debug + 'static {
     // === REQUIRED FIELDS ===
-    
+
     /// Number of decimal places for this currency (e.g., 2 for USD, 0 for JPY)
     const DECIMALS: u8;
 

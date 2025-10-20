@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Mexican Peso (MXN)
 ///
@@ -23,7 +23,7 @@ impl Currency for MXN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "MXN";
     const SYMBOL: &'static str = "$";
-    
+
     // Rich metadata
     const NAME: &'static str = "Mexican Peso";
     const COUNTRY: &'static str = "Mexico";

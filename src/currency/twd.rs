@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// New Taiwan Dollar (TWD)
 ///
@@ -23,7 +23,7 @@ impl Currency for TWD {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "TWD";
     const SYMBOL: &'static str = "NT$";
-    
+
     // Rich metadata
     const NAME: &'static str = "New Taiwan Dollar";
     const COUNTRY: &'static str = "Taiwan";

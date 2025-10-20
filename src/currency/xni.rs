@@ -1,6 +1,6 @@
 //! Nickel (XNI) base metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Nickel (XNI)
 ///
@@ -22,7 +22,7 @@ impl Currency for XNI {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XNI";
     const SYMBOL: &'static str = "Ni";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Nickel";
     const COUNTRY: &'static str = "Global";

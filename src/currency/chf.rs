@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Swiss Franc (CHF)
 ///
@@ -23,7 +23,7 @@ impl Currency for CHF {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "CHF";
     const SYMBOL: &'static str = "CHF";
-    
+
     // Rich metadata
     const NAME: &'static str = "Swiss Franc";
     const COUNTRY: &'static str = "Switzerland";

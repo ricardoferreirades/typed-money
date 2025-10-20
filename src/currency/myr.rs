@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Malaysian Ringgit (MYR)
 ///
@@ -23,7 +23,7 @@ impl Currency for MYR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "MYR";
     const SYMBOL: &'static str = "RM";
-    
+
     // Rich metadata
     const NAME: &'static str = "Malaysian Ringgit";
     const COUNTRY: &'static str = "Malaysia";

@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Qatari Riyal (QAR)
 ///
@@ -23,7 +23,7 @@ impl Currency for QAR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "QAR";
     const SYMBOL: &'static str = "﷼";
-    
+
     // Rich metadata
     const NAME: &'static str = "Qatari Riyal";
     const COUNTRY: &'static str = "Qatar";

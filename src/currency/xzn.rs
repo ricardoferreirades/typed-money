@@ -1,6 +1,6 @@
 //! Zinc (XZN) base metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Zinc (XZN)
 ///
@@ -22,7 +22,7 @@ impl Currency for XZN {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XZN";
     const SYMBOL: &'static str = "Zn";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Zinc";
     const COUNTRY: &'static str = "Global";

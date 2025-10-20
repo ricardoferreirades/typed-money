@@ -1,6 +1,6 @@
 //! Platinum (XPT) precious metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Platinum (XPT)
 ///
@@ -22,7 +22,7 @@ impl Currency for XPT {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XPT";
     const SYMBOL: &'static str = "Pt";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Platinum";
     const COUNTRY: &'static str = "Global";

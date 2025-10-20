@@ -1,6 +1,6 @@
 //! Aluminum (XAL) base metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Aluminum (XAL)
 ///
@@ -22,7 +22,7 @@ impl Currency for XAL {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XAL";
     const SYMBOL: &'static str = "Al";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Aluminum";
     const COUNTRY: &'static str = "Global";

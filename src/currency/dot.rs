@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Polkadot (DOT)
 ///
@@ -24,7 +24,7 @@ impl Currency for DOT {
     const DECIMALS: u8 = 10;
     const CODE: &'static str = "DOT";
     const SYMBOL: &'static str = "DOT";
-    
+
     // Cryptocurrency metadata
     const NAME: &'static str = "Polkadot";
     const COUNTRY: &'static str = "Global";

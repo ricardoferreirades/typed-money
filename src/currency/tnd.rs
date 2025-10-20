@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Tunisian Dinar (TND)
 ///
@@ -22,7 +22,7 @@ impl Currency for TND {
     const DECIMALS: u8 = 3; // Tunisian Dinar uses 3 decimal places (millimes)
     const CODE: &'static str = "TND";
     const SYMBOL: &'static str = "د.ت";
-    
+
     // Rich metadata
     const NAME: &'static str = "Tunisian Dinar";
     const COUNTRY: &'static str = "Tunisia";

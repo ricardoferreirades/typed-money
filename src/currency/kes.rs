@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Kenyan Shilling (KES)
 ///
@@ -22,7 +22,7 @@ impl Currency for KES {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "KES";
     const SYMBOL: &'static str = "KSh";
-    
+
     // Rich metadata
     const NAME: &'static str = "Kenyan Shilling";
     const COUNTRY: &'static str = "Kenya";

@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Thai Baht (THB)
 ///
@@ -23,7 +23,7 @@ impl Currency for THB {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "THB";
     const SYMBOL: &'static str = "฿";
-    
+
     // Rich metadata
     const NAME: &'static str = "Thai Baht";
     const COUNTRY: &'static str = "Thailand";

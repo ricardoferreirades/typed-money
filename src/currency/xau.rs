@@ -1,6 +1,6 @@
 //! Gold (XAU) precious metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Gold (XAU)
 ///
@@ -22,7 +22,7 @@ impl Currency for XAU {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XAU";
     const SYMBOL: &'static str = "Au";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Gold";
     const COUNTRY: &'static str = "Global";

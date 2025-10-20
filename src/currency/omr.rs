@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Omani Rial (OMR)
 ///
@@ -23,7 +23,7 @@ impl Currency for OMR {
     const DECIMALS: u8 = 3; // Omani Rial uses 3 decimal places (baisa)
     const CODE: &'static str = "OMR";
     const SYMBOL: &'static str = "﷼";
-    
+
     // Rich metadata
     const NAME: &'static str = "Omani Rial";
     const COUNTRY: &'static str = "Oman";

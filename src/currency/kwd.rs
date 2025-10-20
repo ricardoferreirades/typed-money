@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Kuwaiti Dinar (KWD)
 ///
@@ -23,7 +23,7 @@ impl Currency for KWD {
     const DECIMALS: u8 = 3; // Kuwaiti Dinar uses 3 decimal places (fils)
     const CODE: &'static str = "KWD";
     const SYMBOL: &'static str = "د.ك";
-    
+
     // Rich metadata
     const NAME: &'static str = "Kuwaiti Dinar";
     const COUNTRY: &'static str = "Kuwait";

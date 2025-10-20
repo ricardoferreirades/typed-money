@@ -1,4 +1,4 @@
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Peruvian Sol (PEN)
 ///
@@ -22,7 +22,7 @@ impl Currency for PEN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "PEN";
     const SYMBOL: &'static str = "S/";
-    
+
     // Rich metadata
     const NAME: &'static str = "Peruvian Sol";
     const COUNTRY: &'static str = "Peru";

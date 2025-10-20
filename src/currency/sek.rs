@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Swedish Krona (SEK)
 ///
@@ -23,7 +23,7 @@ impl Currency for SEK {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "SEK";
     const SYMBOL: &'static str = "kr";
-    
+
     // Rich metadata
     const NAME: &'static str = "Swedish Krona";
     const COUNTRY: &'static str = "Sweden";

@@ -1,6 +1,6 @@
 //! Diamond (XDI) precious metal implementation.
 
-use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
+use super::{Currency, CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 
 /// Diamond (XDI)
 ///
@@ -22,7 +22,7 @@ impl Currency for XDI {
     const DECIMALS: u8 = 4;
     const CODE: &'static str = "XDI";
     const SYMBOL: &'static str = "♦";
-    
+
     // Commodity metadata
     const NAME: &'static str = "Diamond";
     const COUNTRY: &'static str = "Global";

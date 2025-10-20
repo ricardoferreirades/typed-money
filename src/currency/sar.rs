@@ -1,5 +1,5 @@
+use super::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 use crate::Currency;
-use super::{CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Saudi Riyal (SAR)
 ///
@@ -23,7 +23,7 @@ impl Currency for SAR {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "SAR";
     const SYMBOL: &'static str = "﷼";
-    
+
     // Rich metadata
     const NAME: &'static str = "Saudi Riyal";
     const COUNTRY: &'static str = "Saudi Arabia";
