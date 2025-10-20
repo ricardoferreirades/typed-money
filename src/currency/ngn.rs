@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Nigerian Naira (NGN)
 ///
@@ -22,6 +22,22 @@ impl Currency for NGN {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "NGN";
     const SYMBOL: &'static str = "₦";
+    
+    // Rich metadata
+    const NAME: &'static str = "Nigerian Naira";
+    const COUNTRY: &'static str = "Nigeria";
+    const REGION: &'static str = "West Africa";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1973;
+    const ISO_4217_NUMBER: u16 = 566;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::High;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]

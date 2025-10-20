@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Tunisian Dinar (TND)
 ///
@@ -22,6 +22,22 @@ impl Currency for TND {
     const DECIMALS: u8 = 3; // Tunisian Dinar uses 3 decimal places (millimes)
     const CODE: &'static str = "TND";
     const SYMBOL: &'static str = "د.ت";
+    
+    // Rich metadata
+    const NAME: &'static str = "Tunisian Dinar";
+    const COUNTRY: &'static str = "Tunisia";
+    const REGION: &'static str = "North Africa";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1958;
+    const ISO_4217_NUMBER: u16 = 788;
+    const THOUSANDS_SEPARATOR: char = '.';
+    const DECIMAL_SEPARATOR: char = ',';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::After;
+    const SPACE_BETWEEN: bool = true;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Low;
 }
 
 #[cfg(test)]

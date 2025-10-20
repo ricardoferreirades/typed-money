@@ -1,4 +1,4 @@
-use crate::Currency;
+use super::{Currency, CurrencyType, SymbolPosition, VolatilityRating, LiquidityRating};
 
 /// Kenyan Shilling (KES)
 ///
@@ -22,6 +22,22 @@ impl Currency for KES {
     const DECIMALS: u8 = 2;
     const CODE: &'static str = "KES";
     const SYMBOL: &'static str = "KSh";
+    
+    // Rich metadata
+    const NAME: &'static str = "Kenyan Shilling";
+    const COUNTRY: &'static str = "Kenya";
+    const REGION: &'static str = "East Africa";
+    const CURRENCY_TYPE: CurrencyType = CurrencyType::Fiat;
+    const IS_MAJOR: bool = false;
+    const IS_STABLE: bool = false;
+    const INTRODUCED_YEAR: u16 = 1966;
+    const ISO_4217_NUMBER: u16 = 404;
+    const THOUSANDS_SEPARATOR: char = ',';
+    const DECIMAL_SEPARATOR: char = '.';
+    const SYMBOL_POSITION: SymbolPosition = SymbolPosition::Before;
+    const SPACE_BETWEEN: bool = false;
+    const VOLATILITY_RATING: VolatilityRating = VolatilityRating::Medium;
+    const LIQUIDITY_RATING: LiquidityRating = LiquidityRating::Medium;
 }
 
 #[cfg(test)]
