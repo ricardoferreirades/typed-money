@@ -14,7 +14,7 @@
 //! # Quick Start
 //!
 //! ```
-//! use typed_money::{Amount, USD, EUR, CAD, CNY, THB, NGN, Rate, RoundingMode};
+//! use typed_money::{Amount, USD, EUR, BTC, ETH, LTC, ADA, USDT, USDC, CAD, CNY, THB, NGN, Rate, RoundingMode};
 //!
 //! // Create amounts
 //! let price = Amount::<USD>::from_major(100);  // $100.00
@@ -27,6 +27,16 @@
 //! // Currency conversion
 //! let rate = Rate::<USD, EUR>::new(0.85);
 //! let eur_price = price.convert(&rate);  // €85.00
+//!
+//! // Cryptocurrency amounts
+//! let bitcoin = Amount::<BTC>::from_minor(100_000_000);  // 1.00000000 BTC
+//! let ethereum = Amount::<ETH>::from_major(1);           // 1.000000000000000000 ETH
+//! let litecoin = Amount::<LTC>::from_major(10);          // 10.00000000 LTC
+//! let cardano = Amount::<ADA>::from_major(1000);         // 1000.000000 ADA
+//!
+//! // Stablecoin amounts
+//! let tether = Amount::<USDT>::from_major(100);          // 100.000000 USDT
+//! let usd_coin = Amount::<USDC>::from_major(50);         // 50.000000 USDC
 //!
 //! // Multi-currency operations
 //! let cad_amount = Amount::<CAD>::from_major(150);  // C$150.00
@@ -244,9 +254,13 @@ pub use amount::Amount;
 pub use currency::{
     // Core currencies
     Currency,
+    AAVE,
+    // Major Cryptocurrencies
+    ADA,
     AED,
     ARS,
     AUD,
+    BCH,
     // European Regional Currencies
     BGN,
     // Middle Eastern Regional Currencies
@@ -256,15 +270,21 @@ pub use currency::{
     // American Currencies
     BRL,
     BTC,
+    // Stablecoins
+    BUSD,
     // Major Fiat Currencies
     CAD,
     CHF,
     CLP,
     // Asian Currencies
     CNY,
+    // DeFi Tokens
+    COMP,
     COP,
     CZK,
+    DAI,
     DKK,
+    DOT,
     EGP,
     ETH,
     EUR,
@@ -283,7 +303,10 @@ pub use currency::{
     KES,
     KRW,
     KWD,
+    LINK,
+    LTC,
     MAD,
+    MKR,
     MXN,
     MYR,
     NGN,
@@ -301,14 +324,20 @@ pub use currency::{
     // European Currencies
     SEK,
     SGD,
+    SUSHI,
     THB,
     TND,
     TRY,
     TWD,
     UAH,
+    UNI,
     USD,
+    USDC,
+    USDT,
     UYU,
     VND,
+    XRP,
+    YFI,
     // African/Middle Eastern Currencies
     ZAR,
 };
