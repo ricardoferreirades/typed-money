@@ -2,11 +2,11 @@
 
 Thank you for your interest in contributing to Typed Money! This document provides guidelines and information for contributors.
 
-## 🎯 Code of Conduct
+## Code of Conduct
 
 This project and everyone participating in it is governed by our commitment to creating a welcoming and inclusive environment. By participating, you agree to uphold these values.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -33,22 +33,64 @@ This project and everyone participating in it is governed by our commitment to c
    make quality
    ```
 
-## 📋 Development Workflow
+## Development Workflow
 
 ### Available Commands
 
 ```bash
+# Development
 make setup        # Complete setup (install deps + git hooks)
 make install-deps # Install development dependencies only
 make run          # Run the application
-make test         # Run tests
+make test         # Run all tests (437 unit + doctests)
+make bench        # Run performance benchmarks
+make bench-open   # Open benchmark HTML reports
+make doc          # Build documentation
+make doc-open     # Build and open docs in browser
+
+# Quality
+make quality      # Run all quality checks
 make fmt          # Format code
 make lint         # Run clippy linter
 make check        # Type check
 make spell        # Check spelling
-make quality      # Run all quality checks
-make doc          # Build documentation
-make doc-open     # Build and open documentation
+
+# Examples
+make run          # Run examples
+```
+
+### Running Examples
+
+```bash
+# Basic usage
+cargo run --example basic_usage
+
+# Currency conversions
+cargo run --example conversions
+
+# Rounding modes
+cargo run --example rounding
+
+# Error handling
+cargo run --example error_handling
+
+# Serialization
+cargo run --example serialization
+
+# Custom currencies
+cargo run --example custom_currency
+
+# Internationalization features
+cargo run --example internationalization
+
+# Currency metadata
+cargo run --example currency_metadata
+
+# Precious metals
+cargo run --example precious_metals
+
+# Global currencies
+cargo run --example global_currencies
 ```
 
 ### Branch Strategy
@@ -90,7 +132,7 @@ docs(api): update Amount documentation with examples
 test(rounding): add tests for negative number rounding
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Running Tests
 
@@ -137,7 +179,7 @@ mod tests {
 }
 ```
 
-## 📝 Code Style
+## Code Style
 
 ### Rust Standards
 
@@ -195,7 +237,7 @@ pub fn from_major(amount: i64) -> Self {
 }
 ```
 
-## 🔧 Feature Development
+## Feature Development
 
 ### Adding New Currencies
 
@@ -227,7 +269,7 @@ impl Currency for CAD {
 4. **Add examples**
 5. **Update changelog**
 
-## 🐛 Bug Reports
+## Bug Reports
 
 ### Before Reporting
 
@@ -261,7 +303,7 @@ What actually happens.
 Any other relevant information.
 ```
 
-## 💡 Feature Requests
+## Feature Requests
 
 ### Before Requesting
 
@@ -288,7 +330,7 @@ What other approaches were considered?
 Any other relevant information.
 ```
 
-## 🔄 Pull Request Process
+## Pull Request Process
 
 ### Before Submitting
 
@@ -338,7 +380,7 @@ Brief description of changes.
 4. **Documentation** review
 5. **Approval** and merge
 
-## 🏗️ Architecture Guidelines
+## Architecture Guidelines
 
 ### Core Principles
 
@@ -355,7 +397,7 @@ Brief description of changes.
 - **Immutable by default**: Prevent accidental mutations
 - **Error handling**: Comprehensive error types with context
 
-## 📚 Resources
+## Resources
 
 - [Rust Book](https://doc.rust-lang.org/book/)
 - [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
@@ -368,10 +410,10 @@ Brief description of changes.
 - **Discussions**: Use GitHub discussions for questions
 - **Documentation**: Check the [API docs](https://docs.rs/typed-money)
 
-## 📄 License
+## License
 
 By contributing, you agree that your contributions will be licensed under the same terms as the project (MIT OR Apache-2.0).
 
 ---
 
-Thank you for contributing to Typed Money! 🎉
+Thank you for contributing to Typed Money!
