@@ -843,6 +843,7 @@ name = "typed-money"
 version = "0.2.0"
 dependencies = [
  "arbitrary",
+ "arrayvec",
  "bigdecimal",
  "criterion",
  "rust_decimal",

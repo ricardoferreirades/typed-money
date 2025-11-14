@@ -1,7 +1,7 @@
 //! Amount type definition.
 
 use crate::Currency;
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;
@@ -84,6 +84,8 @@ impl<C: Currency> Amount<C> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
     use crate::USD;
     use rust_decimal::Decimal;
 
@@ -103,7 +105,7 @@ mod tests {
 
     #[test]
     fn test_phantom_data_zero_cost() {
-        use std::mem;
+        use core::mem;
 
         // Amount<C> should be the same size as Decimal (PhantomData is zero-sized)
         assert_eq!(mem::size_of::<Amount<USD>>(), mem::size_of::<Decimal>());
@@ -174,7 +176,7 @@ mod tests {
 
     #[test]
     fn test_min_max() {
-        use std::cmp::{max, min};
+        use core::cmp::{max, min};
 
         let a = Amount::<USD>::from_major(100);
         let b = Amount::<USD>::from_major(50);
@@ -215,10 +217,10 @@ mod tests {
         let twenty_cents = Amount::<USD>::from_minor(20);
 
         // Verify the underlying decimals are precise
-        assert_eq!(ten_cents.value().to_string(), "0.10");
-        assert_eq!(twenty_cents.value().to_string(), "0.20");
+        assert_eq!(&ten_cents.value().to_string(), "0.10");
+        assert_eq!(&twenty_cents.value().to_string(), "0.20");
 
         let thirty_cents = Amount::<USD>::from_minor(30);
-        assert_eq!(thirty_cents.value().to_string(), "0.30");
+        assert_eq!(&thirty_cents.value().to_string(), "0.30");
     }
 }

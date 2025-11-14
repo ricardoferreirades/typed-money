@@ -136,10 +136,7 @@ impl<C: Currency> Amount<C> {
                 currency: C::CODE,
                 expected: C::DECIMALS,
                 actual: self.precision(),
-                suggestion: format!(
-                    "Use normalize() or round() to {} decimal places",
-                    C::DECIMALS
-                ),
+                suggestion: "Use normalize() or round()",
             })
         } else {
             Ok(())
@@ -179,6 +176,8 @@ impl<C: Currency> Amount<C> {
 #[cfg(not(all(feature = "use_rust_decimal", feature = "use_bigdecimal")))]
 mod tests {
     use super::*;
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
     use crate::{BTC, EUR, JPY, USD};
 
     // ========================================================================
@@ -257,8 +256,8 @@ mod tests {
 
     #[test]
     fn test_normalize_uses_half_even() {
+        use core::marker::PhantomData;
         use rust_decimal::Decimal;
-        use std::marker::PhantomData;
 
         // 12.345 normalizes to 12.34 (banker's rounding)
         let value = Decimal::new(12345, 3);

@@ -1,8 +1,12 @@
 //! Display implementation for Amount.
 
 use super::type_def::Amount;
+#[cfg(not(feature = "std"))]
+use crate::inner_prelude::*;
 use crate::Currency;
-use std::fmt;
+use core::fmt;
+
+// #[cfg(feature = "no_std")]
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;
@@ -47,7 +51,7 @@ impl<C: Currency> Amount<C> {
     /// use typed_money::{Amount, USD};
     ///
     /// let amount = Amount::<USD>::from_major(100);
-    /// assert_eq!(amount.format_full(), "$100.00 USD");
+    /// assert_eq!(&amount.format_full(), "$100.00 USD");
     /// ```
     pub fn format_full(&self) -> String {
         format!("{}", self)
@@ -84,7 +88,7 @@ impl<C: Currency> Amount<C> {
     /// use typed_money::{Amount, USD};
     ///
     /// let amount = Amount::<USD>::from_major(100);
-    /// assert_eq!(amount.format_code(), "100.00 USD");
+    /// assert_eq!(&amount.format_code(), "100.00 USD");
     /// ```
     pub fn format_code(&self) -> String {
         let formatted_value = if C::DECIMALS == 0 {
@@ -104,7 +108,7 @@ impl<C: Currency> Amount<C> {
     /// use typed_money::{Amount, USD};
     ///
     /// let amount = Amount::<USD>::from_major(100);
-    /// assert_eq!(amount.format_plain(), "100.00");
+    /// assert_eq!(&amount.format_plain(), "100.00");
     /// ```
     pub fn format_plain(&self) -> String {
         if C::DECIMALS == 0 {
@@ -129,16 +133,16 @@ impl<C: Currency> Amount<C> {
     /// let amount = Amount::<USD>::from_major(1234567);
     ///
     /// // US/UK format (default)
-    /// assert_eq!(amount.format_locale("en_US"), "$1,234,567.00 USD");
+    /// assert_eq!(&amount.format_locale("en_US"), "$1,234,567.00 USD");
     ///
     /// // German format
-    /// assert_eq!(amount.format_locale("de_DE"), "$1.234.567,00 USD");
+    /// assert_eq!(&amount.format_locale("de_DE"), "$1.234.567,00 USD");
     ///
     /// // French format
-    /// assert_eq!(amount.format_locale("fr_FR"), "$1 234 567,00 USD");
+    /// assert_eq!(&amount.format_locale("fr_FR"), "$1 234 567,00 USD");
     ///
     /// // Unknown locale defaults to en_US
-    /// assert_eq!(amount.format_locale("unknown"), "$1,234,567.00 USD");
+    /// assert_eq!(&amount.format_locale("unknown"), "$1,234,567.00 USD");
     /// ```
     pub fn format_locale(&self, locale: &str) -> String {
         let value_str = if C::DECIMALS == 0 {
@@ -175,14 +179,12 @@ impl<C: Currency> Amount<C> {
     }
 
     fn add_thousands_separator(&self, value: &str, separator: char, decimal_sep: char) -> String {
-        let parts: Vec<&str> = value.split(['.', ',']).collect();
-
-        if parts.is_empty() {
-            return value.to_string();
-        }
-
-        let integer_part = parts[0];
-        let decimal_part = parts.get(1);
+        let mut parts = value.split(['.', ',']);
+        let integer_part = match parts.next() {
+            Some(part) => part,
+            None => return value.to_string(),
+        };
+        let decimal_part = parts.next();
 
         // Handle negative sign
         let (is_negative, digits) = if let Some(stripped) = integer_part.strip_prefix('-') {
@@ -226,25 +228,25 @@ mod tests {
     #[test]
     fn test_display_usd() {
         let amount = Amount::<USD>::from_major(100);
-        assert_eq!(format!("{}", amount), "$100.00 USD");
+        assert_eq!(&format!("{}", amount), "$100.00 USD");
     }
 
     #[test]
     fn test_display_eur() {
         let amount = Amount::<EUR>::from_minor(12345);
-        assert_eq!(format!("{}", amount), "€123.45 EUR");
+        assert_eq!(&format!("{}", amount), "€123.45 EUR");
     }
 
     #[test]
     fn test_display_jpy() {
         let amount = Amount::<JPY>::from_major(1000);
-        assert_eq!(format!("{}", amount), "¥1000 JPY");
+        assert_eq!(&format!("{}", amount), "¥1000 JPY");
     }
 
     #[test]
     fn test_display_btc() {
         let amount = Amount::<BTC>::from_major(1);
-        assert_eq!(format!("{}", amount), "₿1.00000000 BTC");
+        assert_eq!(&format!("{}", amount), "₿1.00000000 BTC");
     }
 
     // Determinism tests
@@ -257,10 +259,10 @@ mod tests {
         let jpy = Amount::<JPY>::from_major(1000);
         let btc = Amount::<BTC>::from_major(1);
 
-        assert_eq!(format!("{}", usd), "$100.00 USD");
-        assert_eq!(format!("{}", eur), "€123.45 EUR");
-        assert_eq!(format!("{}", jpy), "¥1000 JPY");
-        assert_eq!(format!("{}", btc), "₿1.00000000 BTC");
+        assert_eq!(&format!("{}", usd), "$100.00 USD");
+        assert_eq!(&format!("{}", eur), "€123.45 EUR");
+        assert_eq!(&format!("{}", jpy), "¥1000 JPY");
+        assert_eq!(&format!("{}", btc), "₿1.00000000 BTC");
     }
 
     // ========================================================================
@@ -270,56 +272,56 @@ mod tests {
     #[test]
     fn test_format_full() {
         let amount = Amount::<USD>::from_major(100);
-        assert_eq!(amount.format_full(), "$100.00 USD");
+        assert_eq!(&amount.format_full(), "$100.00 USD");
     }
 
     #[test]
     fn test_format_symbol() {
         let usd = Amount::<USD>::from_major(100);
-        assert_eq!(usd.format_symbol(), "$100.00");
+        assert_eq!(&usd.format_symbol(), "$100.00");
 
         let eur = Amount::<EUR>::from_minor(12345);
-        assert_eq!(eur.format_symbol(), "€123.45");
+        assert_eq!(&eur.format_symbol(), "€123.45");
 
         let jpy = Amount::<JPY>::from_major(1000);
-        assert_eq!(jpy.format_symbol(), "¥1000");
+        assert_eq!(&jpy.format_symbol(), "¥1000");
     }
 
     #[test]
     fn test_format_code() {
         let usd = Amount::<USD>::from_major(100);
-        assert_eq!(usd.format_code(), "100.00 USD");
+        assert_eq!(&usd.format_code(), "100.00 USD");
 
         let jpy = Amount::<JPY>::from_major(1000);
-        assert_eq!(jpy.format_code(), "1000 JPY");
+        assert_eq!(&jpy.format_code(), "1000 JPY");
     }
 
     #[test]
     fn test_format_plain() {
         let usd = Amount::<USD>::from_major(100);
-        assert_eq!(usd.format_plain(), "100.00");
+        assert_eq!(&usd.format_plain(), "100.00");
 
         let jpy = Amount::<JPY>::from_major(1000);
-        assert_eq!(jpy.format_plain(), "1000");
+        assert_eq!(&jpy.format_plain(), "1000");
 
         let btc = Amount::<BTC>::from_major(1);
-        assert_eq!(btc.format_plain(), "1.00000000");
+        assert_eq!(&btc.format_plain(), "1.00000000");
     }
 
     #[test]
     fn test_format_negative() {
         let amount = Amount::<USD>::from_major(-50);
-        assert_eq!(amount.format_full(), "$-50.00 USD");
-        assert_eq!(amount.format_symbol(), "$-50.00");
-        assert_eq!(amount.format_plain(), "-50.00");
+        assert_eq!(&amount.format_full(), "$-50.00 USD");
+        assert_eq!(&amount.format_symbol(), "$-50.00");
+        assert_eq!(&amount.format_plain(), "-50.00");
     }
 
     #[test]
     fn test_format_zero() {
         let zero = Amount::<USD>::from_major(0);
-        assert_eq!(zero.format_full(), "$0.00 USD");
-        assert_eq!(zero.format_symbol(), "$0.00");
-        assert_eq!(zero.format_plain(), "0.00");
+        assert_eq!(&zero.format_full(), "$0.00 USD");
+        assert_eq!(&zero.format_symbol(), "$0.00");
+        assert_eq!(&zero.format_plain(), "0.00");
     }
 
     // ========================================================================
@@ -329,68 +331,68 @@ mod tests {
     #[test]
     fn test_format_locale_us() {
         let amount = Amount::<USD>::from_major(1234567);
-        assert_eq!(amount.format_locale("en_US"), "$1,234,567.00 USD");
-        assert_eq!(amount.format_locale("en"), "$1,234,567.00 USD");
+        assert_eq!(&amount.format_locale("en_US"), "$1,234,567.00 USD");
+        assert_eq!(&amount.format_locale("en"), "$1,234,567.00 USD");
     }
 
     #[test]
     fn test_format_locale_german() {
         let amount = Amount::<USD>::from_major(1234567);
-        assert_eq!(amount.format_locale("de_DE"), "$1.234.567,00 USD");
-        assert_eq!(amount.format_locale("de"), "$1.234.567,00 USD");
+        assert_eq!(&amount.format_locale("de_DE"), "$1.234.567,00 USD");
+        assert_eq!(&amount.format_locale("de"), "$1.234.567,00 USD");
     }
 
     #[test]
     fn test_format_locale_french() {
         let amount = Amount::<USD>::from_major(1234567);
-        assert_eq!(amount.format_locale("fr_FR"), "$1 234 567,00 USD");
-        assert_eq!(amount.format_locale("fr"), "$1 234 567,00 USD");
+        assert_eq!(&amount.format_locale("fr_FR"), "$1 234 567,00 USD");
+        assert_eq!(&amount.format_locale("fr"), "$1 234 567,00 USD");
     }
 
     #[test]
     fn test_format_locale_small_amount() {
         let amount = Amount::<USD>::from_major(99);
-        assert_eq!(amount.format_locale("en_US"), "$99.00 USD");
-        assert_eq!(amount.format_locale("de_DE"), "$99,00 USD");
-        assert_eq!(amount.format_locale("fr_FR"), "$99,00 USD");
+        assert_eq!(&amount.format_locale("en_US"), "$99.00 USD");
+        assert_eq!(&amount.format_locale("de_DE"), "$99,00 USD");
+        assert_eq!(&amount.format_locale("fr_FR"), "$99,00 USD");
     }
 
     #[test]
     fn test_format_locale_thousands() {
         let amount = Amount::<USD>::from_major(1000);
-        assert_eq!(amount.format_locale("en_US"), "$1,000.00 USD");
-        assert_eq!(amount.format_locale("de_DE"), "$1.000,00 USD");
-        assert_eq!(amount.format_locale("fr_FR"), "$1 000,00 USD");
+        assert_eq!(&amount.format_locale("en_US"), "$1,000.00 USD");
+        assert_eq!(&amount.format_locale("de_DE"), "$1.000,00 USD");
+        assert_eq!(&amount.format_locale("fr_FR"), "$1 000,00 USD");
     }
 
     #[test]
     fn test_format_locale_negative() {
         let amount = Amount::<USD>::from_major(-1234);
-        assert_eq!(amount.format_locale("en_US"), "$-1,234.00 USD");
-        assert_eq!(amount.format_locale("de_DE"), "$-1.234,00 USD");
-        assert_eq!(amount.format_locale("fr_FR"), "$-1 234,00 USD");
+        assert_eq!(&amount.format_locale("en_US"), "$-1,234.00 USD");
+        assert_eq!(&amount.format_locale("de_DE"), "$-1.234,00 USD");
+        assert_eq!(&amount.format_locale("fr_FR"), "$-1 234,00 USD");
     }
 
     #[test]
     fn test_format_locale_zero() {
         let amount = Amount::<USD>::from_major(0);
-        assert_eq!(amount.format_locale("en_US"), "$0.00 USD");
-        assert_eq!(amount.format_locale("de_DE"), "$0,00 USD");
+        assert_eq!(&amount.format_locale("en_US"), "$0.00 USD");
+        assert_eq!(&amount.format_locale("de_DE"), "$0,00 USD");
     }
 
     #[test]
     fn test_format_locale_jpy() {
         let amount = Amount::<JPY>::from_major(1234567);
         // JPY has no decimals
-        assert_eq!(amount.format_locale("en_US"), "¥1,234,567 JPY");
-        assert_eq!(amount.format_locale("de_DE"), "¥1.234.567 JPY");
-        assert_eq!(amount.format_locale("fr_FR"), "¥1 234 567 JPY");
+        assert_eq!(&amount.format_locale("en_US"), "¥1,234,567 JPY");
+        assert_eq!(&amount.format_locale("de_DE"), "¥1.234.567 JPY");
+        assert_eq!(&amount.format_locale("fr_FR"), "¥1 234 567 JPY");
     }
 
     #[test]
     fn test_format_locale_unknown_defaults_to_us() {
         let amount = Amount::<USD>::from_major(1234);
-        assert_eq!(amount.format_locale("unknown"), "$1,234.00 USD");
-        assert_eq!(amount.format_locale(""), "$1,234.00 USD");
+        assert_eq!(&amount.format_locale("unknown"), "$1,234.00 USD");
+        assert_eq!(&amount.format_locale(""), "$1,234.00 USD");
     }
 }

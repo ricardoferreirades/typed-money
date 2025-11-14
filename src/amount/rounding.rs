@@ -2,7 +2,7 @@
 
 use super::type_def::Amount;
 use crate::{Currency, RoundingMode};
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 impl<C: Currency> Amount<C> {
     /// Rounds the amount to the currency's decimal precision using the specified rounding mode.
@@ -93,6 +93,8 @@ impl<C: Currency> Amount<C> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
     use crate::{BTC, EUR, GBP, JPY, USD};
 
     // ========================================================================
@@ -404,7 +406,7 @@ mod tests {
 
         let rounded = amount.round(RoundingMode::HalfUp);
         // Should round to 0.12345679 (8 decimals)
-        assert_eq!(rounded.value().to_string(), "0.12345679");
+        assert_eq!(&rounded.value().to_string(), "0.12345679");
     }
 
     #[test]

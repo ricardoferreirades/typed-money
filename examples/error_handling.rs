@@ -8,6 +8,7 @@
 use std::str::FromStr;
 use typed_money::{Amount, MoneyError, MoneyResult, Rate, RoundingMode, EUR, USD};
 
+#[cfg(feature = "std")]
 fn main() {
     println!("=== Error Handling Examples ===\n");
 
@@ -113,17 +114,15 @@ fn main() {
     println!("\n4. ERROR RECOVERY SUGGESTIONS");
     println!("------------------------------");
 
+    let rate_err = Rate::<USD, EUR>::try_new(-1.0).unwrap_err();
     let errors = vec![
         MoneyError::PrecisionError {
             currency: "USD",
             expected: 2,
             actual: 5,
-            suggestion: "Use normalize() or round() to adjust precision".to_string(),
+            suggestion: "Use normalize() or round() to adjust precision",
         },
-        MoneyError::InvalidRate {
-            value: "-1.0".to_string(),
-            reason: "Rate must be positive".to_string(),
-        },
+        rate_err,
         MoneyError::ParseError {
             input: "abc".to_string(),
             expected_currency: Some("USD"),
@@ -245,7 +244,7 @@ fn main() {
         if divisor == 0 {
             return Err(MoneyError::InvalidAmount {
                 currency: Some("USD"),
-                reason: "Cannot divide by zero".to_string(),
+                reason: "Cannot divide by zero",
             });
         }
 
@@ -283,7 +282,7 @@ fn main() {
         if amount.to_minor() <= 0 {
             return Err(MoneyError::InvalidAmount {
                 currency: Some("USD"),
-                reason: "Payment amount must be positive".to_string(),
+                reason: "Payment amount must be positive",
             });
         }
 
@@ -354,4 +353,9 @@ fn main() {
     );
 
     println!("\n=== All error handling examples completed! ===");
+}
+
+#[cfg(not(feature = "std"))]
+fn main() {
+    // The main function is defined above.
 }

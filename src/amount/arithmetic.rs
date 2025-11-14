@@ -5,8 +5,8 @@
 
 use super::type_def::Amount;
 use crate::Currency;
-use std::marker::PhantomData;
-use std::ops::{Add, Div, Mul, Sub};
+use core::marker::PhantomData;
+use core::ops::{Add, Div, Mul, Sub};
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;

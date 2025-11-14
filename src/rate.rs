@@ -68,7 +68,7 @@
 //! ```
 
 use crate::{Currency, MoneyError, MoneyResult};
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;
@@ -178,23 +178,23 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     /// ```
     pub fn try_new(rate: f64) -> MoneyResult<Self> {
         if !rate.is_finite() {
-            return Err(MoneyError::InvalidRate {
-                value: rate.to_string(),
-                reason: "Exchange rate must be a finite number".to_string(),
+            return Err(MoneyError::InvalidRateConversion {
+                value: rate,
+                reason: "Exchange rate must be a finite number",
             });
         }
+        let decimal_rate =
+            Decimal::try_from(rate).map_err(|_| MoneyError::InvalidRateConversion {
+                value: rate,
+                reason: "Failed to convert rate to Decimal",
+            })?;
 
-        if rate <= 0.0 {
+        if decimal_rate <= Decimal::ZERO {
             return Err(MoneyError::InvalidRate {
-                value: rate.to_string(),
-                reason: "Exchange rate must be positive and non-zero".to_string(),
+                value: decimal_rate,
+                reason: "Exchange rate must be positive and non-zero",
             });
         }
-
-        let decimal_rate = Decimal::try_from(rate).map_err(|_| MoneyError::InvalidRate {
-            value: rate.to_string(),
-            reason: "Failed to convert rate to Decimal".to_string(),
-        })?;
 
         Ok(Self {
             rate: decimal_rate,
@@ -252,8 +252,8 @@ impl<From: Currency, To: Currency> Rate<From, To> {
     pub fn try_from_decimal(rate: Decimal) -> MoneyResult<Self> {
         if rate <= decimal_zero() {
             return Err(MoneyError::InvalidRate {
-                value: rate.to_string(),
-                reason: "Exchange rate must be positive and non-zero".to_string(),
+                value: rate,
+                reason: "Exchange rate must be positive and non-zero",
             });
         }
 
@@ -378,6 +378,9 @@ impl<From: Currency, To: Currency> Rate<From, To> {
 mod tests {
     use super::*;
     use crate::{EUR, GBP, USD};
+
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
 
     #[cfg(feature = "use_rust_decimal")]
     use rust_decimal::Decimal;
