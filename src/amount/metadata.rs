@@ -1,5 +1,6 @@
 //! Currency metadata access methods for Amount.
-
+#[cfg(not(feature = "std"))]
+use crate::inner_prelude::*;
 use crate::{Amount, Currency};
 
 /// Extension trait for accessing currency metadata from Amount instances.
@@ -222,9 +223,9 @@ mod tests {
         let rich_amount = Amount::<RichTestCurrency>::from_major(100);
 
         // Test info formatting
-        assert_eq!(minimal_amount.currency_info(), " (TEST) -  - Fiat - Minor");
+        assert_eq!(&minimal_amount.currency_info(), " (TEST) -  - Fiat - Minor");
         assert_eq!(
-            rich_amount.currency_info(),
+            &rich_amount.currency_info(),
             "Rich Test Currency (RICH) - Test Country - Fiat - Major"
         );
     }

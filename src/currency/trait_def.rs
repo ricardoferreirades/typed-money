@@ -1,6 +1,6 @@
 //! Currency trait definition.
 
-use std::fmt;
+use core::fmt;
 
 use super::metadata::{CurrencyType, LiquidityRating, SymbolPosition, VolatilityRating};
 

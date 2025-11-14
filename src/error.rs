@@ -66,7 +66,11 @@
 //! }
 //! ```
 
-use std::fmt;
+use rust_decimal::Decimal;
+
+#[cfg(not(feature = "std"))]
+use crate::inner_prelude::*;
+use core::fmt;
 
 /// Result type alias for money operations.
 ///
@@ -122,13 +126,13 @@ pub enum MoneyError {
         /// Actual precision found
         actual: u32,
         /// Suggestion for fixing the error
-        suggestion: String,
+        suggestion: &'static str,
     },
 
     /// Invalid amount value (NaN, Infinity, or other invalid state).
     InvalidAmount {
         /// Description of what makes the amount invalid
-        reason: String,
+        reason: &'static str,
         /// The currency code if available
         currency: Option<&'static str>,
     },
@@ -148,15 +152,23 @@ pub enum MoneyError {
         /// The currency code
         currency: &'static str,
         /// Description of what went wrong
-        reason: String,
+        reason: &'static str,
+    },
+
+    /// Failed to convert rate value to decimals.
+    InvalidRateConversion {
+        /// The rate value that was invalid
+        value: f64,
+        /// Description of why the rate is invalid
+        reason: &'static str,
     },
 
     /// Invalid exchange rate value.
     InvalidRate {
         /// The rate value that was invalid
-        value: String,
+        value: Decimal,
         /// Description of why the rate is invalid
-        reason: String,
+        reason: &'static str,
     },
 
     /// Arithmetic overflow occurred.
@@ -207,7 +219,9 @@ impl MoneyError {
             MoneyError::RoundingError { .. } => {
                 "Try a different rounding mode or check the amount precision"
             }
-            MoneyError::InvalidRate { .. } => "Exchange rates must be positive, finite numbers",
+            MoneyError::InvalidRate { .. } | MoneyError::InvalidRateConversion { .. } => {
+                "Exchange rates must be positive, finite numbers"
+            }
             MoneyError::Overflow { .. } => {
                 "Use smaller values or check for logical errors in calculations"
             }
@@ -228,7 +242,7 @@ impl MoneyError {
                 expected_currency, ..
             } => *expected_currency,
             MoneyError::RoundingError { currency, .. } => Some(currency),
-            MoneyError::InvalidRate { .. } => None,
+            MoneyError::InvalidRate { .. } | MoneyError::InvalidRateConversion { .. } => None,
             MoneyError::Overflow { currency, .. } => Some(currency),
             MoneyError::Underflow { currency, .. } => Some(currency),
         }
@@ -286,7 +300,7 @@ impl fmt::Display for MoneyError {
                 write!(f, "Rounding error for {}: {}", currency, reason)
             }
             MoneyError::InvalidRate { value, reason } => {
-                write!(f, "Invalid exchange rate '{}': {}", value, reason)
+                write!(f, "Invalid exchange rate '{value:.1}': {reason}")
             }
             MoneyError::Overflow {
                 operation,
@@ -308,12 +322,17 @@ impl fmt::Display for MoneyError {
                     operation, currency
                 )
             }
+            MoneyError::InvalidRateConversion { value, reason } => write!(
+                f,
+                "Invalid exchange rate conversion from f64 '{}': {}",
+                value, reason
+            ),
         }
     }
 }
 
-impl std::error::Error for MoneyError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+impl core::error::Error for MoneyError {
+    fn source(&self) -> Option<&(dyn core::error::Error + 'static)> {
         // None of our errors wrap other errors currently
         None
     }
@@ -321,6 +340,9 @@ impl std::error::Error for MoneyError {
 
 #[cfg(test)]
 mod tests {
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
+
     use super::*;
 
     #[test]
@@ -332,7 +354,7 @@ mod tests {
         };
 
         assert_eq!(
-            error.to_string(),
+            &error.to_string(),
             "Currency mismatch: expected USD, found EUR (addition)"
         );
     }
@@ -345,7 +367,7 @@ mod tests {
         };
 
         assert_eq!(
-            error.to_string(),
+            &error.to_string(),
             "No conversion rate available from USD to JPY"
         );
     }
@@ -356,11 +378,11 @@ mod tests {
             currency: "USD",
             expected: 2,
             actual: 5,
-            suggestion: "Use normalize() or round()".to_string(),
+            suggestion: "Use normalize() or round()",
         };
 
         assert_eq!(
-            error.to_string(),
+            &error.to_string(),
             "Precision error for USD: expected 2 decimal places, found 5"
         );
     }
@@ -368,11 +390,11 @@ mod tests {
     #[test]
     fn test_invalid_amount_display() {
         let error = MoneyError::InvalidAmount {
-            reason: "Value is NaN".to_string(),
+            reason: "Value is NaN",
             currency: Some("EUR"),
         };
 
-        assert_eq!(error.to_string(), "Invalid amount for EUR: Value is NaN");
+        assert_eq!(&error.to_string(), "Invalid amount for EUR: Value is NaN");
     }
 
     #[test]
@@ -384,7 +406,7 @@ mod tests {
         };
 
         assert_eq!(
-            error.to_string(),
+            &error.to_string(),
             "Failed to parse 'not a number' as USD: Contains non-numeric characters"
         );
     }
@@ -392,12 +414,12 @@ mod tests {
     #[test]
     fn test_invalid_rate_display() {
         let error = MoneyError::InvalidRate {
-            value: "0.0".to_string(),
-            reason: "Rate must be positive".to_string(),
+            value: Decimal::ZERO,
+            reason: "Rate must be positive",
         };
 
         assert_eq!(
-            error.to_string(),
+            &error.to_string(),
             "Invalid exchange rate '0.0': Rate must be positive"
         );
     }
@@ -410,7 +432,7 @@ mod tests {
         };
 
         assert_eq!(
-            error.to_string(),
+            &error.to_string(),
             "Arithmetic overflow in multiplication operation for BTC"
         );
     }
@@ -432,7 +454,7 @@ mod tests {
             currency: "USD",
             expected: 2,
             actual: 5,
-            suggestion: "test".to_string(),
+            suggestion: "test",
         };
 
         assert_eq!(error.currency(), Some("USD"));
@@ -441,12 +463,12 @@ mod tests {
     #[test]
     fn test_error_trait_implementation() {
         let error = MoneyError::InvalidAmount {
-            reason: "test".to_string(),
+            reason: "test",
             currency: None,
         };
 
         // Should implement Error trait
-        let _: &dyn std::error::Error = &error;
+        let _: &dyn core::error::Error = &error;
     }
 
     #[test]
@@ -461,8 +483,8 @@ mod tests {
     #[test]
     fn test_error_clone() {
         let error = MoneyError::InvalidRate {
-            value: "0".to_string(),
-            reason: "test".to_string(),
+            value: Decimal::ZERO,
+            reason: "test",
         };
 
         let cloned = error.clone();
@@ -472,7 +494,7 @@ mod tests {
     #[test]
     fn test_error_debug() {
         let error = MoneyError::InvalidAmount {
-            reason: "test".to_string(),
+            reason: "test",
             currency: Some("USD"),
         };
 

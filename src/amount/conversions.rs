@@ -1,6 +1,8 @@
 //! Conversion methods for Amount.
 
 use super::type_def::Amount;
+#[cfg(not(feature = "std"))]
+use crate::inner_prelude::*;
 use crate::{Currency, RoundingMode};
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
@@ -320,7 +322,7 @@ mod tests {
     fn test_negative_numbers_determinism() {
         // Verify negative numbers work consistently
         let neg = Amount::<USD>::from_major(-100);
-        assert_eq!(neg.value().to_string(), "-100");
+        assert_eq!(&neg.value().to_string(), "-100");
         assert_eq!(neg.to_major_floor(), -100);
         assert_eq!(neg.to_minor(), -10000);
     }
@@ -355,6 +357,6 @@ mod tests {
         let str_repr = amount.value().to_string();
 
         // Decimal should always produce the same string
-        assert_eq!(str_repr, "123.45");
+        assert_eq!(&str_repr, "123.45");
     }
 }

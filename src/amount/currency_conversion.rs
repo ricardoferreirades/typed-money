@@ -4,7 +4,7 @@
 
 use super::type_def::Amount;
 use crate::{Currency, Rate};
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 #[cfg(feature = "conversion_tracking")]
 use crate::conversion_tracking::{ConversionEvent, ConversionTracker};

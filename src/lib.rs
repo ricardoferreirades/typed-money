@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 //! # Introduction
 //!
 //! A type-safe money library for Rust that prevents currency mixing bugs at compile time.
@@ -309,6 +311,9 @@ mod error;
 mod rate;
 mod rounding;
 
+#[cfg(not(feature = "std"))]
+mod inner_prelude;
+
 #[cfg(feature = "conversion_tracking")]
 pub mod conversion_tracking;
 
@@ -422,3 +427,7 @@ pub use currency::{
 pub use error::{MoneyError, MoneyResult};
 pub use rate::Rate;
 pub use rounding::RoundingMode;
+
+#[cfg(not(feature = "std"))]
+#[macro_use]
+mod macros;

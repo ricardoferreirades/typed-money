@@ -1,6 +1,6 @@
 //! Currency metadata types and enums.
 
-use std::fmt;
+use core::fmt;
 
 /// Type of currency (Fiat, Cryptocurrency, or Commodity).
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
@@ -86,32 +86,34 @@ impl fmt::Display for LiquidityRating {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
 
     #[test]
     fn test_currency_type_display() {
-        assert_eq!(CurrencyType::Fiat.to_string(), "Fiat");
-        assert_eq!(CurrencyType::Cryptocurrency.to_string(), "Cryptocurrency");
-        assert_eq!(CurrencyType::Commodity.to_string(), "Commodity");
+        assert_eq!(&CurrencyType::Fiat.to_string(), "Fiat");
+        assert_eq!(&CurrencyType::Cryptocurrency.to_string(), "Cryptocurrency");
+        assert_eq!(&CurrencyType::Commodity.to_string(), "Commodity");
     }
 
     #[test]
     fn test_symbol_position_display() {
-        assert_eq!(SymbolPosition::Before.to_string(), "Before");
-        assert_eq!(SymbolPosition::After.to_string(), "After");
+        assert_eq!(&SymbolPosition::Before.to_string(), "Before");
+        assert_eq!(&SymbolPosition::After.to_string(), "After");
     }
 
     #[test]
     fn test_volatility_rating_display() {
-        assert_eq!(VolatilityRating::Low.to_string(), "Low");
-        assert_eq!(VolatilityRating::Medium.to_string(), "Medium");
-        assert_eq!(VolatilityRating::High.to_string(), "High");
+        assert_eq!(&VolatilityRating::Low.to_string(), "Low");
+        assert_eq!(&VolatilityRating::Medium.to_string(), "Medium");
+        assert_eq!(&VolatilityRating::High.to_string(), "High");
     }
 
     #[test]
     fn test_liquidity_rating_display() {
-        assert_eq!(LiquidityRating::Low.to_string(), "Low");
-        assert_eq!(LiquidityRating::Medium.to_string(), "Medium");
-        assert_eq!(LiquidityRating::High.to_string(), "High");
+        assert_eq!(&LiquidityRating::Low.to_string(), "Low");
+        assert_eq!(&LiquidityRating::Medium.to_string(), "Medium");
+        assert_eq!(&LiquidityRating::High.to_string(), "High");
     }
 
     #[test]

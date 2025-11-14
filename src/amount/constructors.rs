@@ -2,7 +2,7 @@
 
 use super::type_def::Amount;
 use crate::Currency;
-use std::marker::PhantomData;
+use core::marker::PhantomData;
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;
@@ -98,6 +98,8 @@ impl<C: Currency> Amount<C> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(not(feature = "std"))]
+    use crate::inner_prelude::*;
     use crate::USD;
 
     #[test]
@@ -142,9 +144,9 @@ mod tests {
         let jpy = Amount::<JPY>::from_minor(12345); // 0 decimals
         let btc = Amount::<BTC>::from_minor(12345); // 8 decimals
 
-        assert_eq!(usd.value().to_string(), "123.45");
-        assert_eq!(jpy.value().to_string(), "12345");
-        assert_eq!(btc.value().to_string(), "0.00012345");
+        assert_eq!(&usd.value().to_string(), "123.45");
+        assert_eq!(&jpy.value().to_string(), "12345");
+        assert_eq!(&btc.value().to_string(), "0.00012345");
     }
 
     #[test]
@@ -153,6 +155,6 @@ mod tests {
         let zero1 = Amount::<USD>::from_major(0);
         let zero2 = Amount::<USD>::from_minor(0);
         assert_eq!(zero1, zero2);
-        assert_eq!(zero1.value().to_string(), "0");
+        assert_eq!(&zero1.value().to_string(), "0");
     }
 }

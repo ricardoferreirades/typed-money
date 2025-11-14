@@ -2,8 +2,11 @@
 
 use super::type_def::Amount;
 use crate::{Currency, MoneyError, MoneyResult};
-use std::marker::PhantomData;
-use std::str::FromStr;
+use core::marker::PhantomData;
+use core::str::FromStr;
+
+#[cfg(not(feature = "std"))]
+use crate::inner_prelude::*;
 
 #[cfg(all(feature = "use_rust_decimal", not(feature = "use_bigdecimal")))]
 use rust_decimal::Decimal;
@@ -123,7 +126,7 @@ impl<C: Currency> Amount<C> {
         let decimal_value = Decimal::from_str(working).map_err(|_| MoneyError::ParseError {
             input: input.to_string(),
             expected_currency: Some(C::CODE),
-            reason: format!("Invalid numeric value: '{}'", working),
+            reason: format!("Invalid numeric value: '{working}'"),
         })?;
 
         Ok(Self {
@@ -146,6 +149,8 @@ impl<C: Currency> FromStr for Amount<C> {
 
 #[cfg(test)]
 mod tests {
+    use core::panic;
+
     use super::*;
     use crate::{EUR, GBP, JPY, USD};
 
@@ -304,12 +309,10 @@ mod tests {
     #[test]
     fn test_parse_excessive_length() {
         let long_string = "1".repeat(101);
-        let result = Amount::<USD>::parse(&long_string);
-        assert!(result.is_err());
-
-        if let Err(e) = result {
-            assert!(e.to_string().contains("too long"));
-        }
+        let Err(MoneyError::ParseError { reason, .. }) = Amount::<USD>::parse(&long_string) else {
+            panic!("wrong error type")
+        };
+        assert!(reason.contains("too long"));
     }
 
     #[test]
@@ -348,8 +351,8 @@ mod tests {
     #[test]
     fn test_fuzz_random_strings_no_panic() {
         // Property: Parser should never panic, always return Ok or Err
-        let long_string = "x".repeat(1000);
-        let test_cases = vec![
+        let long_string = "x".repeat(if cfg!(feature = "std") { 1000 } else { 101 });
+        let test_cases = [
             "",
             " ",
             "abc",
@@ -378,7 +381,7 @@ mod tests {
     #[test]
     fn test_fuzz_malicious_inputs() {
         // Security: Test various attack vectors
-        let malicious = vec![
+        let malicious = [
             "'; DROP TABLE amounts; --",
             "../../../etc/passwd",
             "<img src=x onerror=alert(1)>",
@@ -399,7 +402,7 @@ mod tests {
     #[test]
     fn test_fuzz_boundary_values() {
         // Test extreme but valid values
-        let boundaries = vec![
+        let boundaries = [
             "0",
             "0.00",
             "-0",
@@ -422,7 +425,7 @@ mod tests {
         // Property: Whitespace should not affect parsing
         let base = Amount::<USD>::parse("12.34").unwrap();
 
-        let variations = vec![" 12.34", "12.34 ", "  12.34  ", "\t12.34\t", "12.34\n"];
+        let variations = [" 12.34", "12.34 ", "  12.34  ", "\t12.34\t", "12.34\n"];
 
         for input in variations {
             let parsed = Amount::<USD>::parse(input).unwrap();
@@ -435,7 +438,7 @@ mod tests {
         // Property: Symbol must be at the start
         let _valid = Amount::<USD>::parse("$12.34").unwrap();
 
-        let invalid_placements = vec![
+        let invalid_placements = [
             "12.34$", // Symbol at end
             "12$.34", // Symbol in middle
             "12.3$4", // Symbol in middle
@@ -450,7 +453,7 @@ mod tests {
     #[test]
     fn test_fuzz_unicode_safety() {
         // Property: Parser handles unicode safely
-        let unicode_cases = vec![
+        let unicode_cases = [
             "€12.34",     // EUR symbol (should error for USD)
             "£12.34",     // GBP symbol (should error for USD)
             "¥12.34",     // JPY symbol (should error for USD)
@@ -469,7 +472,7 @@ mod tests {
     #[test]
     fn test_fuzz_numeric_edge_cases() {
         // Property: Parser correctly handles numeric edge cases
-        let cases = vec![
+        let cases = [
             ("0", 0),
             ("0.0", 0),
             ("0.00", 0),
